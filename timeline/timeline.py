@@ -23,6 +23,7 @@ class timeline(tk.Tk):
         tk.Tk.__init__(self)
         self.title("timeline")
 
+        # default time range for the timeline
         self.min = 1500
         self.max = 2000
 
@@ -31,20 +32,20 @@ class timeline(tk.Tk):
         self.filename = filename
         self.loadData()
 
-        # From
+        # Field and label for 'from'
         self.yearOn_label = tk.Label(text="From:")
         self.yearOn_label.grid(row=0, column=0, sticky=tk.W)
-        # field
+
         entryText = tk.StringVar()
         self.yearOn_entry = tk.Entry(textvariable=entryText, width=4)
         entryText.set(self.min)
         self.yearOn_entry .grid(row=0, column=1, sticky=tk.W)
         self.yearOn_entry.focus_set()
 
-        # To
+        # Field and label for 'To'
         self.yearOff_label = tk.Label(text="To:")
         self.yearOff_label.grid(row=0, column=2, sticky=tk.W)
-        # field
+
         entryText = tk.StringVar()
         self.yearOff_entry = tk.Entry(textvariable=entryText, width=4)
         entryText.set(self.max)
@@ -55,23 +56,26 @@ class timeline(tk.Tk):
         self._sett_button.grid(row=0, column=4, sticky=tk.W)
         self.bind('<Return>', self.reset)
 
-        # toggles
+        # toggles for categories displayed
+
+        # create dataframe to store information about categories
         self.c_df = pd.DataFrame({'types': self.df_orig['type'].unique()})
         self.c_df['colors'] = colors[0:len(self.c_df)]
-        self.df = self.c_df.sort_values('types')
+        self.c_df = self.c_df.sort_values('types')
 
+        # make one toggle field for each category
         for i, row in self.c_df.iterrows():
             self.c_df.loc[i, 'toggle'] = tk.IntVar()
             check_button = tk.Checkbutton(self, text=row['types'], variable=self.c_df.loc[i, 'toggle'], command=self.reset)
             self.c_df.loc[i, 'toggle'].set(1)
             check_button.grid(row=i + 2, column=5, sticky='w')
 
-        # label
+        # label for item title
         self.label_value = tk.StringVar()
         self.label = tk.Label(textvariable=self.label_value)
         self.label.grid(row=2, column=0, columnspan=3, sticky=tk.W)
 
-        # img - doesn't work
+        # #Todo: img - to show one mouseover - doesn't work
         self.img_label = tk.Label()
         self.img_label.grid(row=3, column=0, sticky=tk.W)
 
@@ -79,6 +83,7 @@ class timeline(tk.Tk):
         self.draw()
 
     def loadData(self):
+        # Todo: add option for browse through folder
         self.df_orig = pd.read_csv(self.filename)
 
     def reset(self, *args):
@@ -90,54 +95,71 @@ class timeline(tk.Tk):
         self.draw()
 
     def prepare_df(self):
+        # pre process to original dataframe to make it suitable for display
+
+        # filter the desired time range
         self.df = self.df_orig.loc[(self.df_orig['yearOn'] > self.min) & (self.df_orig['yearOff'] + 1 < self.max)]
+
+        # ignore empty column
         self.df.loc[:, ~self.df.columns.str.contains('^Unnamed')]
+        # add column for length of event
         self.df['length'] = self.df['yearOff'] - self.df['yearOn']
 
+        # show category depending on toggle setting
         for name, row in self.c_df.iterrows():
             state = row['toggle'].get()
             if state == 0:
                 self.df = self.df[self.df['type'] != row['types']]
 
+        # sort and reindex cleaned df
         self.df = self.df.sort_values(['type', 'yearOn'])
         self.df.index = pd.RangeIndex(len(self.df.index))
 
     def draw(self):
+        # embed matplotlib figure in widget
         fig = plt.figure(figsize=(8, 8), dpi=80)
         ax = plt.subplot(111)
-        linewidth = 1
         a = FigureCanvasTkAgg(fig, self)
         a.get_tk_widget().grid(column=0, row=1, columnspan=5, sticky=tk.W)
 
+        linewidth = 1
+
+        # initialize parameters
         my_patches = []
         filled = pd.DataFrame(columns=['ypos', 'on', 'off'])
         ypos_group = 0
         ymax = 0
 
+        # loop over categories
         grouped = self.df.groupby('type')
         for cat, group in grouped:
             for ind, row in group.iterrows():
+                # draw the event in the next free row
                 ypos = ypos_group + 1
                 while any((filled['ypos'] == ypos) & (((filled['on'] < (row['yearOn'] - 1)) & ((row['yearOn'] - 1) < filled['off'])) | ((filled['on'] < (row['yearOff'] - 1)) & ((row['yearOff'] + 1) < filled['off'])))):
                     ypos += 1
                     if ypos > ymax: ymax = ypos
+                # draw event as rectangle
                 rect = patches.Rectangle((int(row['yearOn']), -(ypos + linewidth)), row['length'], linewidth * 0.9, facecolor=self.c_df[self.c_df['types'] == cat].colors.unique()[0])
                 ax.add_patch(rect)
                 my_patches.append(rect)
                 filled = filled.append({'ypos': ypos, 'on': row['yearOn'], 'off': row['yearOff']}, ignore_index=True)
 
+            # start a new cateory in a new row
             ypos_group = ymax + 1
 
         ax.set_xlim(self.min, self.max)
         ax.set_ylim(-(ypos_group + 1), 0)
 
         def on_plot_hover(event):
+            # mouse-over function to display event title
             for ind, row in self.df.iterrows():
                 if my_patches[ind].contains(event)[0]:
-                    #if pd.isna(row['url']):
+                    # Todo: if pd.isna(row['url']):
                     if 1:
                         self.label_value.set(row['title'])
                     else:
+                        # issue here
                         u = urllib.urlopen(row['url'])
                         raw_data = u.read()
                         u.close()
