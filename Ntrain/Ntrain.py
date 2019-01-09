@@ -1,8 +1,8 @@
 import os
+import sys
 import pandas as pd
 from pandas import ExcelWriter
 from random import shuffle
-import pdb
 try:
     import Tkinter as Tk
 except ImportError:
@@ -16,6 +16,7 @@ import unicodedata
 import sys
 import math
 import webbrowser
+import pdb
 
 pd.options.mode.chained_assignment = None  # default='warn'
 
@@ -23,6 +24,7 @@ pd.options.mode.chained_assignment = None  # default='warn'
 def to_tone_number(s):
     table = {0x304: ord('1'), 0x301: ord('2'), 0x30c: ord('3'), 0x300: ord('4')}
     return unicodedata.normalize('NFD', s).translate(table)
+
 
 class NTrain(Tk.Tk):
     def __init__(self, *args, **kwargs):
@@ -33,7 +35,7 @@ class NTrain(Tk.Tk):
         self._default_font = tkFont.nametofont("TkDefaultFont")
         self._default_font.configure(size=30)
         # define default dataset
-        self._defaultfile = 'chinese100.xlsx'
+        self._defaultfile = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'chinese100.xlsx')
 
         # load default filename into label
         basename = os.path.basename(self._defaultfile)
@@ -85,9 +87,10 @@ class NTrain(Tk.Tk):
         # update label to show filename in gui
         self._filename_value.set(os.path.basename(my_file))
 
+
     def _start_game(self, *args):
         # get filname
-        self._datafile = os.path.dirname(self._defaultfile) + os.sep + self._filename_value.get()
+        self._datafile = os.path.join(os.path.dirname(os.path.abspath(__file__)), self._filename_value.get())
 
         # get number of cards
         self._n_cards = int(self._sett_entry.get())
@@ -108,9 +111,9 @@ class NTrain(Tk.Tk):
         except:
             tkMessageBox.showinfo("Error", "File not found!", icon='warning')
             self._restart()
+        #pdb.set_trace()
 
         # get indices of all filled cards
-        #pdb.set_trace()
         filled_idx = self._vocTot[self._vocTot['Learned'] == 0].index.tolist()
         del filled_idx[0]
         # shuffle indices
@@ -121,16 +124,9 @@ class NTrain(Tk.Tk):
         self._show_next_question()
 
     def _setup_game_gui(self):
-        # label for Question
-        #self._label_value = Tk.StringVar()
-        #self._label = Tk.Label(textvariable=self._label_value)
-        #self._label.grid(row=1, column=2)
-
-        # label for chinese symbols
-        #self._C_label_value = Tk.StringVar()
-        #self._C_label = Tk.Label(textvariable=self._C_label_value)
-        #self._C_label.grid(row=2, column=2)
+        # labels for chinese symbols
         self.C_labels = []
+        # labels for questions
         self.Q_labels = []
 
         # label for correct solution
@@ -175,7 +171,6 @@ class NTrain(Tk.Tk):
         self._no = 0
 
     def _renew_index(self, indices):
-        # pdb.set_trace()
         # TODO: catch too many cards chosen as input
         shuffle(indices)
         # take the first n cards
@@ -183,7 +178,6 @@ class NTrain(Tk.Tk):
 
     def _show_next_question(self):
         try:
-            #pdb.set_trace()
             # get the next index in the list
             self._no = self._indices.pop(0)
 
@@ -222,7 +216,6 @@ class NTrain(Tk.Tk):
             if self._radio_val.get() == 1:
                 self._curr_ans = self._vocTot.E[self._no].encode('utf-8')
             elif self._radio_val.get() == 2:
-                #pdb.set_trace()
                 try:
                     my_english = self._vocTot.E_long[self._no].encode('utf-8')
                 except:
@@ -286,7 +279,6 @@ class NTrain(Tk.Tk):
             self._entry_value.set("")
 
     def _new_round(self):
-        #pdb.set_trace()
         # if wrong cards still left, start new round
         if self._wrong_indices:
             # empty all display fields
@@ -301,10 +293,11 @@ class NTrain(Tk.Tk):
             self._exit()
 
     def _reset_list(self):
-        self._datafile = os.path.dirname(self._defaultfile) + os.sep + self._filename_value.get()
+        self._datafile = os.path.join(os.path.dirname(os.path.abspath(__file__)), self._filename_value.get())
         my_file = pd.read_excel(self._datafile)
         my_file['Learned'] = 0
         writer = ExcelWriter(self._datafile)
+        #pdb.set_trace()
         my_file.to_excel(writer, 'Sheet1', index=False)
         writer.save()
 
@@ -345,13 +338,12 @@ class NTrain(Tk.Tk):
     def _translate(self):
         to_translate = self._tr_value.get()
         if isinstance(to_translate, unicode):
-            #pdb.set_trace() # doesn't work
+            # Todo: doesn't work
             url = 'https://translate.google.com/#zh-CN/en/' + to_translate
         else:
             to_translate = to_translate.replace(' ', '%20')
             url = 'https://translate.google.com/#en/zh-CN/' + to_translate
         webbrowser.open(url)
-
 
 
 def callback():

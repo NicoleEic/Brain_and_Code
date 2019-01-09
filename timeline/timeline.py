@@ -1,12 +1,7 @@
 import os
+import sys
 import pandas as pd
-import numpy as np
-import pdb
-from pandas import DataFrame
-from io import BytesIO
-import urllib  # not urllib.request
 from PIL import Image, ImageTk
-import time
 import matplotlib
 matplotlib.use("TkAgg")
 import matplotlib.pyplot as plt
@@ -16,10 +11,15 @@ try:
     import Tkinter as tk
 except ImportError:
     import tkinter as tk
+import pdb
+from bs4 import BeautifulSoup
+import requests
+sys.path.append('../')
+from my_functions import img_google
 
 
 class timeline(tk.Tk):
-    def __init__(self, filename='some_dates.csv'):
+    def __init__(self, filename=os.path.join(os.path.dirname(sys.argv[0]), 'some_dates.csv')):
         tk.Tk.__init__(self)
         self.title("timeline")
 
@@ -77,13 +77,13 @@ class timeline(tk.Tk):
 
         # #Todo: img - to show one mouseover - doesn't work
         self.img_label = tk.Label()
-        self.img_label.grid(row=3, column=0, sticky=tk.W)
+        self.img_label.grid(row=1, column=5)
 
         self.prepare_df()
         self.draw()
 
     def loadData(self):
-        # Todo: add option for browse through folder
+        # Todo: add option to browse through folder
         self.df_orig = pd.read_csv(self.filename)
 
     def reset(self, *args):
@@ -95,7 +95,7 @@ class timeline(tk.Tk):
         self.draw()
 
     def prepare_df(self):
-        # pre process to original dataframe to make it suitable for display
+        # pre-process the original dataframe to make it suitable for display
 
         # filter the desired time range
         self.df = self.df_orig.loc[(self.df_orig['yearOn'] > self.min) & (self.df_orig['yearOff'] + 1 < self.max)]
@@ -151,24 +151,30 @@ class timeline(tk.Tk):
         ax.set_xlim(self.min, self.max)
         ax.set_ylim(-(ypos_group + 1), 0)
 
-        def on_plot_hover(event):
+        def mouse_over(event):
             # mouse-over function to display event title
             for ind, row in self.df.iterrows():
                 if my_patches[ind].contains(event)[0]:
-                    # Todo: if pd.isna(row['url']):
-                    if 1:
-                        self.label_value.set(row['title'])
-                    else:
-                        # issue here
-                        u = urllib.urlopen(row['url'])
-                        raw_data = u.read()
-                        u.close()
-                        im = Image.open(BytesIO(raw_data))
-                        image = ImageTk.PhotoImage(im)
-                        self.img_label.configure(image=image)
-                        self.label_value.set(".........")
+                    self.label_value.set(row['title'])
 
-        fig.canvas.mpl_connect('motion_notify_event', on_plot_hover)
+        def mouse_click(event):
+            for ind, row in self.df.iterrows():
+                if my_patches[ind].contains(event)[0]:
+                    basewidth = 300
+                    img = img_google.get_tk_img(row['title'])
+                    wpercent = (basewidth / float(img.size[0]))
+                    hsize = int((float(img.size[1]) * float(wpercent)))
+                    self._im = img.resize((basewidth, hsize), Image.ANTIALIAS)
+                    self._image = ImageTk.PhotoImage(self._im)
+                    self.img_label.configure(image=self._image)
+                    self.label_value.set(row['title'])
+                    return
+
+        fig.canvas.mpl_connect('motion_notify_event', mouse_over)
+
+        fig.canvas.mpl_connect('button_press_event', mouse_click)
+
+
 
 
 if __name__ == "__main__":
