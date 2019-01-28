@@ -14,79 +14,85 @@ except ImportError:
 import pdb
 from bs4 import BeautifulSoup
 import requests
-sys.path.append(os.path.dirname(os.path.abspath(__file__))+ '/../')
+sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/../')
 from my_functions import img_google
 
-# TODO
-# make frames, all using pack (but not image)
-# make frames with grid
+
+# TODO data browser
+# TODO: why is one category overwritten?
 class timeline(tk.Tk):
     def __init__(self, filename=os.path.join(os.path.dirname(sys.argv[0]), 'some_dates.csv')):
         tk.Tk.__init__(self)
         self.title("timeline")
 
+        colors = pd.Series(['b', 'g', 'r', 'c', 'm', 'y', 'k'])
+
         # default time range for the timeline
         self.min = 1500
         self.max = 2000
-
-        colors = pd.Series(['b', 'g', 'r', 'c', 'm', 'y', 'k'])
-
         self.filename = filename
         self.loadData()
-
-        # Field and label for 'from'
-        tk.Label(text="From:").grid(row=0, column=0, sticky=tk.W)
-
         self.yearFrom = tk.StringVar()
         self.yearFrom.set(self.min)
-
-        on = tk.Entry(textvariable=self.yearFrom, width=4)
-        on.grid(row=0, column=1, sticky=tk.W)
-        on.focus_set()
-
-        # Field and label for 'To'
-        tk.Label(text="To:").grid(row=0, column=2, sticky=tk.W)
-
         self.yearTo = tk.StringVar()
         self.yearTo.set(self.max)
-        tk.Entry(textvariable=self.yearTo, width=4).grid(row=0, column=3, sticky=tk.W)
-
-        # OK button
-        tk.Button(text="OK", command=self.reset).grid(row=0, column=4, sticky=tk.W)
-        self.bind('<Return>', self.reset)
-
-        # toggles for categories displayed
 
         # create dataframe to store information about categories
         c_df = pd.DataFrame({'types': self.df_orig['type'].unique()})
         c_df['colors'] = colors[0:len(c_df)]
         self.c_df = c_df.sort_values('types')
 
+        fr1 = tk.Frame(self)
+        fr1.grid(row=0, column=0, sticky=tk.W)
+
+        # Field and label for 'from'
+        tk.Label(fr1, text="From:").pack()
+        on = tk.Entry(fr1, textvariable=self.yearFrom, width=4)
+        on.pack()
+        on.focus_set()
+
+        # Field and label for 'To'
+        tk.Label(fr1, text="To:").pack()
+        tk.Entry(fr1, textvariable=self.yearTo, width=4).pack()
+
+        # OK button
+        tk.Button(fr1, text="OK", command=self.reset).pack()
+        self.bind('<Return>', self.reset)
+
+        # toggles for categories displayed
+        fr2 = tk.Frame(self)
+        fr2.grid(row=0, column=1, sticky=tk.W)
+
         # make one toggle field for each category
         for i, row in self.c_df.iterrows():
             self.c_df.loc[i, 'toggle'] = tk.IntVar()
-            tk.Checkbutton(self, text=row['types'], variable=self.c_df.loc[i, 'toggle'], command=self.reset).grid(row=i + 2, column=5, sticky='w')
+            tk.Checkbutton(fr2, text=row['types'], variable=self.c_df.loc[i, 'toggle'], command=self.reset).pack()
             self.c_df.loc[i, 'toggle'].set(1)
 
         # label for item title
+        fr5 = tk.Frame(self)
+        fr5.grid(row=0, column=2)
         self.label_value = tk.StringVar()
-        tk.Label(textvariable=self.label_value).grid(row=2, column=0, columnspan=3, sticky=tk.W)
+        tk.Label(fr5, textvariable=self.label_value, width=50).pack()
 
-        # #Todo: img - to show one mouseover - doesn't work
-        self.img_label = tk.Label()
-        self.img_label.grid(row=1, column=5)
+        # image
+        fr4 = tk.Frame(self)
+        fr4.grid(row=1, column=2)
+        self.img_label = tk.Label(fr4)
+        self.img_label.pack()
 
         self.prepare_df()
+
         self.draw()
 
     def loadData(self):
-        # Todo: add option to browse through folder
+        # TODO: add option to browse through folder
         self.df_orig = pd.read_csv(self.filename)
 
     def reset(self, *args):
         self.min = int(self.yearFrom.get())
         self.max = int(self.yearTo.get())
-        self.label_value.set("..........")
+        self.label_value.set("")
         self.img_label.configure(image=[])
         self.prepare_df()
         self.draw()
@@ -114,11 +120,11 @@ class timeline(tk.Tk):
 
     def draw(self):
         # embed matplotlib figure in widget
+        plt.close("all")
         fig = plt.figure(figsize=(8, 8), dpi=80)
         ax = plt.subplot(111)
-        a = FigureCanvasTkAgg(fig, self)
-        a.get_tk_widget().grid(column=0, row=1, columnspan=5, sticky=tk.W)
-
+        fr3 = FigureCanvasTkAgg(fig, self)
+        fr3.get_tk_widget().grid(row=1, column=0, columnspan=2)
         linewidth = 1
 
         # initialize parameters
@@ -143,7 +149,7 @@ class timeline(tk.Tk):
                 filled = filled.append({'ypos': ypos, 'on': row['yearOn'], 'off': row['yearOff']}, ignore_index=True)
 
             # start a new cateory in a new row
-            ypos_group = ymax + 1
+            ypos_group = ymax + 2
 
         ax.set_xlim(self.min, self.max)
         ax.set_ylim(-(ypos_group + 1), 0)
@@ -170,8 +176,6 @@ class timeline(tk.Tk):
         fig.canvas.mpl_connect('motion_notify_event', mouse_over)
 
         fig.canvas.mpl_connect('button_press_event', mouse_click)
-
-
 
 
 if __name__ == "__main__":
