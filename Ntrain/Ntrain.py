@@ -10,7 +10,7 @@ except ImportError:
 import tkFont
 import tkMessageBox
 from xpinyin import Pinyin
-from tkinter.filedialog import askopenfilename
+from tkFileDialog import askopenfilename
 from cjklib.reading import ReadingFactory
 import unicodedata
 import sys
@@ -194,7 +194,7 @@ class NTrain(Tk.Tk):
 
             # loop over Chinese characters
             for char in self._vocTot.C[self._no]:
-                my_pinyin = self._p.get_pinyin(char, ' ', show_tone_marks=True)
+                my_pinyin = self._p.get_pinyin(char, ' ')
                 self.C_labels.append(Tk.Label(text=char))
                 self.C_labels[-1].grid(row=2, column=i + 1)
                 to_tone = (to_tone_number(my_pinyin))
@@ -222,7 +222,7 @@ class NTrain(Tk.Tk):
                     my_english = self._vocTot.E[self._no].encode('utf-8')
                 self.Q_labels.append(Tk.Label(text=my_english))
                 self.Q_labels[-1].grid(row=1, column=2, columnspan=i - 1)
-                self._curr_ans = self._p.get_pinyin(self._vocTot.C[self._no], ' ', show_tone_marks=True)
+                self._curr_ans = self._p.get_pinyin(self._vocTot.C[self._no], ' ')
 
             self._entry.grid(row=4, column=2, columnspan=i - 1)
 
@@ -251,10 +251,10 @@ class NTrain(Tk.Tk):
         elif self._radio_val.get() == 2:
             # pinyin with tone marks
             if tone == 1:
-                answer_to_check = self._p.get_pinyin(self._vocTot.C[self._no], ' ', show_tone_marks=True).encode('utf-8').lower()
+                answer_to_check = self._p.get_pinyin(self._vocTot.C[self._no], ' ').encode('utf-8').lower()
             # pinyin without tone marks
             else:
-                answer_to_check = self._p.get_pinyin(self._vocTot.C[self._no], ' ', show_tone_marks=False).encode('utf-8').lower()
+                answer_to_check = self._p.get_pinyin(self._vocTot.C[self._no], ' ').encode('utf-8').lower()
 
         # check if answer is correct
         if answer == answer_to_check:
