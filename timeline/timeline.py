@@ -7,13 +7,10 @@ matplotlib.use("TkAgg")
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-try:
-    import Tkinter as tk
-except ImportError:
-    import tkinter as tk
+import tkinter as tk
 import pdb
-from bs4 import BeautifulSoup
 import requests
+from bs4 import BeautifulSoup
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/../')
 from my_functions import img_google
 
@@ -44,6 +41,8 @@ class timeline(tk.Tk):
 
         fr1 = tk.Frame(self)
         fr1.grid(row=0, column=0, sticky=tk.W)
+
+        #pdb.set_trace()
 
         # Field and label for 'from'
         tk.Label(fr1, text="From:").pack()
@@ -106,7 +105,7 @@ class timeline(tk.Tk):
         # ignore empty column
         self.df.loc[:, ~self.df.columns.str.contains('^Unnamed')]
         # add column for length of event
-        self.df['length'] = self.df['yearOff'] - self.df['yearOn']
+        self.df['length'] = self.df['yearOff'].get_values() - self.df['yearOn'].get_values()
 
         # show category depending on toggle setting
         for name, row in self.c_df.iterrows():
