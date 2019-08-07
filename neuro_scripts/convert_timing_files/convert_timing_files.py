@@ -1,3 +1,9 @@
+# ----------
+# This function converts the timing files that are produced
+# from a block design FSL's FEAT to .tsv file. #FEAT stores the timing information for the GLM
+# in a block design in form of txt files for each EV or regressor. This function
+# reads in the individual txt files and produces a single .tsv file as output.
+# ----------
 import os
 import sys
 import pandas as pd
