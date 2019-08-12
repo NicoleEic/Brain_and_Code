@@ -3,7 +3,7 @@ layout: post
 title: "Some bits about BIDS"
 ---
 
-As a first blog entry I would like to talk about something which sits directly on the interface between the two themes of my blog - Brain and Code - , namely the way you organize your neuroimaging and behavioural data. The Brain Imaging Data Structure (BIDS) format provides conventions about structuring and naming your raw data files, which is incredibly useful for sharing data both within teams and the global research community. But also, and this is why I chose to write about BIDS, it helped me to write much more structured, and reusable code.
+As a first blog entry I would like to talk about something which sits directly on the interface between the two themes of my blog - Brain and Code - , namely the way you organize your neuroimaging and behavioural data. The Brain Imaging Data Structure format (BIDS, https://bids.neuroimaging.io) provides conventions about structuring and naming your raw data files, which is incredibly useful for sharing data both within teams and the global research community. But also, and this is why I chose to write about BIDS, it helped me to write much more structured, and reusable code.
 
 The concept of structuring your dataset in a hierarchical format is intuitive to anyone, but the BIDS specification ensures that your naming conventions are coherent and comprehendible (even when you look at your data in a few years time). More importantly, an increasing number of software packages will understand your folder structure, so that you can directly plug your data into a existing analysis pipeline or data validation tools.
 
@@ -74,7 +74,7 @@ BIDS doesn't provide recommendations for the organization of your /code/ subfold
 Below I'm sharing some snippets of code with you, where I'm making use of the BIDS conventions. They helped me to optimize my workflow and might give you some inspiration.
 
 
-## Basic variable names
+#### Basic variable names
 
 Most of my shell script start with the following lines, which define the core variable names:
 ```
@@ -93,7 +93,7 @@ OD=$rootdir/derivatives/sub-$subj
 GD=$rootdir/derivatives/group
 ```
 
-## Copy raw data
+#### Copy raw data
 
 I'd recommend keeping a script to monitor how you copy your raw data from the scanner or server, because
 it decreases the chance to mix up subjects' data - a severe problem, which will be very difficult to detect later. This is how I copied my files form a server, where dicom images had been automatically converted to nifti-format:
@@ -127,11 +127,11 @@ mv $DD/data_${scan_id}/*_t1_mpr*.nii $DD/anat/sub-${subj}_T1w.nii
 mv $DD/data_${scan_id}/*_BOLD_*.json $DD/func/sub-${subj}_task-localizer_bold.json
 mv $DD/data_${scan_id}/*_BOLD_*.nii $DD/func/sub-${subj}_task-localizer_bold.nii
 
-# finally, the following line should be executed without error, # when all files have been copied successfully and the folder is empty:
+# finally, the following line should be executed without error when all files have been copied successfully and the folder is empty:
 rmdir $DD/data_${scan_id}
 ```
 
-## Loop over participants
+#### Loop over participants
 
 In the following snippet I make use of the participants.tsv file at the top of a python script:
 ```
@@ -149,7 +149,7 @@ for ind, sub_row in subs.iterrows():
     # do something.....
 ```
 
-## Convert FEAT timing files
+#### Convert FEAT timing files
 
 I use FSL's FEAT to analyse task fMRI data. The timing information about the GLM for FEAT is stored in form of one separate txt for each EV (or regressor). I wrote a script that converts these timing files to a single .tsv file, which can be stored as `*_events.tsv` file with the raw task data.
 The whole script can be found in my Github repository at `https://github.com/NicoleEic/projects/blob/master/neuro_scripts/convert_timing_files/convert_timing_files.py`
