@@ -5,9 +5,9 @@ title:  "Spin your head"
 
 Many processing steps in the analysis of brain scans rely on an accurate alignment of images. For example, when I transform my results to a standard reference space or when I align a subject's brain scans from multiple sessions or scanning modalities. Tools such as FSL's FLIRT automatically estimate a transformation that can map an input image to a reference. However, if my data is non-typical - for example from a different species or from neurological patients with brain lesions - I might not be satisfied with the result of the automatic estimation. But there is a solution: Thanks to linear algebra, we can manually adjust a transformation!
 
-Here I'll describe the theoretical background of this image manipulation, but you can find a script that deals with it in my Github repository: `https://github.com/NicoleEic/projects/tree/master/neuro_scripts/manual_rigid_body`.
+Here I'll describe the theoretical background of this image manipulation, but you can find scripts that deals with it in my Github repository: `https://github.com/NicoleEic/projects/tree/master/neuro_scripts/manual_rigid_body`.
 
-### Let's get started with some basics ....
+### Let's get started with some basics ...
 
 
 The type of transformation that I'm talking about is a 'rigid body' transformation. This means that the image can be translated (i.e. shifted) along the dimensions in space or rotated along the three spatial axes, but it won't be deformed in any way. The image below demonstrates how translation and rotation would look like in a 2D example. Such a rigid body transformation has 6 degrees of freedom (3 for translation, 3 for rotation). Note that a transformation with 12 degrees of freedom would allow you to scale and shear the image, and a nonlinear transformation will yield more complex deformations.
@@ -24,13 +24,13 @@ translation matrix (T) : | 1, 0, 0, t_1 |
                          | 0, 0, 0, 1 |
 
 rotation matrix (R): | r_11 r_21 r_31 0 |
-                     | r_21 r_22 r_23 0 |
-                     | r_21 r_22 r_23 0 |
+                     | r_12 r_22 r_32 0 |
+                     | r_13 r_23 r_33 0 |
                      | 0    0    0    1 |
 
 affine matrix (M): | m_11 m_21 m_31 m_41 |
-                   | m_21 m_22 m_23 m_42 |
-                   | m_21 m_22 m_23 m_43 |
+                   | m_12 m_22 m_32 m_42 |
+                   | m_13 m_23 m_33 m_43 |
                    | 0    0    0    1    |                     
 
 ```
