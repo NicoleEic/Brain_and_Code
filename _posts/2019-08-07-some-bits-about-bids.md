@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "Some bits about BIDS"
+title: "Some bits about BIDS  - the Brain Imaging Data Structure format"
 ---
 
-As a first blog entry I would like to talk about something which sits directly on the interface between the two themes of my blog - Brain and Code - , namely the way you organize your neuroimaging and behavioural data. The Brain Imaging Data Structure format (BIDS, https://bids.neuroimaging.io) provides conventions about structuring and naming your raw data files, which is incredibly useful for sharing data both within teams and the global research community. But also, and this is why I chose to write about BIDS, it helped me to write much more structured, and reusable code.
+As a first blog entry I would like to talk about something which sits directly on the interface between the two themes of my blog - Brain and Code - , namely the way you organize your neuroimaging and behavioural data. The Brain Imaging Data Structure format (BIDS<sup>1</sup>, https://bids.neuroimaging.io) provides conventions about structuring and naming your raw data files, which is incredibly useful for sharing data both within teams and the global research community. But also, and this is why I chose to write about BIDS, it helped me to write much more structured, and reusable code.
 
 The concept of structuring your dataset in a hierarchical format is intuitive to anyone, but the BIDS specification ensures that your naming conventions are coherent and comprehendible (even when you look at your data in a few years time). More importantly, an increasing number of software packages will understand your folder structure, so that you can directly plug your data into a existing analysis pipeline or data validation tools.
 
@@ -151,7 +151,7 @@ for ind, sub_row in subs.iterrows():
 
 #### Convert FEAT timing files
 
-I use FSL's FEAT to analyse task fMRI data. The timing information about the GLM for FEAT is stored in form of one separate txt for each EV (or regressor). I wrote a script that converts these timing files to a single .tsv file, which can be stored as `*_events.tsv` file with the raw task data.
+I use FSL's<sup>2</sup> FEAT to analyse task fMRI data. The timing information about the GLM for FEAT is stored in form of one separate txt for each EV (or regressor). I wrote a script that converts these timing files to a single .tsv file, which can be stored as `*_events.tsv` file with the raw task data.
 The whole script can be found in my Github repository at `https://github.com/NicoleEic/projects/blob/master/neuro_scripts/convert_timing_files/convert_timing_files.py`
 
 # That's it!
@@ -159,3 +159,9 @@ The whole script can be found in my Github repository at `https://github.com/Nic
 I hope I could encourage you to make use of the BIDS format in your work! More information can be on the official website `https://bids.neuroimaging.io`. Thanks for reading this post :-)
 
 Nicole
+
+
+### References
+<sup>1</sup> Gorgolewski, K. J. et al. The brain imaging data structure, a format for organizing and describing outputs of neuroimaging experiments. Scientific Data 3, 1–9 (2016).
+
+<sup>2</sup> Jenkinson, M., Beckmann, C. F., Behrens, T. E. J., Woolrich, M. W. & Smith, S. M. FSL. NeuroImage 62, 782–790 (2012).
