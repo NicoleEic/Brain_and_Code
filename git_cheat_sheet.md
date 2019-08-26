@@ -10,6 +10,10 @@ git config --global color.ui true
 ```
 git config --global alias.st "status"
 ```
+* show which aliases I have defined
+```
+git config --get-regexp alias
+```
 * remove git alias
 ```
 git config --global --unset alias.st
@@ -47,6 +51,9 @@ git init
 * show staging environment and changes in working directory
 ```
 git status
+```
+* show only changes in tracked files
+```
 git status -uno
 ```
 * add a new file to tracking (and to staging immediately)
