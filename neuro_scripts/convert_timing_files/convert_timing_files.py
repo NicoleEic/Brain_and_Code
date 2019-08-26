@@ -17,12 +17,13 @@ subs = pd.read_csv(rootdir, 'participants.tsv'), sep='\t', dtype={'id': str})
 
 task_list=['mytask1']
 
-# provide total length of task in seconds
+# provide the total length of each task in seconds
 # excluding any additional time for waiting for the scanner sync
 length_tasks = {'mytask1': 480, \
 'mytask2': 600, \
 }
 
+# define a dictionary to map ev-number and task condition
 conditions_mytask1 = {'ev1': 'move right hand', \
 'ev1': 'move left hand', \
 'ev3': 'move right foot', \
@@ -76,8 +77,10 @@ for ind, sub_row in subs.iterrows():
         for ind, row in events_df.iterrows():
             new_row_onset = row.onset + row.duration
             if ind < max_row :
+                # derive duration as difference in onset between next and current row
                 new_row_duration = events_df['onset'][ind + 1] - new_row_onset
             else:
+                # derive duration as difference in onst of total length and current row
                 new_row_duration = length_tasks[task] - new_row_onset
             events_df = events_df.append({'onset': new_row_onset, 'duration': new_row_duration, 'block_type': con_dict['no_ev']}, ignore_index=True)
 

@@ -64,8 +64,8 @@ def angles_to_rotation_matrix(theta):
 # Transforms rotation matrix to a vector of angles
 def rotation_matrix_to_angles(R):
     assert(check_is_rotation_matrix(R))
-    is_symmetric = math.sqrt(R[0,0] * R[0,0] + R[1,0] * R[1,0])
-    is_singular = is_symmetric < 1e-4
+    sy = math.sqrt(R[0,0] * R[0,0] + R[1,0] * R[1,0])
+    is_singular = sy < 1e-4
 
     if not is_singular:
         x = math.atan2(R[2,1], R[2,2])
