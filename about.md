@@ -4,7 +4,7 @@ title: About
 permalink: /about/
 ---
 
-Nicole is a PhD student in Neuroscience at the University of Oxford.
+Nicole is a PhD student at the Wellcome Centre for Integrative Neuroscience (WIN) at the University of Oxford.
 
 If you have any questions or comments, please get in touch!
 
