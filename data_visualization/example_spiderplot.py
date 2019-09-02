@@ -8,8 +8,8 @@ import pandas as pd
 # --------
 rootdir = 'my/path/somewhere/'
 subs = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10']
-ROI_list = ['ROI1', 'ROI2', 'ROI3', 'ROI4', 'ROI5', 'ROI6']
 tract_list = ['tract1', 'tract2']
+ROI_list = ['ROI1', 'ROI2', 'ROI3', 'ROI4', 'ROI5', 'ROI6']
 hemi_list = ['L', 'R']
 
 # --------

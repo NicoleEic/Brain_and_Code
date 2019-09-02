@@ -14,24 +14,24 @@ condition_list = ['pre', 'post']
 hemi_list = ["L", "R"]
 
 # --------
-# read data into dataframe
+# read data into DataFrame
 # --------
 df = pd.DataFrame(columns=["subj", "ROI", "hemi", "condition", "my_value"])
 my_row = 0
 for sub in subs:
+    # location of subject's derived data according to BIDS format
     OD = os.path.join('rootdir', 'derivatives', 'sub-' + sub)
     for ind_r, ROI in enumerate(ROI_list):
         for hemi in hemi_list:
             for ind_c, cond in enumerate(condition_list):
                 # generate random value here as example
-                my_val = np.random.randint(10) + ind_r + ind_c
+                my_val = np.random.uniform(0, 10) + ind_r + ind_c
                 df.loc[my_row] = [sub, ROI, hemi, cond, my_val]
                 my_row = my_row + 1
 
 # --------
-# plotting
+# plotting using seaborn
 # --------
 # boxes show quartiles
-# whiskers show rest of distribution (here within 2 SD)
-sns.catplot(x="ROI", y="my_value", data=df, dodge=True, hue='condition', col='hemi', kind='box', whis=[5, 95], aspect=3)
+sns.catplot(x="ROI", y="my_value", data=df, dodge=True, hue='condition', col='hemi', kind='violin', aspect=3)
 plt.show()

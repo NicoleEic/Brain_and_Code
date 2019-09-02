@@ -28,7 +28,9 @@ for sub in subs:
             df.loc[my_row] = [sub, ROI, hemi, my_val]
             my_row = my_row + 1
 
-# initialize TK-widget
+# --------
+# Set up TK-widget
+# --------
 root = tk.Tk()
 root.wm_title("Matplotlib embedded in Tkinter")
 
@@ -47,7 +49,7 @@ for ind_r, ROI in enumerate(ROI_list):
 
 # hard-code axis limits for better visibility
 ax.set_xlim(0, 15)
-ax.set_ylim(0, len(ROI_list) + 2)
+ax.set_ylim(0.5, len(ROI_list) + 1)
 
 # link figure to tkinter
 canvas = FigureCanvasTkAgg(fig, master=root)
@@ -73,7 +75,6 @@ def mouse_click(event):
 # define function when window is closed so that no error is thrown
 def _quit():
     root.quit()
-
 
 # link mouse_click function to figure
 canvas.mpl_connect('button_press_event', mouse_click)
