@@ -149,11 +149,12 @@ M = np.dot(np.linalg.inv(T), np.dot(R,T))
 ```
 
 #### Adjust signs in offset
-One last note on the offset of the coordinate system: Depending on the scanner settings the origin of your voxel space might be in a different 'corner' than the default (left-posterior-inferior). You can find out if this is the case by moving your cursor along the three spatial axis in your image viewer. You need to observe, if the values for the 'voxel coordinates' increase as expected from left to right, from posterior to anterior and from inferior to superior. If the values decrease instead, you can flip the sign using the following lines:
+One last note on the offset of the coordinate system: Depending on the scanner settings the origin of your voxel space might be in a different 'corner' than the default (left-posterior-inferior). You can find out if this is the case by moving your cursor along the three spatial axis in your image viewer. You need to observe, if the values for the 'voxel coordinates' increase as expected from left to right, from posterior to anterior and from inferior to superior (sometimes called the default RAS+ orientation). If the values decrease instead, you can flip the sign using the following lines:
 ```
 flip_coordinates = [True False False]
 offset[flip_coordinates] = -offset[flip_coordinates]
 ```
+Otherwise, the `nibabel` library has some useful tools like `nib.aff2axcodes` to automatically detect the axis orientations.
 
 ### References
 <sup>1</sup> Jenkinson, M., Beckmann, C. F., Behrens, T. E. J., Woolrich, M. W. & Smith, S. M. FSL. NeuroImage 62, 782–790 (2012).

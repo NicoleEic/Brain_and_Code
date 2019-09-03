@@ -3,7 +3,7 @@ layout: post
 title: "Find your way through the jungle of Statistical Hypothesis Tests"
 ---
 
-In many behavioural experiments we want to compare an outcome measure across different groups of subjects or different experimental conditions. But even after several years of doing data analysis, I have to remind myself about the right statistical analysis to perform even a simple hypothesis test. The fact that different analysis frameworks use different implementations of the tests further complicates the issue. That's why I composed a decision tree for the situation, where we are comparing the average of a continuous dependent variable (i.e. the outcome measures) based on categorical variables.
+In many behavioural experiments we want to compare an outcome measure across different groups of subjects or different experimental conditions. But even after several years of doing data analysis, I have to remind myself about the right statistical analysis to perform even a simple hypothesis test. The fact that different analysis frameworks use different implementations of the tests further complicates the issue. That's why I composed a decision tree for the situation, where we are comparing the average of a continuous dependent variable (i.e. the outcome measure) based on categorical variables.
 
 The questions that you typically have to ask yourself are:
 * How many factors are included in the design? = How many categorical variables do I have?
