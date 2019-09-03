@@ -211,7 +211,7 @@ update_plot(intensity_init)
 # display figure
 plt.show()
 ```
-!['Interactive slider'](/assets/plot3.png)
+!['Interactive slider'](/assets/plot3.gif){:height="300px"}
 
 # 4) Embedding plots in a GUI
 
@@ -318,7 +318,7 @@ As a last line we need to execute the widget, so that GUI is visible when the sc
 # execute widget
 tk.mainloop()
 ```
-!['Plot embedded in GUI for user interaction'](/assets/plot4.png)
+!['Plot embedded in GUI for user interaction'](/assets/plot4.png){:height="300px"}
 
 # That's it!
 There are myriads of plotting functions, options and tools out there which keep changing and evolving. The above examples were quite useful for my everyday work and hopefully they gave you some ideas about how to read in your data and how to plot it.
