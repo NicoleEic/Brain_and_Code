@@ -1,0 +1,5 @@
+pandas==0.24.1
+requests==2.21.0
+Pillow==5.4.1
+beautifulsoup4==4.7.1
+matplotlib==3.0.3

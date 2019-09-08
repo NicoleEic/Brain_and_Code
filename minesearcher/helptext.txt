@@ -1,0 +1,24 @@
+Welcome to Minesweeper!
+
+The aim of the game is to find all safe squares in the grid. You uncover a field by left clicking on it. 
+
+If you click on a square that hides a mine, the game ends and you lose. When you uncover a safe square, a number appears that tells you how many mines are hidden in the neighboring squares. This information helps you to make the next guess for a safe square. 
+
+If you assume a square to be mined, you can mark it with a flag by right-clicking. This disables clicking on the square by accident. 
+
+If you open a square that contains 0 neighboring mines, all neighboring squares will be opened automatically.
+
+The counter in the upper-left corner tells you how many mines are still hidden.
+
+A timer in the upper-right corner is counting the seconds from the start of the game.
+
+You can always restart the game by clicking on the smiley or by choosing 'New Game' in the menu.
+
+There are 3 predefined levels with the following settings:
+- Beginner: 8x8 board with 10 mines
+- Intermediate: 16x16 board with 40 mines
+- Expert: 16x30 board with 99 mines
+
+You can choose the level in the menu. Customized settings can be made in the submenu "Custom ...".
+
+:) Have Fun! :)
