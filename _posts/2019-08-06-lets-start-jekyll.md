@@ -24,3 +24,10 @@ The site is generated locally and you can access it in your browser by navigatin
 ```
 http://localhost:4000
 ````
+
+I wanted the blog to be connected to my already existing GitHub projects, so for me, Google Pages seemed to be the perfect solution. I followed the instruction on GitHub to integrate my blog with my repository:
+```
+https://help.github.com/en/articles/configuring-a-publishing-source-for-github-pages
+```
+
+So this enables me to work on my projects and my blog at the same repository but under separate branches.
