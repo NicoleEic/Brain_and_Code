@@ -24,7 +24,7 @@ url: "https://nicoleeic.github.io/Brain_and_Code/" # the base hostname & protoco
 
 # Build settings
 markdown: kramdown
-theme: minima
+theme: jekyll-theme-minimal
 plugins:
   - jekyll-feed
 
