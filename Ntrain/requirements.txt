@@ -1,3 +1,0 @@
-cjklib==0.3.2
-pandas==0.23.4
-xpinyin==0.5.5
