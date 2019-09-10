@@ -1,5 +1,4 @@
 ---
-layout: post
 title: "Some bits about BIDS  - the Brain Imaging Data Structure format"
 ---
 
