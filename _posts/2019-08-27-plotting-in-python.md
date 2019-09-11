@@ -320,7 +320,7 @@ As a last line we need to execute the widget, so that GUI is visible when the sc
 tk.mainloop()
 ```
 
-<img src="/{{ site.baseurl }}/assets/plot4.png" alt="Plot embedded in GUI for user interaction">
+<img src="/{{ site.baseurl }}/assets/plot4.png" alt="Plot embedded in GUI for user interaction", height="200">
 
 # That's it!
 There are myriads of plotting functions, options and tools out there which keep changing and evolving. The above examples were quite useful for my everyday work and hopefully they gave you some ideas about how to read in your data and how to plot it.
