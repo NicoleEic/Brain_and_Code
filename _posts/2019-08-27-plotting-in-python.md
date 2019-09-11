@@ -5,13 +5,13 @@ title: "From spiders and sliders and seaborn: Useful plotting options in Python"
 
 Data visualization plays a key role in quantitative research and as the saying goes 'a picture speaks a thousand words'. For any step from raw data to final results figure, we continuously need to assess the quality of our data and check if our manipulations and computations do what we expect them to do. Unfortunately, you often might find yourself tinkering around for hours with x-ticks and subplot positions or even making a sloppy mistake in the axis labels, which could lead to completely misleading conclusions. That's why it's indispensable to know how to use plotting tools that are quick, flexible and reliable.
 
-Here, I want to talk you through four examples of plots that I keep reusing for different purposes, and you can find all the code shown here in my Github repository: `https://github.com/NicoleEic/projects`
+Here, I want to talk you through four examples of plots that I keep reusing for different purposes, and you can find all the code shown here in [my GitHub repository](https://github.com/NicoleEic/Brain_and_Code/tree/master/data_visualization).
 
 # 1) Seaborn's catplot
 
-Seaborn is a data visualization library that is based on matplotlib and it truly stands out by its simplicity to use. Check out their web gallery to have a look at the variety of plots that can be generated with just a few lines of code: `https://seaborn.pydata.org/examples/index.html`. Since I discovered how well Python's pandas data structure and seaborn work together, I convert my data to a DataFrame whenever possible. Seaborn's catplot is a great tool for showing the relationship of a continuous variable to different categorical factors with multiple levels. The simulated data in the example below could be the result of a brain stimulation experiment, where we measured the strength of a resting-state network in both hemispheres, within multiple regions of the brain, before and after brain stimulation.
+Seaborn is a data visualization library that is based on matplotlib and it truly stands out by its simplicity to use. Check out [their web gallery](https://seaborn.pydata.org/examples/index.html) to have a look at the variety of plots that can be generated with just a few lines of code. Since I discovered how well Python's pandas data structure and seaborn work together, I convert my data to a DataFrame whenever possible. Seaborn's catplot is a great tool for showing the relationship of a continuous variable to different categorical factors with multiple levels. The simulated data in the example below could be the result of a brain stimulation experiment, where we measured the strength of a resting-state network in both hemispheres, within multiple regions of the brain, before and after brain stimulation.
 
-In the overhead section, I hard-coded the factors and levels as lists, but you might consider reading in your particpant ID from a `participants.tsv` file, as I described in [my post about BIDS](https://nicoleeic.github.io/2019/08/07/some-bits-about-bids.html).
+In the overhead section, I hard-coded the factors and levels as lists, but you might consider reading in your particpant ID from a `participants.tsv` file, as I described in [my post about BIDS](https://nicoleeic.github.io/Brain_and_Code/2019/08/07/some-bits-about-bids.html).
 
 ```
 import numpy as np
@@ -216,7 +216,7 @@ plt.show()
 
 # 4) Embedding plots in a GUI
 
-If you like the interactive character of the plot above, you might even want to go a step further and embed your plot within a Graphical Use Interface (GUI). Tkinter is a commonly used framework for GUI development in Python, which comes with many functionalities for user interaction. Below I show an example, where the user can interact directly with the objects drawn in the plot. In another example, [which you can find on my Github](https://github.com/NicoleEic/projects/tree/master/timeline), I generated a time frame and linked a mouse click to scraping the web to display an image within the GUI.
+If you like the interactive character of the plot above, you might even want to go a step further and embed your plot within a Graphical Use Interface (GUI). Tkinter is a commonly used framework for GUI development in Python, which comes with many functionalities for user interaction. Below I show an example, where the user can interact directly with the objects drawn in the plot. In another example, which you can find [in my GitHub repository](https://github.com/NicoleEic/Brain_and_Code/tree/master/timeline), I generated a time frame and linked a mouse click to scraping the web to display an image within the GUI.
 
 ```
 import tkinter as tk
