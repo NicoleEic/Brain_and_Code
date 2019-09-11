@@ -201,8 +201,8 @@ ___
 # Code snippets
 ## Manipulate a Nifti file
 This is a basic example of how, to load, modify and save a Nifti-file using Python's nibabel library. The file should like like this before and after the manipulation:
-!['example_brain.nii.gz'](/assets/filetypes1.png){:height="200px"}
-!['example_brain_modified.nii.gz'](/assets/filetypes2.png){:height="200px"}
+<img src="/{{ site.baseurl }}/assets/filetypes1.png" alt="example_brain.nii.gz" height="200">
+<img src="/{{ site.baseurl }}/assets/filetypes2.png" alt="example_brain_modified.nii.gz" height="200">
 
 ```
 import numpy as np
@@ -228,9 +228,8 @@ nib.save(new_img,'example_brain_modified.nii.gz')
 ## Manipulate a border file
 I didn't include an example of how to manipulate a Gifti-file, because it works very similar as for the Nifti file. Modifying a wb_view border file, is more tricky, because it's not supported by the nibabel library. In the example below I'm using the build-in python XML parser to load a border file to edit the colour associated with both the border class and the border name. Note that you can only display the border file together with geometric gifti file, in this case a sphere.
 
-!['example_border.border'](/assets/filetypes3.png){:height="200px"}
-
-!['example_border_red.border'](/assets/filetypes4.png){:height="200px"}
+<img src="/{{ site.baseurl }}/assets/filetypes3.png" alt="example_border.border" height="200">
+<img src="/{{ site.baseurl }}/assets/filetypes4.png" alt="example_border_red.border" height="200">
 
 ```
 import xml.etree.ElementTree as ET
