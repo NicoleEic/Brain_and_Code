@@ -5,7 +5,7 @@ title:  "Spin your head - manual rigid body transformations"
 
 Many processing steps in the analysis of brain scans rely on an accurate alignment of images. For example, when I transform my results to a standard reference space or when I align a subject's brain scans from multiple sessions or scanning modalities. Tools such as FSL's<sup>1</sup> FLIRT automatically estimate a transformation that can map an input image to a reference. However, if my data is non-typical - for example from a different species or from neurological patients with brain lesions - I might not be satisfied with the result of the automatic estimation. But there is a solution: Thanks to linear algebra, we can manually adjust a transformation!
 
-Here I'll describe the theoretical background of this image manipulation, but you can find scripts that deals with it in my Github repository: `https://github.com/NicoleEic/projects/tree/master/neuro_scripts/manual_rigid_body`.
+Here I'll describe the theoretical background of this image manipulation, but you can find scripts that deal with it in [my Github repository](https://github.com/NicoleEic/projects/tree/master/neuro_scripts/manual_rigid_body).
 
 ### Let's get started with some basics ...
 
