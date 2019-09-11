@@ -12,7 +12,7 @@ Here I'll describe the theoretical background of this image manipulation, but yo
 
 The type of transformation that I'm talking about is a 'rigid body' transformation. This means that the image can be translated (i.e. shifted) along the dimensions in space or rotated along the three spatial axes, but it won't be deformed in any way. The image below demonstrates how translation and rotation would look like in a 2D example. Such a rigid body transformation has 6 degrees of freedom (3 for translation, 3 for rotation). Note that a transformation with 12 degrees of freedom would allow you to scale and shear the image, and a nonlinear transformation will yield more complex deformations.
 
-!['Translation and Rotation'](/assets/spin1.png)
+<img src="/{{ site.baseurl }}/assets/spin1.png" alt="Translation and Rotation">
 
 Both the translation and the rotation operation can be represented as 4x4 matrix (`T` and `R`). Below with the code snippets, I provide a bit more mathematical background of how we can derive these matrices. When we combine translation and rotation into one matrix, we get an 'affine' matrix `M`: `M = T * R`. Note that the order of the steps matters: `T * R != R * T`.
 
