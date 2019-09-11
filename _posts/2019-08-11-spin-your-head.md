@@ -39,7 +39,7 @@ A structural brain scan is essentially a 3D matrix that stores the image intensi
 
 To get the rotation matrix, however, we have to wrap our head around a tricky topic, the coordinate system of the image. Typically, neuroimaging data comes with two coordinate systems that define 'voxel space' and 'image space'. The origin of the voxel space is usually in the 'left-posterior-inferior' corner of your image. In image space, the origin is usually placed in the center of the brain. In FSL's image viewer fsl_eyes, the coordinate for both spaces are displayed.
 
-!['Coordinate Systems'](Brain_and_Code/assets/spin3.png)
+!['Coordinate Systems'](/Brain_and_Code/assets/spin3.png)
 
 A matrix multiplication as defined above, performed for example by FSL's 'applywarp', will assume that we are rotating around the origin of the voxel space, which is NOT what we want in image alignment. That's why we first need to compensate for the 'offset' between the two coordinate systems. The information about this 'offset' is stored in the header of your scan within the 'sform' (or 'qform'). The sform is an affine matrix, where the offset is represented in the last column (I recommend reading: `https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/Orientation%20Explained`).
 
