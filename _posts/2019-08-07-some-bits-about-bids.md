@@ -145,7 +145,7 @@ subs = subs[~subs['id'].isin(['03'])]
 
 # loop over subjects
 for ind, sub_row in subs.iterrows():
-    OD = os.path.join(myscratch, 'LarynxRepresentation', 'derivatives', 'sub-' + sub_row.id)
+    OD = os.path.join(rootdir, 'derivatives', 'sub-' + sub_row.id)
     # do something.....
 ```
 
