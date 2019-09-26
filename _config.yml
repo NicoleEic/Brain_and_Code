@@ -19,7 +19,7 @@ description: >- # this means to ignore newlines until "baseurl:"
   Hi! Read this blog if you want to know my tips about data visualization and
   data analysis for neuroimaging and behavioural data. You will also find some tutorials and
   code snippets to improve you workflow in Python, bash, R and matlab coding.
-baseurl: "Brain_and_Code" # the subpath of your site, e.g. /blog
+baseurl: "/Brain_and_Code" # the subpath of your site, e.g. /blog
 url: "https://nicoleeic.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 github_username:  nicoleeic
 
