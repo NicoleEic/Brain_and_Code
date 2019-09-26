@@ -58,7 +58,7 @@ For the actual plotting command, you only need a single line! Here, I chose a vi
 sns.catplot(x="ROI", y="my_value", data=df, dodge=True, hue='condition', col='hemi', kind='violin')
 plt.show()
 ```
-<img src="/{{ site.baseurl }}/assets/plot1.png" alt="Example catplot">
+<img src="{{ site.baseurl }}/assets/plot1.png" alt="Example catplot">
 
 There are certainly many ways to improve the look of this plot, but I wanted to demonstrate that even the minimal set of inputs to the plotting command produces a clear and informative visualization of the data.
 
@@ -126,7 +126,7 @@ for he, hemi in enumerate(hemi_list):
     ax.set_xticklabels(ROI_list)
 plt.show()
 ```
-<img src="/{{ site.baseurl }}/assets/plot2.png" alt="Example spider plot">
+<img src="{{ site.baseurl }}/assets/plot2.png" alt="Example spider plot">
 
 # 3) Interactive slider
 
@@ -212,7 +212,7 @@ update_plot(intensity_init)
 # display figure
 plt.show()
 ```
-<img src="/{{ site.baseurl }}/assets/plot3.gif" alt="Interactive slider">
+<img src="{{ site.baseurl }}/assets/plot3.gif" alt="Interactive slider" height="300">
 
 # 4) Embedding plots in a GUI
 
@@ -320,7 +320,7 @@ As a last line we need to execute the widget, so that GUI is visible when the sc
 tk.mainloop()
 ```
 
-<img src="/{{ site.baseurl }}/assets/plot4.png" alt="Plot embedded in GUI for user interaction", height="200">
+<img src="{{ site.baseurl }}/assets/plot4.png" alt="Plot embedded in GUI for user interaction" height="200">
 
 # That's it!
 There are myriads of plotting functions, options and tools out there which keep changing and evolving. The above examples were quite useful for my everyday work and hopefully they gave you some ideas about how to read in your data and how to plot it.
