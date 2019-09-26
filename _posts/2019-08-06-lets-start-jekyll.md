@@ -37,6 +37,8 @@ https://github.com/NicoleEic/Brain_and_Code/tree/gh-pages/
 ```
 
 # Error handling
+
+## Port is occupied
 If you see in your local command line something like:
 ```
 jekyll 3.8.5 | Error:  Address already in use - bind(2) for xxx.x.x.x:4000
@@ -49,4 +51,15 @@ ruby    43631      <user>  13u  IPv4 0x3453ebb5e10f92c9      0t0  TCP *:terabase
 $ kill -9 43631
 $ jekyll --watch serve
 bundle exec jekyll serve
+```
+
+## Problem with relative file paths in Github Pages
+If your blog is hosted from the gh-pages branch of your repository, issues can arise from the way how relative file paths are generated. In my case, the solution was to change the baseurl and url field in the '\_config.yml' file. For the local build these fields should be empty, but for your remote version on Github, it should reference to your repository and the project page, as here in my example:
+```
+baseurl: "/Brain_and_Code" # the subpath of your site, e.g. /blog
+url: "https://nicoleeic.github.io" # the base hostname & protocol for your site
+```
+You should also tell Git on your local system to stop syncing the local and the remote version of the file:
+```
+git update-index --assume-unchanged _config.yml
 ```
