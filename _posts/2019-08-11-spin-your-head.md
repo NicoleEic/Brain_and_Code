@@ -12,7 +12,7 @@ Here I'll describe the theoretical background of this image manipulation, but yo
 
 The type of transformation that I'm talking about is a 'rigid body' transformation. This means that the image can be translated (i.e. shifted) along the dimensions in space or rotated along the three spatial axes, but it won't be deformed in any way. The image below demonstrates how translation and rotation would look like in a 2D example. Such a rigid body transformation has 6 degrees of freedom (3 for translation, 3 for rotation). Note that a transformation with 12 degrees of freedom would allow you to scale and shear the image, and a nonlinear transformation will yield more complex deformations.
 
-<img src="/{{ site.baseurl }}/assets/spin1.png" alt="Translation and Rotation">
+<img src="{{ site.baseurl }}/assets/spin1.png" alt="Translation and Rotation">
 
 Both the translation and the rotation operation can be represented as 4x4 matrix (`T` and `R`). Below with the code snippets, I provide a bit more mathematical background of how we can derive these matrices. When we combine translation and rotation into one matrix, we get an 'affine' matrix `M`: `M = T * R`. Note that the order of the steps matters: `T * R != R * T`.
 
@@ -39,13 +39,13 @@ A structural brain scan is essentially a 3D matrix that stores the image intensi
 
 To get the rotation matrix, however, we have to wrap our head around a tricky topic, the coordinate system of the image. Typically, neuroimaging data comes with two coordinate systems that define 'voxel space' and 'image space'. The origin of the voxel space is usually in the 'left-posterior-inferior' corner of your image. In image space, the origin is usually placed in the center of the brain. In FSL's image viewer fsl_eyes, the coordinate for both spaces are displayed.
 
-<img src="/{{ site.baseurl }}/assets/spin2.png" alt="Coordinate Systems">
+<img src="{{ site.baseurl }}/assets/spin2.png" alt="Coordinate Systems">
 
 A matrix multiplication as defined above, performed for example by FSL's 'applywarp', will assume that we are rotating around the origin of the voxel space, which is NOT what we want in image alignment. That's why we first need to compensate for the 'offset' between the two coordinate systems. The information about this 'offset' is stored in the header of your scan within the 'sform' (or 'qform'). The sform is an affine matrix, where the offset is represented in the last column (I recommend reading: `https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/Orientation%20Explained`).
 
 That means we require 3 steps to rotate the brain image: 1) translate the image to the voxel space origin using the offset from sform, 2) apply a rotation based on desired angles, 3) translate the image back to the image space origin using the inverse of the offset.
 
-<img src="/{{ site.baseurl }}/assets/spin3.png" alt="Rotation matrix">
+<img src="{{ site.baseurl }}/assets/spin3.png" alt="Rotation matrix">
 
 Equipped with this theoretical knowledge, we can compose our desired rigid body transformation using a few simple code lines. Working through such a transformation manually helped me a lot to understand how neuroimaging data is stored and displayed and how it can be manipulated outside of the standard processing toolboxes. I hope I could make this topic accessible without going too deep in the maths and below I post some related python snippets.
 
