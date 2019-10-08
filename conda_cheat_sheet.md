@@ -102,6 +102,10 @@
 
 `conda remove --name bio-env toolz boltons`
 
+* Clean up unused packages
+
+`conda clean -t`
+
 ## Managing multiple versions of Python
 * Install different version of Python in a new environment named py34
 `conda create --name py34 python=3.4`

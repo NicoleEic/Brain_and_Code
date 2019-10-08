@@ -218,9 +218,13 @@ atom $root/.gitignore
 ```
 git config --global core.excludesfile $root/.gitignore_global
 ```
-* untrack file, but keep in WD and LD
+* untrack file, but keep in WD and LD (will be deleted in RD)
 ```
 git rm --cached <file>
+```
+* stop syncing file, but keep in WD and LD and RD
+```
+git update-index --assume-unchanged myfile
 ```
 * untrack the whole content of a folder , but keep in WD and LD
 ```
@@ -430,6 +434,12 @@ git fetch
 git merge origin/master
 git push
 ```
+
+* see which files changed remotely after fetch
+```
+git fetch && git diff @{u} --name-only
+```
+
 * specify the remote you want to push to if you have several
 ```
 git push <my_origin>
