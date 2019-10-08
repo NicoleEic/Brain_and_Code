@@ -17,7 +17,7 @@ image(t(model_matrix))
 # to change coding scheme
 #model_fit <- lm(my_value ~ group * condition, df, contrasts = list(group = "contr.sum", condition = "contr.sum"))
 
-# read in data from 2-way ANOVA with between-subject and within-subject factors
+# read in data from 4-way ANOVA with between-subject and within-subject factors
 df_full <- read_csv("df_full.csv")
 # get parameter estimates from a linear regression with random effects
 my_model_fit <- lmer(my_value ~ group * language * task * condition + (1|sub_id), df_full)
