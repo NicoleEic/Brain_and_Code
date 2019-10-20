@@ -50,12 +50,12 @@ for sub in subs:
                 my_row = my_row + 1
 ```
 
-For the actual plotting command, you only need a single line! Here, I chose a violin plot, but just by changing the 'kind' option the display can be converted to a boxplot, pointplot, etc.
+For the actual plotting command, you only need a single line! Here, I chose a boxen plot, but just by changing the 'kind' option the display can be converted to a violinplot, pointplot, etc.
 ```
 # --------
 # plotting using seaborn
 # --------
-sns.catplot(x="ROI", y="my_value", data=df, dodge=True, hue='condition', col='hemi', kind='violin')
+sns.catplot(x="ROI", y="my_value", data=df, dodge=True, hue='condition', col='hemi', kind='boxen')
 plt.show()
 ```
 <img src="{{ site.baseurl }}/assets/plot1.png" alt="Example catplot">
