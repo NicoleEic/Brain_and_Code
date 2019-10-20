@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Colourmaps and FSLeyes - more than just aesthetics"
+title: "Colour maps and FSLeyes - more than just aesthetics"
 ---
 
 Data visualization is a crucial part of neuroimaging research, where we - quite literally - generate images of the brain. The famous 'blobs' of functional MRI are real eye-catchers, though sometimes criticised, and a whole-brain connectome of the human brain even made it onto the [cover of a Muse album](https://www.muse.mu/music?album=the_2nd_law). As a researcher, we aim to portrays dense and complex information in graphical form that allows the reader to assess an effect with a single look. But just like data processing, data visualization requires careful considerations to prevent biases and mislead interpretations. One aspect that doesn't get much attention, but which can lead to misinformation and artefacts, is the choice of colour maps. As an example case, I show below three random spatially smoothed brain masks, but the same thoughts apply to the visualization of statistical images from fMRI, tractography results, overlap maps in stroke research, etc.
@@ -10,7 +10,7 @@ Data visualization is a crucial part of neuroimaging research, where we - quite 
 
 In order to be able to visually compare the intensity values in the three masks, the first choice might be to pick three different colour maps that are automatically provided by the image viewer FSLeyes - here blue, red and green. Although higher values consistently show up in a lighter colour, it's not possible to assess the relative differences. The underlying problem is three-fold: The colours are not matched in luminance, the colour maps are not linear and not matched in luminance profile and the range of displayed intensities is not consistent. One solution might be to pick a grey-scale colour map, where the luminance linearly increases from 0 (black) to 1 (white), but obviously this choice is not ideal if color mapping is required.
 
-The last example in the figure above shows a visualization that I would prefer for several reasons: The three colours are clearly separable, the colour maps increase linearly from 0 to 1 with the colour at the midpoint having the exact luminance of 0.5 and the intensity ranges have a matched upper and lower threshold. Luckily, the [new version of FSLeyes](https://pypi.org/project/fsleyes/) is based on Python, which allows you to control your visualization using customized scripts and tools from the entire Python ecosystem. Below I will detail some of the luminance issues in colourmaps and give an example of how to set your custom colour map in FSLeyes. All of the code here and other useful functions to work with colour maps can be found in [a package in my GitHub repository](https://github.com/NicoleEic/Brain_and_Code/blob/master/my_functions/luminance.py).
+The last example in the figure above shows a visualization that I would prefer for several reasons: The three colours are clearly separable, the colour maps increase linearly from 0 to 1 with the colour at the midpoint having the exact luminance of 0.5 and the intensity ranges have a matched upper and lower threshold. Luckily, the [new version of FSLeyes](https://pypi.org/project/fsleyes/) is based on Python, which allows you to control your visualization using customized scripts and tools from the entire Python ecosystem. Below I will detail some of the luminance issues in colourmaps and give an example of how to set your custom colour map in FSLeyes. All of the code here and other useful functions to work with colour maps can be found in [a module in my GitHub repository](https://github.com/NicoleEic/Brain_and_Code/blob/master/my_functions/luminance.py).
 
 # Why luminance matters in colour maps
 
@@ -31,6 +31,7 @@ def get_luminance(colour, luminance_factors={'R': 0.2126, 'G': 0.7152, 'B': 0.07
     L = luminance_factors['R'] * colour[0] + luminance_factors['G'] * colour[1] + luminance_factors['B'] * colour[2]
     return L
 
+
 # generate a colour map, here for 'forestgreen'
 colour_map = LinearSegmentedColormap.from_list('mycmap', ['black', 'forestgreen', 'white'])
 
@@ -47,7 +48,7 @@ plt.plot(gradient, L, color=cmap_arr[np.int(np.floor(len(cmap_arr) / 2))])
 
 <img src="{{ site.baseurl }}/assets/colour1.png" alt="non-matching" height="200">
 
-It becomes apparent that the midpoints of the colour maps differ in their luminance, which can introduce perceptual artefacts despite the fact that all maps range from black to white. This effect becomes much more evident, when we use pre-defined colour maps that come with the image viewer. Some of the default maps have been designed for very different purposes, but it worth thinking about if luminance should be controlled for in your display. In FSLeyes, the default colour maps can be accessed at ```FSLeyes.app/Contents/Resources/assets/colourmaps/```. In the figure below I plot the luminance profiles for a selection of default colour maps. Within your python code, you can access them as follows:
+It becomes apparent that the midpoints of the colour maps differ in their luminance, which can introduce perceptual artefacts despite the fact that all maps range from black to white. This effect becomes much more evident, when we use pre-defined colour maps that come with the image viewer. Some of the default maps have been designed for very different purposes, but it's worth thinking about if luminance should be controlled for in your display. In FSLeyes, the default colour maps can be accessed at ```FSLeyes.app/Contents/Resources/assets/colourmaps/```. In the figure below I plot the luminance profiles for a selection of default colour maps. Within your Python code, you can access them as follows:
 ```
 import fsleyes
 
@@ -62,7 +63,7 @@ colour_map = fsleyes.colourmaps.getColourMap('cool')
 
 # Matching luminance
 
-For the above mentioned considerations, I wrote [a piece of code](https://github.com/NicoleEic/Brain_and_Code/blob/master/my_functions/luminance.py) that generates colours at a given luminance level. Here is a selection of 8 colours at a luminance level of 0.5 look like plotted together with their RGB code. If we plot the luminance profiles of the colour maps, they all have the same linear pattern which creates a smooth gradient.
+For the above mentioned considerations, I wrote [a piece of code](https://github.com/NicoleEic/Brain_and_Code/blob/master/my_functions/luminance.py) that generates colours at a given luminance level. Here is a selection of 8 colours at a luminance level of 0.5 plotted together with their RGB code. If we plot the luminance profiles of the colour maps, they all have the same linear pattern which creates a smooth gradient.
 
 <img src="{{ site.baseurl }}/assets/colour3.png" alt="matched luminance" height="200">
 <img src="{{ site.baseurl }}/assets/colour4.png" alt="matched maps" height="200">
