@@ -33,5 +33,5 @@ for sub in subs:
 # plotting using seaborn
 # --------
 # boxes show quartiles
-sns.catplot(x="ROI", y="my_value", data=df, dodge=True, hue='condition', col='hemi', kind='violin', aspect=3)
+sns.catplot(x="ROI", y="my_value", data=df, dodge=True, hue='condition', col='hemi', kind='boxen', aspect=3)
 plt.show()
