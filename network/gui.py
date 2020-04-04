@@ -27,23 +27,31 @@ class MainApplication:
         self.cbuts = []
         self.tick_vals = {}
 
-        self.frame_network = tk.Frame(root)
-        self.frame_network.pack(side=tk.LEFT)
-
         self.frame_tick = tk.Frame(root)
-        self.frame_tick.pack(side=tk.RIGHT)
+        self.frame_tick.pack(side=tk.LEFT)
+        self.text = tk.Text(self.frame_tick, cursor="arrow")
+        self.vsb = tk.Scrollbar(self.frame_tick, command=self.text.yview)
+        self.text.configure(yscrollcommand=self.vsb.set)
+        self.text.pack(side=tk.LEFT, expand=True)
+        self.vsb.pack()
 
         self.create_cbuts()
         self.update_nodes()
 
-        self.btn_select = tk.Button(self.frame_tick, text='select all', command=self.select_all_cbuts)
-        self.btn_select.pack()
+        self.frame_buttons = tk.Frame(root)
+        self.frame_buttons.pack()
 
-        self.btn_deselect = tk.Button(self.frame_tick, text='deselect all', command=self.deselect_all_cbuts)
-        self.btn_deselect.pack()
+        self.btn_select = tk.Button(self.frame_buttons, text='select all', command=self.select_all_cbuts)
+        self.btn_select.pack(side=tk.RIGHT)
 
-        self.btn_refresh = tk.Button(self.frame_tick, text='refresh', command=self.click_refresh)
-        self.btn_refresh.pack()
+        self.btn_deselect = tk.Button(self.frame_buttons, text='deselect all', command=self.deselect_all_cbuts)
+        self.btn_deselect.pack(side=tk.RIGHT)
+
+        self.btn_refresh = tk.Button(self.frame_buttons, text='refresh', command=self.click_refresh)
+        self.btn_refresh.pack(side=tk.RIGHT)
+
+        self.frame_network = tk.Frame(root)
+        self.frame_network.pack(side=tk.RIGHT)
 
         self.generate_network()
         self.draw_network()
@@ -59,7 +67,7 @@ class MainApplication:
         plt.close("all")
         for widget in self.frame_network.winfo_children():
             widget.destroy()
-        fig = Figure(figsize=(5, 4), dpi=100)
+        fig = Figure(figsize=(10, 8), dpi=100)
         ax = fig.add_subplot(111)
         nx.draw(self.network, with_labels=True, ax=ax, edge_color=self.edges['colour'], node_size=10)
         canvas = FigureCanvasTkAgg(fig, master=self.frame_network)
@@ -69,11 +77,16 @@ class MainApplication:
     def create_cbuts(self):
         for ind, row in self.nodes_orig.iterrows():
             var = tk.IntVar()
-            self.cbuts.append(tk.Checkbutton(self.frame_tick, text=row['name'], variable=var))
+            cb = tk.Checkbutton(self.text, text=row['name'], variable=var)
+            self.cbuts.append(cb)
             self.cbuts[-1].pack()
             if row['tick_var'] == 1:
                 self.cbuts[-1].select()
             self.tick_vals[row['name']] = var
+            self.text.window_create("end", window=cb)
+            self.text.insert("end", "\n")
+        self.text.configure(state="disabled")
+
 
     def update_nodes(self):
         ind_include = np.array([])
