@@ -19,6 +19,7 @@ class MainApplication:
         self.nodes_orig = pd.read_csv(os.path.join(dd, 'nodes.csv'))
         self.edges_orig = pd.read_csv(os.path.join(dd, 'edges.csv'))
         self.edges_orig['weight'] = np.where(self.edges_orig.category == 'partner', 2, 3)
+        self.edges_orig['colour'] = np.where(self.edges_orig.category == 'partner', 'red', 'blue')
 
         self.nodes = []
         self.edges = []
@@ -35,6 +36,12 @@ class MainApplication:
         self.create_cbuts()
         self.update_nodes()
 
+        self.btn_select = tk.Button(self.frame_tick, text='select all', command=self.select_all_cbuts)
+        self.btn_select.pack()
+
+        self.btn_deselect = tk.Button(self.frame_tick, text='deselect all', command=self.deselect_all_cbuts)
+        self.btn_deselect.pack()
+
         self.btn_refresh = tk.Button(self.frame_tick, text='refresh', command=self.click_refresh)
         self.btn_refresh.pack()
 
@@ -42,12 +49,10 @@ class MainApplication:
         self.draw_network()
 
     def generate_network(self):
-        #self.edges = self.edges_orig
         self.edges = self.edges_orig[(self.edges_orig['node1'].isin(self.nodes.name)) | (self.edges_orig['node2'].isin(self.nodes.name))]
-        edge_pairs_w = [tuple(x) for x in self.edges[['node1', 'node2', 'weight']].values]
-        g = nx.Graph()
+        g = nx.from_pandas_edgelist(self.edges, 'node1', 'node2', edge_attr=True)
         g.add_nodes_from(self.nodes.name)
-        g.add_weighted_edges_from(edge_pairs_w)
+        plt.show()
         self.network = g
 
     def draw_network(self):
@@ -56,7 +61,7 @@ class MainApplication:
             widget.destroy()
         fig = Figure(figsize=(5, 4), dpi=100)
         ax = fig.add_subplot(111)
-        nx.draw(self.network, with_labels=True, ax=ax)
+        nx.draw(self.network, with_labels=True, ax=ax, edge_color=self.edges['colour'], node_size=10)
         canvas = FigureCanvasTkAgg(fig, master=self.frame_network)
         canvas.draw()
         canvas.get_tk_widget().pack(side=tk.TOP, fill=tk.BOTH, expand=1)
@@ -70,7 +75,6 @@ class MainApplication:
                 self.cbuts[-1].select()
             self.tick_vals[row['name']] = var
 
-
     def update_nodes(self):
         ind_include = np.array([])
         for ind, row in self.nodes_orig.iterrows():
@@ -78,12 +82,12 @@ class MainApplication:
                 ind_include = np.append(ind_include, ind)
         self.nodes = self.nodes_orig.iloc[ind_include]
 
-    def deselect_all_cbuts(self):
+    def select_all_cbuts(self):
         for i in self.cbuts:
             i.var = 1
             i.select()
 
-    def select_all_cbuts(self):
+    def deselect_all_cbuts(self):
         for i in self.cbuts:
             i.var = 0
             i.deselect()
