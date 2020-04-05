@@ -29,19 +29,19 @@ class MainApplication:
         self.tick_vals = {}
 
         self.frame_tick = tk.Frame(self.master)
-        self.frame_tick.grid(row=0, column=0, sticky=tk.W)
+        self.frame_tick.grid(row=1, column=0, sticky=tk.W)
         self.text = tk.Text(self.frame_tick)
-        self.text.grid(row=0, column=0, sticky=tk.W)
+        self.text.grid(row=1, column=0, sticky=tk.W)
 
         self.vsb = tk.Scrollbar(self.frame_tick)
         self.text.configure(width=30, yscrollcommand=self.vsb.set)
-        self.vsb.grid(row=0, column=0, sticky=tk.E)
+        self.vsb.grid(row=1, column=0, sticky=tk.E)
 
         self.create_cbuts()
-        self.update_nodes()
+        self.update_edges()
 
         self.frame_buttons = tk.Frame(self.master)
-        self.frame_buttons.grid(row=1, column=0, sticky=tk.W)
+        self.frame_buttons.grid(row=0, column=0, sticky=tk.W)
 
         self.btn_select = tk.Button(self.frame_buttons, text='select all', command=self.select_all_cbuts)
         self.btn_select.grid()
@@ -59,9 +59,8 @@ class MainApplication:
         self.draw_network()
 
     def generate_network(self):
-        self.edges = self.edges_orig[(self.edges_orig['node1'].isin(self.nodes.name)) | (self.edges_orig['node2'].isin(self.nodes.name))]
         g = nx.from_pandas_edgelist(self.edges, 'node1', 'node2', edge_attr=True)
-        g.add_nodes_from(self.nodes.name)
+        #g.add_nodes_from(self.nodes.name)
         self.network = g
 
     def draw_network(self):
@@ -76,14 +75,15 @@ class MainApplication:
         canvas.get_tk_widget().grid(sticky=tk.NSEW)
 
     def create_cbuts(self):
-        for ind, row in self.nodes_orig.iterrows():
+        all_node_names =list(set(self.edges_orig['node1'].tolist() + self.edges_orig['node2'].tolist()))
+        all_node_names.sort()
+        for node_name in all_node_names:
             var = tk.IntVar()
-            cb = tk.Checkbutton(self.text, text=row['name'], variable=var)
+            cb = tk.Checkbutton(self.text, text=node_name, variable=var)
+            cb.select()
+            cb.grid()
             self.cbuts.append(cb)
-            self.cbuts[-1].grid()
-            if row['tick_var'] == 1:
-                self.cbuts[-1].select()
-            self.tick_vals[row['name']] = var
+            self.tick_vals[node_name] = var
             self.text.window_create("end", window=cb)
             self.text.insert("end", "\n")
         self.text.configure(state="disabled")
@@ -94,6 +94,13 @@ class MainApplication:
             if self.tick_vals[row['name']].get():
                 ind_include = np.append(ind_include, ind)
         self.nodes = self.nodes_orig.iloc[ind_include]
+
+    def update_edges(self):
+        ind_include = np.array([])
+        for ind, row in self.edges_orig.iterrows():
+            if self.tick_vals[row['node1']].get() or self.tick_vals[row['node2']].get():
+                ind_include = np.append(ind_include, ind)
+        self.edges = self.edges_orig.iloc[ind_include]
 
     def select_all_cbuts(self):
         for i in self.cbuts:
@@ -106,7 +113,7 @@ class MainApplication:
             i.deselect()
 
     def click_refresh(self):
-        self.update_nodes()
+        self.update_edges()
         self.generate_network()
         self.draw_network()
 
