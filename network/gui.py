@@ -9,22 +9,23 @@ import networkx as nx
 import os
 import numpy as np
 import pandas as pd
+from ast import literal_eval
+from matplotlib.collections import PathCollection
 
 
 class MainApplication:
     def __init__(self, master):
         self.master = master
-
         master.title("My network")
         dd = os.path.join(os.sep, 'Users', 'neichert', 'code', 'projects', 'network')
         self.nodes_orig = pd.read_csv(os.path.join(dd, 'nodes.csv'))
         self.edges_orig = pd.read_csv(os.path.join(dd, 'edges.csv'))
         self.edges_orig['weight'] = np.where(self.edges_orig.category == 'partner', 2, 3)
-        self.edges_orig['colour'] = np.where(self.edges_orig.category == 'partner', 'red', 'blue')
+        self.edges_orig['colour'] = np.where(self.edges_orig.category == 'descendant', 'red', 'blue')
 
-        self.nodes = []
         self.edges = []
         self.network = []
+        self.pos = []
         self.cbuts = []
         self.tick_vals = {}
 
@@ -42,40 +43,52 @@ class MainApplication:
 
         self.frame_buttons = tk.Frame(self.master)
         self.frame_buttons.grid(row=0, column=0, sticky=tk.W)
-
-        self.btn_select = tk.Button(self.frame_buttons, text='select all', command=self.select_all_cbuts)
-        self.btn_select.grid()
-
-        self.btn_deselect = tk.Button(self.frame_buttons, text='deselect all', command=self.deselect_all_cbuts)
-        self.btn_deselect.grid()
-
-        self.btn_refresh = tk.Button(self.frame_buttons, text='refresh', command=self.click_refresh)
-        self.btn_refresh.grid()
+        tk.Button(self.frame_buttons, text='select all', command=self.select_all_cbuts).grid()
+        tk.Button(self.frame_buttons, text='deselect all', command=self.deselect_all_cbuts).grid()
+        tk.Button(self.frame_buttons, text='refresh', command=self.click_refresh).grid()
 
         self.frame_network = tk.Frame(self.master)
         self.frame_network.grid(row=0, column=1, rowspan=2, sticky=tk.W)
+
+        self.frame_info = tk.Frame(self.master)
+        self.frame_info.grid(row=0, column=2, rowspan=2, sticky=tk.W)
+
+        self.info_name_v = tk.StringVar()
+        tk.Label(self.frame_info, textvariable=self.info_name_v).grid(row=0)
+        self.info_name_v.set("Click on a name for info.")
 
         self.generate_network()
         self.draw_network()
 
     def generate_network(self):
-        g = nx.from_pandas_edgelist(self.edges, 'node1', 'node2', edge_attr=True)
-        #g.add_nodes_from(self.nodes.name)
-        self.network = g
+        self.network = nx.from_pandas_edgelist(self.edges, 'node1', 'node2', edge_attr=True)
+        self.network = self.network.to_directed()
+        self.pos = nx.layout.spring_layout(self.network)
 
     def draw_network(self):
+        def onpick(event):
+            if isinstance(event.artist, PathCollection):
+                ind = event.ind[0]  # event.ind is a single element array.
+                node_name = list(self.pos.keys())[ind]
+                self.info_name_v.set(node_name)
+
         plt.close("all")
         for widget in self.frame_network.winfo_children():
             widget.destroy()
         fig = Figure(figsize=(8, 8))
         ax = fig.add_subplot(111)
-        nx.draw(self.network, with_labels=True, ax=ax, edge_color=self.edges['colour'], node_size=10)
+
+        nodes = nx.draw_networkx_nodes(self.network, self.pos, ax=ax, node_size=10)
+        nodes.set_picker(5)
+        nx.draw_networkx_edges(self.network, self.pos, arrowstyle='->', arrowsize=15, width=1, edge_color=self.edges['colour'], ax=ax)
+        nx.draw_networkx_labels(self.network, self.pos, ax=ax)
         canvas = FigureCanvasTkAgg(fig, master=self.frame_network)
         canvas.draw()
         canvas.get_tk_widget().grid(sticky=tk.NSEW)
+        fig.canvas.mpl_connect('pick_event', onpick)
 
     def create_cbuts(self):
-        all_node_names =list(set(self.edges_orig['node1'].tolist() + self.edges_orig['node2'].tolist()))
+        all_node_names = list(set(self.edges_orig['node1'].tolist() + self.edges_orig['node2'].tolist()))
         all_node_names.sort()
         for node_name in all_node_names:
             var = tk.IntVar()
@@ -87,13 +100,6 @@ class MainApplication:
             self.text.window_create("end", window=cb)
             self.text.insert("end", "\n")
         self.text.configure(state="disabled")
-
-    def update_nodes(self):
-        ind_include = np.array([])
-        for ind, row in self.nodes_orig.iterrows():
-            if self.tick_vals[row['name']].get():
-                ind_include = np.append(ind_include, ind)
-        self.nodes = self.nodes_orig.iloc[ind_include]
 
     def update_edges(self):
         ind_include = np.array([])
