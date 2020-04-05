@@ -15,18 +15,18 @@ def get_soup(url):
 
 
 def get_tk_img(query):
-    query=urllib.parse.quote(query, safe='')
+    query = urllib.parse.quote(query, safe='')
     url = "https://www.google.co.in/search?q=" + query + "&source=lnms&tbm=isch"
     soup = get_soup(url)
     for a in soup.find_all("img"):
         my_url = a.get('src')
-        #pdb.set_trace()
-        if "https" in my_url:
-            u = urlopen(my_url)
-            a = u.read()
-            u.close()
-            im = Image.open(BytesIO(a))
-            return im
+        if my_url:
+            if "http" in my_url and my_url:
+                u = urlopen(my_url)
+                a = u.read()
+                u.close()
+                im = Image.open(BytesIO(a))
+                return im
 
 
 if __name__ == "__main__":
