@@ -1,8 +1,5 @@
 import tkinter as tk
-from matplotlib.backends.backend_tkagg import (
-    FigureCanvasTkAgg, NavigationToolbar2Tk)
-# Implement the default Matplotlib key bindings.
-from matplotlib.backend_bases import key_press_handler
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
 import matplotlib.pyplot as plt
 import networkx as nx
@@ -14,9 +11,7 @@ from matplotlib.collections import PathCollection
 from PIL import Image, ImageTk
 from bs4 import BeautifulSoup
 from io import BytesIO
-import urllib
 from urllib.request import urlopen, Request
-import urllib.parse
 from PIL import Image
 import requests
 
@@ -88,51 +83,25 @@ class MainApplication:
         #self.network = self.network.to_directed()
         self.pos = nx.layout.spring_layout(self.network)
 
+    def onpick(self, event):
+        if isinstance(event.artist, PathCollection):
+            ind = event.ind[0]  # event.ind is a single element array.
+            node_name = list(self.pos.keys())[ind]
+            self.info_name_v.set(node_name)
+            node = self.nodes_orig[self.nodes_orig.name == node_name]
+            if node.empty:
+                self.info_roman_v.set("no info entered")
+            else:
+                self.info_roman_v.set(f'roman name: {node.roman.values[0]}')
+                self.info_role_v.set(f'role: {node.role.values[0]}')
+            self.show_img(node_name)
+
     def draw_network(self):
-        def onpick(event):
-            if isinstance(event.artist, PathCollection):
-                ind = event.ind[0]  # event.ind is a single element array.
-                node_name = list(self.pos.keys())[ind]
-                self.info_name_v.set(node_name)
-                node = self.nodes_orig[self.nodes_orig.name == node_name]
-                if node.empty:
-                    self.info_roman_v.set("no info entered")
-                else:
-                    self.info_roman_v.set(f'roman name: {node.roman.values[0]}')
-                    self.info_role_v.set(f'role: {node.role.values[0]}')
-                show_img(node_name)
-
-        def show_img(node_name):
-            def get_tk_img(query):
-                rootdir = 'https://www.greekmythology.com'
-                category = self.nodes_orig[self.nodes_orig.name == query].category.values[0]
-                url = f'{rootdir}/{category}s/{query}/{query}.html'
-                page = requests.get(url).text
-                soup = BeautifulSoup(page, 'html.parser')
-                for element in soup.find_all("img"):
-                    my_url = element.get('data-src')
-                    if my_url:
-                        if '/images/mythology' in my_url:
-                            req = Request(url=f'{rootdir}{my_url}', headers={'User-Agent': 'Mozilla/5.0'})
-                            u = urlopen(req)
-                            a = u.read()
-                            u.close()
-                            im = Image.open(BytesIO(a))
-                            return im
-            basewidth = 300
-            img = get_tk_img(node_name)
-            wpercent = (basewidth / float(img.size[0]))
-            hsize = int((float(img.size[1]) * float(wpercent)))
-            self._im = img.resize((basewidth, hsize), Image.ANTIALIAS)
-            self._image = ImageTk.PhotoImage(self._im)
-            self.img_label.configure(image=self._image)
-
         plt.close("all")
         for widget in self.frame_network.winfo_children():
             widget.destroy()
         fig = Figure(figsize=(8, 8))
         ax = fig.add_subplot(111)
-
         nodes = nx.draw_networkx_nodes(self.network, self.pos, ax=ax, node_size=10)
         nodes.set_picker(5)
         nx.draw_networkx_edges(self.network, self.pos, arrowstyle='->', arrowsize=15, width=1, edge_color=self.edges['colour'], ax=ax)
@@ -140,7 +109,7 @@ class MainApplication:
         canvas = FigureCanvasTkAgg(fig, master=self.frame_network)
         canvas.draw()
         canvas.get_tk_widget().grid(sticky=tk.NSEW)
-        fig.canvas.mpl_connect('pick_event', onpick)
+        fig.canvas.mpl_connect('pick_event', self.onpick)
 
     def create_cbuts(self):
         all_node_names = list(set(self.edges_orig['node1'].tolist() + self.edges_orig['node2'].tolist()))
@@ -179,6 +148,31 @@ class MainApplication:
         self.generate_network()
         self.draw_network()
 
+    def get_tk_img(self, query):
+        rootdir = 'https://www.greekmythology.com'
+        category = self.nodes_orig[self.nodes_orig.name == query].category.values[0]
+        url = f'{rootdir}/{category}s/{query}/{query}.html'
+        page = requests.get(url).text
+        soup = BeautifulSoup(page, 'html.parser')
+        for element in soup.find_all("img"):
+            my_url = element.get('data-src')
+            if my_url:
+                if '/images/mythology' in my_url:
+                    req = Request(url=f'{rootdir}{my_url}', headers={'User-Agent': 'Mozilla/5.0'})
+                    u = urlopen(req)
+                    a = u.read()
+                    u.close()
+                    im = Image.open(BytesIO(a))
+                    return im
+
+    def show_img(self, node_name):
+        basewidth = 300
+        img = self.get_tk_img(node_name)
+        wpercent = (basewidth / float(img.size[0]))
+        hsize = int((float(img.size[1]) * float(wpercent)))
+        self._im = img.resize((basewidth, hsize), Image.ANTIALIAS)
+        self._image = ImageTk.PhotoImage(self._im)
+        self.img_label.configure(image=self._image)
 
 if __name__ == "__main__":
     root = tk.Tk()
