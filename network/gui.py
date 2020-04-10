@@ -16,6 +16,7 @@ from urllib.request import urlopen, Request
 from PIL import Image
 import requests
 
+# TODO: change symbol when de/select all items upon double click on category
 
 class MainApplication:
     def __init__(self, master):
@@ -150,7 +151,7 @@ class MainApplication:
     def create_treeview(self):
         node_names_from_edges = list(set(self.edges_orig['node1'].tolist() + self.edges_orig['node2'].tolist()))
         for cat, subset in self.nodes_orig.groupby('category'):
-            self.tree.insert('', 'end', cat, text=cat)
+            self.tree.insert('', 'end', cat, values=cat, text=cat)
             for ind, node in subset.iterrows():
                 node_name = str(node['name'])
                 my_id = self.tree.insert(cat, 'end', values=node_name, tag=node['enabled'])
@@ -207,17 +208,31 @@ class MainApplication:
 
     def action_double_click(self, event):
         my_id = self.tree.selection()[0]
-        node = self.nodes_orig[self.nodes_orig.ID == my_id]
-        name = node['name'].values[0]
-        if node['enabled'].values[0]:
-            if node['show'].values[0]:
-                self.tree.item(my_id, text=f'_ {name}')
-                self.nodes_orig.loc[self.nodes_orig.name == name, 'show'] = False
+        name = self.tree.item(my_id)['values'][0]
+        if name in self.nodes_orig.name.to_list():
+            node = self.nodes_orig[self.nodes_orig.ID == my_id]
+            if node['enabled'].values[0]:
+                if node['show'].values[0]:
+                    self.tree.item(my_id, text=f'_ {name}')
+                    self.nodes_orig.loc[self.nodes_orig.name == name, 'show'] = False
+                else:
+                    self.tree.item(my_id, text=f'X {name}')
+                    self.nodes_orig.loc[self.nodes_orig.name == name, 'show'] = True
             else:
-                self.tree.item(my_id, text=f'X {name}')
-                self.nodes_orig.loc[self.nodes_orig.name == name, 'show'] = True
-        else:
-            print('no relationship for this item entered.')
+                print('no relationship for this item entered.')
+        elif name in self.nodes_orig.category.to_list():
+            subset = self.nodes_orig[(self.nodes_orig['category'] == name) & (self.nodes_orig['enabled'] == True)]
+            if any([item == False for item in subset.show.to_list()]):
+                for ind, node in subset.iterrows():
+                    name = node['name']
+                    self.tree.item(node['ID'], text=f'X {name}')
+                    self.nodes_orig.loc[self.nodes_orig.name == name, 'show'] = True
+            elif all([item == True for item in subset.show.to_list()]):
+                for ind, node in subset.iterrows():
+                    name = node['name']
+                    self.tree.item(node['ID'], text=f'_ {name}')
+                    self.nodes_orig.loc[self.nodes_orig.name == name, 'show'] = False
+
 
 if __name__ == "__main__":
     root = tk.Tk()
