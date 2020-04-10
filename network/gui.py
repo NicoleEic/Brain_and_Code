@@ -27,7 +27,7 @@ class MainApplication:
 
         self.nodes_orig['enabled'] = [True if name in list(set(self.edges_orig['node1'].tolist() + self.edges_orig['node2'].tolist())) else False for name in self.nodes_orig['name']]
         self.nodes_orig['show'] = self.nodes_orig['enabled']
-
+        self.nodes_orig['ID'] = 'not defined'
         self.edges_orig['weight'] = np.where(self.edges_orig.category == 'partner', 2, 3)
         self.edges_orig['colour'] = np.where(self.edges_orig.category == 'descendant', 'red', 'blue')
 
@@ -49,6 +49,12 @@ class MainApplication:
 
         self.frame_buttons = tk.Frame(self.master)
         self.frame_buttons.grid(row=1, column=0, sticky=tk.W)
+        self.btn_text = tk.StringVar()
+        self.btn_text.set('expand all')
+        tk.Button(self.frame_buttons, text=self.btn_text.get(), command=self.action_click_expand_all).grid()
+
+        tk.Button(self.frame_buttons, text='select all', command=self.action_click_select_all).grid()
+        tk.Button(self.frame_buttons, text='deselect all', command=self.action_click_deselect_all).grid()
         tk.Button(self.frame_buttons, text='refresh', command=self.action_click_refresh).grid()
 
         self.frame_network = tk.Frame(self.master)
@@ -73,6 +79,34 @@ class MainApplication:
         self.update_edges()
         self.generate_network()
         self.draw_network()
+
+    def action_click_expand_all(self):
+        if self.btn_text.get() == 'expand all':
+            self.btn_text.set('close all')
+            for child in self.tree.get_children():
+                self.tree.item(child, open=True)
+
+        else:
+            self.btn_text.set('expand all')
+            for child in self.tree.get_children():
+                self.tree.item(child, open=False)
+
+    def action_click_select_all(self):
+        self.nodes_orig['show'] = self.nodes_orig['enabled']
+        for ind, node in self.nodes_orig[self.nodes_orig['show'] == True].iterrows():
+            my_id = node['ID']
+            name = node['name']
+            if node['show']:
+                self.tree.item(my_id, text=f'X {name}')
+                self.nodes_orig.loc[self.nodes_orig.name == name, 'show'] = True
+
+    def action_click_deselect_all(self):
+        self.nodes_orig['show'] = False
+        for child in self.tree.get_children():
+            for sub_child in self.tree.get_children(child):
+                name = self.tree.item(sub_child)['values'][0]
+                self.tree.item(sub_child, text=f'_ {name}')
+
 
     def reset_info(self):
         self.info_name_v.set("Click on a name for info.")
@@ -120,7 +154,8 @@ class MainApplication:
             for ind, node in subset.iterrows():
                 node_name = str(node['name'])
                 my_id = self.tree.insert(cat, 'end', values=node_name, tag=node['enabled'])
-                if node_name in node_names_from_edges:
+                self.nodes_orig.at[ind, 'ID'] = my_id
+                if node['enabled']:
                     self.tree.item(my_id, text=f'X {node_name}')
                 else:
                     self.tree.item(my_id, text=f'_ {node_name}')
@@ -130,15 +165,19 @@ class MainApplication:
     def update_edges(self):
         ind_include = np.array([])
         for ind, row in self.edges_orig.iterrows():
-            if row['node1'] in self.nodes_orig[self.nodes_orig.show == True].name.tolist() or row['node1'] in self.nodes_orig[self.nodes_orig.show == True].name.tolist():
+            if row['node1'] in self.nodes_orig[self.nodes_orig.show == True].name.tolist() \
+                    or row['node2'] in self.nodes_orig[self.nodes_orig.show == True].name.tolist():
                 ind_include = np.append(ind_include, ind)
         self.edges = self.edges_orig.iloc[ind_include]
         self.reset_info()
 
     def action_click_refresh(self):
         self.update_edges()
-        self.generate_network()
-        self.draw_network()
+        if self.edges.empty:
+            print('no nodes selected')
+        else:
+            self.generate_network()
+            self.draw_network()
 
     def get_tk_img(self, query):
         rootdir = 'https://www.greekmythology.com'
@@ -168,8 +207,8 @@ class MainApplication:
 
     def action_double_click(self, event):
         my_id = self.tree.selection()[0]
-        name = self.tree.item(my_id)['values'][0]
-        node = self.nodes_orig[self.nodes_orig.name == name]
+        node = self.nodes_orig[self.nodes_orig.ID == my_id]
+        name = node['name'].values[0]
         if node['enabled'].values[0]:
             if node['show'].values[0]:
                 self.tree.item(my_id, text=f'_ {name}')
