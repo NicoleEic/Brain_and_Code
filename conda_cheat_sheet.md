@@ -106,6 +106,9 @@
 
 `conda clean -t`
 
+* show size of installed packages
+`du /home/fs0/neichert/.conda/pkgs/ --max-depth=2 | sort -h`
+
 ## Managing multiple versions of Python
 * Install different version of Python in a new environment named py34
 `conda create --name py34 python=3.4`
