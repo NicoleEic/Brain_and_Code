@@ -24,6 +24,10 @@ class MainApplication:
         dd = os.path.join(os.sep, 'Users', 'neichert', 'code', 'projects', 'network')
         self.nodes_orig = pd.read_csv(os.path.join(dd, 'nodes.csv'))
         self.edges_orig = pd.read_csv(os.path.join(dd, 'edges.csv'))
+
+        self.nodes_orig['enabled'] = [True if name in list(set(self.edges_orig['node1'].tolist() + self.edges_orig['node2'].tolist())) else False for name in self.nodes_orig['name']]
+        self.nodes_orig['show'] = self.nodes_orig['enabled']
+
         self.edges_orig['weight'] = np.where(self.edges_orig.category == 'partner', 2, 3)
         self.edges_orig['colour'] = np.where(self.edges_orig.category == 'descendant', 'red', 'blue')
 
@@ -36,18 +40,16 @@ class MainApplication:
         self.frame_treeview = tk.Frame(self.master)
         self.frame_treeview.grid(row=0, column=0, sticky=tk.W)
  
-        self.tree = ttk.Treeview(self.frame_treeview)
+        self.tree = ttk.Treeview(self.frame_treeview, height=20)
         self.tree.grid(row=0, column=0, sticky=tk.E)
 
         vsb = tk.Scrollbar(self.frame_treeview, orient="vertical", command=self.tree.yview)
-        vsb.grid(row=0, column=0, sticky=tk.E)
+        vsb.grid(row=1, column=0, sticky=tk.E)
         self.tree.configure(yscrollcommand=vsb.set)
 
-        # self.frame_buttons = tk.Frame(self.master)
-        # self.frame_buttons.grid(row=0, column=0, sticky=tk.W)
-        # tk.Button(self.frame_buttons, text='select all', command=self.select_all_cbuts).grid()
-        # tk.Button(self.frame_buttons, text='deselect all', command=self.deselect_all_cbuts).grid()
-        # tk.Button(self.frame_buttons, text='refresh', command=self.click_refresh).grid()
+        self.frame_buttons = tk.Frame(self.master)
+        self.frame_buttons.grid(row=1, column=0, sticky=tk.W)
+        tk.Button(self.frame_buttons, text='refresh', command=self.action_click_refresh).grid()
 
         self.frame_network = tk.Frame(self.master)
         self.frame_network.grid(row=0, column=1, rowspan=2, sticky=tk.W)
@@ -83,9 +85,9 @@ class MainApplication:
         #self.network = self.network.to_directed()
         self.pos = nx.layout.spring_layout(self.network)
 
-    def onpick(self, event):
+    def action_click_name(self, event):
         if isinstance(event.artist, PathCollection):
-            ind = event.ind[0]  # event.ind is a single element array.
+            ind = event.ind[0]
             node_name = list(self.pos.keys())[ind]
             self.info_name_v.set(node_name)
             node = self.nodes_orig[self.nodes_orig.name == node_name]
@@ -109,7 +111,7 @@ class MainApplication:
         canvas = FigureCanvasTkAgg(fig, master=self.frame_network)
         canvas.draw()
         canvas.get_tk_widget().grid(sticky=tk.NSEW)
-        fig.canvas.mpl_connect('pick_event', self.onpick)
+        fig.canvas.mpl_connect('pick_event', self.action_click_name)
 
     def create_treeview(self):
         node_names_from_edges = list(set(self.edges_orig['node1'].tolist() + self.edges_orig['node2'].tolist()))
@@ -117,25 +119,23 @@ class MainApplication:
             self.tree.insert('', 'end', cat, text=cat)
             for ind, node in subset.iterrows():
                 node_name = str(node['name'])
-                my_id = self.tree.insert(cat, 'end', values=node_name, text=f'_ {node_name}')
+                my_id = self.tree.insert(cat, 'end', values=node_name, tag=node['enabled'])
                 if node_name in node_names_from_edges:
-                    self.tree.item(my_id, tag='enabled')
+                    self.tree.item(my_id, text=f'X {node_name}')
                 else:
-                    self.tree.item(my_id, tag='disabled')
-
-        self.tree.tag_configure('disabled', background='red')
-        self.tree.bind("<Double-1>", self.OnDoubleClick)
+                    self.tree.item(my_id, text=f'_ {node_name}')
+        self.tree.tag_configure(False, foreground='grey')
+        self.tree.bind("<Double-1>", self.action_double_click)
 
     def update_edges(self):
-        # ind_include = np.array([])
-        # for ind, row in self.edges_orig.iterrows():
-        #     if self.tick_vals[row['node1']].get() or self.tick_vals[row['node2']].get():
-        #         ind_include = np.append(ind_include, ind)
-        # self.edges = self.edges_orig.iloc[ind_include]
-        self.edges = self.edges_orig
+        ind_include = np.array([])
+        for ind, row in self.edges_orig.iterrows():
+            if row['node1'] in self.nodes_orig[self.nodes_orig.show == True].name.tolist() or row['node1'] in self.nodes_orig[self.nodes_orig.show == True].name.tolist():
+                ind_include = np.append(ind_include, ind)
+        self.edges = self.edges_orig.iloc[ind_include]
         self.reset_info()
 
-    def click_refresh(self):
+    def action_click_refresh(self):
         self.update_edges()
         self.generate_network()
         self.draw_network()
@@ -166,12 +166,17 @@ class MainApplication:
         self._image = ImageTk.PhotoImage(self._im)
         self.img_label.configure(image=self._image)
 
-    def OnDoubleClick(self, event):
+    def action_double_click(self, event):
         my_id = self.tree.selection()[0]
-        if 'enabled' in self.tree.item(my_id)['tags']:
-            name = self.tree.item(my_id)['values'][0]
-            node = self.nodes_orig[self.nodes_orig.name == name]
-            self.tree.item(my_id, text=f'X {name}')
+        name = self.tree.item(my_id)['values'][0]
+        node = self.nodes_orig[self.nodes_orig.name == name]
+        if node['enabled'].values[0]:
+            if node['show'].values[0]:
+                self.tree.item(my_id, text=f'_ {name}')
+                self.nodes_orig.loc[self.nodes_orig.name == name, 'show'] = False
+            else:
+                self.tree.item(my_id, text=f'X {name}')
+                self.nodes_orig.loc[self.nodes_orig.name == name, 'show'] = True
         else:
             print('no relationship for this item entered.')
 
