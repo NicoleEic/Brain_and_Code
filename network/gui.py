@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import ttk
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
 import matplotlib.pyplot as plt
@@ -29,25 +30,24 @@ class MainApplication:
         self.edges = []
         self.network = []
         self.pos = []
-        self.cbuts = []
-        self.tick_vals = {}
         self._im = []
         self._image = []
 
-        self.frame_tick = tk.Frame(self.master)
-        self.frame_tick.grid(row=1, column=0, sticky=tk.W)
-        self.text = tk.Text(self.frame_tick)
-        self.text.grid(row=1, column=0, sticky=tk.W)
+        self.frame_treeview = tk.Frame(self.master)
+        self.frame_treeview.grid(row=0, column=0, sticky=tk.W)
+ 
+        self.tree = ttk.Treeview(self.frame_treeview)
+        self.tree.grid(row=0, column=0, sticky=tk.E)
 
-        vsb = tk.Scrollbar(self.frame_tick)
-        self.text.configure(width=30, yscrollcommand=vsb.set)
-        vsb.grid(row=1, column=0, sticky=tk.E)
+        vsb = tk.Scrollbar(self.frame_treeview, orient="vertical", command=self.tree.yview)
+        vsb.grid(row=0, column=0, sticky=tk.E)
+        self.tree.configure(yscrollcommand=vsb.set)
 
-        self.frame_buttons = tk.Frame(self.master)
-        self.frame_buttons.grid(row=0, column=0, sticky=tk.W)
-        tk.Button(self.frame_buttons, text='select all', command=self.select_all_cbuts).grid()
-        tk.Button(self.frame_buttons, text='deselect all', command=self.deselect_all_cbuts).grid()
-        tk.Button(self.frame_buttons, text='refresh', command=self.click_refresh).grid()
+        # self.frame_buttons = tk.Frame(self.master)
+        # self.frame_buttons.grid(row=0, column=0, sticky=tk.W)
+        # tk.Button(self.frame_buttons, text='select all', command=self.select_all_cbuts).grid()
+        # tk.Button(self.frame_buttons, text='deselect all', command=self.deselect_all_cbuts).grid()
+        # tk.Button(self.frame_buttons, text='refresh', command=self.click_refresh).grid()
 
         self.frame_network = tk.Frame(self.master)
         self.frame_network.grid(row=0, column=1, rowspan=2, sticky=tk.W)
@@ -67,7 +67,7 @@ class MainApplication:
         self.img_label = tk.Label(self.frame_info)
         self.img_label.grid(row=3)
 
-        self.create_cbuts()
+        self.create_treeview()
         self.update_edges()
         self.generate_network()
         self.draw_network()
@@ -111,37 +111,29 @@ class MainApplication:
         canvas.get_tk_widget().grid(sticky=tk.NSEW)
         fig.canvas.mpl_connect('pick_event', self.onpick)
 
-    def create_cbuts(self):
-        all_node_names = list(set(self.edges_orig['node1'].tolist() + self.edges_orig['node2'].tolist()))
-        all_node_names.sort()
-        for node_name in all_node_names:
-            var = tk.IntVar()
-            cb = tk.Checkbutton(self.text, text=node_name, variable=var)
-            cb.select()
-            cb.grid()
-            self.cbuts.append(cb)
-            self.tick_vals[node_name] = var
-            self.text.window_create("end", window=cb)
-            self.text.insert("end", "\n")
-        self.text.configure(state="disabled")
+    def create_treeview(self):
+        node_names_from_edges = list(set(self.edges_orig['node1'].tolist() + self.edges_orig['node2'].tolist()))
+        for cat, subset in self.nodes_orig.groupby('category'):
+            self.tree.insert('', 'end', cat, text=cat)
+            for ind, node in subset.iterrows():
+                node_name = str(node['name'])
+                my_id = self.tree.insert(cat, 'end', values=node_name, text=f'_ {node_name}')
+                if node_name in node_names_from_edges:
+                    self.tree.item(my_id, tag='enabled')
+                else:
+                    self.tree.item(my_id, tag='disabled')
+
+        self.tree.tag_configure('disabled', background='red')
+        self.tree.bind("<Double-1>", self.OnDoubleClick)
 
     def update_edges(self):
-        ind_include = np.array([])
-        for ind, row in self.edges_orig.iterrows():
-            if self.tick_vals[row['node1']].get() or self.tick_vals[row['node2']].get():
-                ind_include = np.append(ind_include, ind)
-        self.edges = self.edges_orig.iloc[ind_include]
+        # ind_include = np.array([])
+        # for ind, row in self.edges_orig.iterrows():
+        #     if self.tick_vals[row['node1']].get() or self.tick_vals[row['node2']].get():
+        #         ind_include = np.append(ind_include, ind)
+        # self.edges = self.edges_orig.iloc[ind_include]
+        self.edges = self.edges_orig
         self.reset_info()
-
-    def select_all_cbuts(self):
-        for i in self.cbuts:
-            i.var = 1
-            i.select()
-
-    def deselect_all_cbuts(self):
-        for i in self.cbuts:
-            i.var = 0
-            i.deselect()
 
     def click_refresh(self):
         self.update_edges()
@@ -173,6 +165,15 @@ class MainApplication:
         self._im = img.resize((basewidth, hsize), Image.ANTIALIAS)
         self._image = ImageTk.PhotoImage(self._im)
         self.img_label.configure(image=self._image)
+
+    def OnDoubleClick(self, event):
+        my_id = self.tree.selection()[0]
+        if 'enabled' in self.tree.item(my_id)['tags']:
+            name = self.tree.item(my_id)['values'][0]
+            node = self.nodes_orig[self.nodes_orig.name == name]
+            self.tree.item(my_id, text=f'X {name}')
+        else:
+            print('no relationship for this item entered.')
 
 if __name__ == "__main__":
     root = tk.Tk()
