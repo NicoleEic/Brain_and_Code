@@ -19,7 +19,8 @@ import webbrowser
 
 # TODO: change symbol when de/select all items upon double click on category
 
-class MainApplication:
+
+class GreekMythology:
     def __init__(self, master):
         self.master = master
         master.title("My network")
@@ -40,7 +41,7 @@ class MainApplication:
         self.pos = []
         self._im = []
         self._image = []
-        self.url = []
+        self.name = []
 
         self.frame_treeview = tk.Frame(self.master)
         self.frame_treeview.grid(row=0, column=0, sticky=tk.W)
@@ -68,11 +69,11 @@ class MainApplication:
         self.frame_info = tk.Frame(self.master)
         self.frame_info.grid(row=0, column=2, rowspan=2, sticky=tk.W)
 
-        self.info_name_v = tk.StringVar()
-        tk.Label(self.frame_info, textvariable=self.info_name_v, width=30).grid(row=0, sticky=tk.N)
+        self.info_info_v = tk.StringVar()
+        tk.Label(self.frame_info, textvariable=self.info_info_v, width=30).grid(row=0, sticky=tk.N)
 
-        self.info_roman_v = tk.StringVar()
-        tk.Label(self.frame_info, textvariable=self.info_roman_v, width=30).grid(row=1, sticky=tk.N)
+        self.info_name_v = tk.StringVar()
+        tk.Label(self.frame_info, textvariable=self.info_name_v, width=30).grid(row=1, sticky=tk.N)
 
         self.img_label = tk.Label(self.frame_info)
         self.img_label.grid(row=2)
@@ -84,6 +85,7 @@ class MainApplication:
         tk.Button(self.frame_info, textvariable=self.info_btn_v, command=self.open_website).grid(row=4, sticky=tk.N)
 
         self.reset_info()
+        self.info_info_v.set("Click on a name for info.")
         self.create_treeview()
         self.update_edges()
         self.generate_network()
@@ -117,36 +119,37 @@ class MainApplication:
                 self.tree.item(sub_child, text=f'_ {name}')
 
     def reset_info(self):
-        self.info_name_v.set("Click on a name for info.")
-        self.info_roman_v.set("")
+        self.name = []
+        self.info_name_v.set("")
         self.img_label.configure(image=[])
         self.info_credit_v.set("")
-        self.url = []
         self.info_btn_v.set('...')
 
     def generate_network(self):
         self.network = nx.from_pandas_edgelist(self.edges, 'node1', 'node2', edge_attr=True)
-        #self.network = self.network.to_directed()
         self.pos = nx.layout.spring_layout(self.network)
 
-    def update_info(self, name):
-        self.info_name_v.set(name)
-        node = self.nodes_orig[self.nodes_orig.name == name]
-        if node.empty:
-            self.info_roman_v.set("no info entered")
+    def update_info(self):
+        if self.name in self.nodes_orig.name.to_list():
+            self.info_info_v.set("")
+            self.info_name_v.set(self.name)
+            self.show_img()
+            self.info_btn_v.set('Open website')
         else:
-            self.info_roman_v.set(f'roman name: {node.roman.values[0]}')
-        category = self.nodes_orig[self.nodes_orig.name == name].category.values[0]
-        self.url = f'{self.rootdir}/{category}s/{name}/{name}.html'
-        self.show_img(name)
-        self.info_btn_v.set('Open website')
+            self.info_info_v.set('name not in nodes list')
+            self.reset_info()
+
+    def get_url(self):
+        category = self.nodes_orig[self.nodes_orig.name == self.name].category.values[0]
+        url = f'{self.rootdir}/{category}s/{self.name}/{self.name}.html'
+        return url
 
     def action_click_name(self, event):
         if isinstance(event.artist, PathCollection):
             ind = event.ind[0]
             name = list(self.pos.keys())[ind]
-            self.update_info(name)
-            self.show_img(name)
+            self.name = name
+            self.update_info()
 
     def draw_network(self):
         plt.close("all")
@@ -164,7 +167,6 @@ class MainApplication:
         fig.canvas.mpl_connect('pick_event', self.action_click_name)
 
     def create_treeview(self):
-        node_names_from_edges = list(set(self.edges_orig['node1'].tolist() + self.edges_orig['node2'].tolist()))
         for cat, subset in self.nodes_orig.groupby('category'):
             self.tree.insert('', 'end', cat, values=cat, text=cat)
             for ind, node in subset.iterrows():
@@ -190,31 +192,39 @@ class MainApplication:
     def action_click_refresh(self):
         self.update_edges()
         if self.edges.empty:
-            self.info_name_v.set('no nodes selected')
+            self.info_info_v.set('no nodes selected')
+            self.reset_info()
         else:
             self.generate_network()
             self.draw_network()
+            self.info_info_v.set("Click on a name for info.")
 
     def open_website(self):
-        webbrowser.open(self.url, new=2)
+        try:
+            url = self.get_url()
+            webbrowser.open(url, new=2)
+        except:
+            print(url)
+            self.info_info_v.set('could not open url')
 
     def get_tk_img(self):
-        page = requests.get(self.url).text
+        url = self.get_url()
+        page = requests.get(url).text
         soup = BeautifulSoup(page, 'html.parser')
         for element in soup.find_all("img"):
-            my_url = element.get('data-src')
-            if my_url:
-                if '/images/mythology' in my_url:
-                    req = Request(url=f'{self.rootdir}{my_url}', headers={'User-Agent': 'Mozilla/5.0'})
+            sub_url = element.get('data-src')
+            if sub_url:
+                if '/images/mythology' in sub_url:
+                    req = Request(url=f'{self.rootdir}{sub_url}', headers={'User-Agent': 'Mozilla/5.0'})
                     u = urlopen(req)
                     a = u.read()
                     u.close()
                     im = Image.open(BytesIO(a))
                     return im
 
-    def show_img(self, node_name):
-        basewidth = 300
+    def show_img(self):
         img = self.get_tk_img()
+        basewidth = 300
         wpercent = (basewidth / float(img.size[0]))
         hsize = int((float(img.size[1]) * float(wpercent)))
         self._im = img.resize((basewidth, hsize), Image.ANTIALIAS)
@@ -222,26 +232,26 @@ class MainApplication:
         self.img_label.configure(image=self._image)
         self.info_credit_v.set(f'Source: {self.rootdir}')
         # self._image = []
-        # self.info_credit_v.set("")
+        # self.info_credit_v.set("no image found")
 
     def action_double_click(self, event):
         my_id = self.tree.selection()[0]
-        name = self.tree.item(my_id)['values'][0]
-        if name in self.nodes_orig.name.to_list():
+        self.name = self.tree.item(my_id)['values'][0]
+        if self.name in self.nodes_orig.name.to_list():
             node = self.nodes_orig[self.nodes_orig.ID == my_id]
             if node['enabled'].values[0]:
                 if node['show'].values[0]:
-                    self.tree.item(my_id, text=f'_ {name}')
-                    self.nodes_orig.loc[self.nodes_orig.name == name, 'show'] = False
+                    self.tree.item(my_id, text=f'_ {self.name}')
+                    self.nodes_orig.loc[self.nodes_orig.name == self.name, 'show'] = False
                 else:
-                    self.tree.item(my_id, text=f'X {name}')
-                    self.nodes_orig.loc[self.nodes_orig.name == name, 'show'] = True
+                    self.tree.item(my_id, text=f'X {self.name}')
+                    self.nodes_orig.loc[self.nodes_orig.name == self.name, 'show'] = True
             else:
-                print('no relationship for this item entered.')
-                self.update_info(name)
+                self.info_info_v.set('no links entered')
+                self.update_info()
 
-        elif name in self.nodes_orig.category.to_list():
-            subset = self.nodes_orig[(self.nodes_orig['category'] == name) & (self.nodes_orig['enabled'] == True)]
+        elif self.name in self.nodes_orig.category.to_list():
+            subset = self.nodes_orig[(self.nodes_orig['category'] == self.name) & (self.nodes_orig['enabled'] == True)]
             if any([item == False for item in subset.show.to_list()]):
                 for ind, node in subset.iterrows():
                     name = node['name']
@@ -256,5 +266,5 @@ class MainApplication:
 
 if __name__ == "__main__":
     root = tk.Tk()
-    MainApplication(root)
+    GreekMythology(root)
     root.mainloop()
