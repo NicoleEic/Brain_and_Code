@@ -24,13 +24,13 @@ import webbrowser
 class GreekMythology:
     def __init__(self, master):
         self.master = master
-        master.title("My network")
+        master.title("Greek Mythology")
 
         # data paths
-        dd = os.path.join(os.sep, 'Users', 'neichert', 'code', 'projects', 'network')
+        dd = os.path.dirname(sys.argv[0])
         self.nodes_orig = pd.read_csv(os.path.join(dd, 'nodes.csv'))
         self.edges_orig = pd.read_csv(os.path.join(dd, 'edges.csv'))
-        self.rootdir = 'https://www.greekmythology.com'
+        self.website = 'https://www.greekmythology.com'
 
         # add new columns to dataframes
         self.nodes_orig['enabled'] = [True if name in list(set(self.edges_orig['node1'].tolist() + self.edges_orig['node2'].tolist())) else False for name in self.nodes_orig['name']]
@@ -200,7 +200,7 @@ class GreekMythology:
     # compose url from node name and category
     def get_url(self):
         category = self.nodes_orig[self.nodes_orig.name == self.name].category.values[0]
-        url = f'{self.rootdir}/{category}s/{self.name}/{self.name}.html'
+        url = f'{self.website}/{category}s/{self.name}/{self.name}.html'
         return url
 
     # callback to click on node in network
@@ -276,7 +276,7 @@ class GreekMythology:
             sub_url = element.get('data-src')
             if sub_url:
                 if '/images/mythology' in sub_url:
-                    req = Request(url=f'{self.rootdir}{sub_url}', headers={'User-Agent': 'Mozilla/5.0'})
+                    req = Request(url=f'{self.website}{sub_url}', headers={'User-Agent': 'Mozilla/5.0'})
                     u = urlopen(req)
                     a = u.read()
                     u.close()
@@ -292,7 +292,7 @@ class GreekMythology:
         self._im = img.resize((basewidth, hsize), Image.ANTIALIAS)
         self._image = ImageTk.PhotoImage(self._im)
         self.img_label.configure(image=self._image)
-        self.info_credit_v.set(f'Source: {self.rootdir}')
+        self.info_credit_v.set(f'Source: {self.website}')
         # self._image = []
         # self.info_credit_v.set("no image found")
 
