@@ -27,9 +27,9 @@ class GreekMythology:
         master.title("Greek Mythology")
 
         # data paths
-        dd = os.path.dirname(sys.argv[0])
-        self.nodes_orig = pd.read_csv(os.path.join(dd, 'nodes.csv'))
-        self.edges_orig = pd.read_csv(os.path.join(dd, 'edges.csv'))
+        self.dd = os.path.dirname(sys.argv[0])
+        self.nodes_orig = pd.read_csv(os.path.join(self.dd, 'nodes.csv'))
+        self.edges_orig = pd.read_csv(os.path.join(self.dd, 'edges.csv'))
         self.website = 'https://www.greekmythology.com'
 
         # add new columns to dataframes
@@ -95,6 +95,8 @@ class GreekMythology:
         self.info_btn_v = tk.StringVar()
         tk.Button(self.frame_info, textvariable=self.info_btn_v, command=self.open_website).grid(row=4, sticky=tk.N)
 
+        tk.Button(self.frame_info, text='Enter new edges', command=self.add_edges).grid(row=5, sticky=tk.N)
+
         # start up app
         self.default_selection_nodes()
         self.update_edges()
@@ -144,6 +146,7 @@ class GreekMythology:
             self.generate_network()
             self.draw_network()
             self.info_info_v.set("Click on a name for info.")
+            self.reset_info()
 
     # callback for double click on label
     def action_double_click(self, event):
@@ -256,7 +259,6 @@ class GreekMythology:
                     or row['node2'] in self.nodes_orig[self.nodes_orig.show == True].name.tolist():
                 ind_include = np.append(ind_include, ind)
         self.edges = self.edges_orig.iloc[ind_include]
-        self.reset_info()
 
     # open mythology website
     def open_website(self):
@@ -295,6 +297,50 @@ class GreekMythology:
         self.info_credit_v.set(f'Source: {self.website}')
         # self._image = []
         # self.info_credit_v.set("no image found")
+
+    def add_edges(self):
+        self.edges_orig = EdgeEntry(self).return_df()
+        self.update_edges()
+        self.reset_info()
+        self.generate_network()
+        self.draw_network()
+
+
+class EdgeEntry:
+    def __init__(self, parent):
+        self.master = tk.Toplevel()
+        self.master.title("Enter a new edge")
+        self.dd = parent.dd
+        self.df = pd.read_csv(os.path.join(self.dd, 'edges.csv'))
+        self.list_fields = ['node1', 'node2', 'category', 'comment']
+        # set up fields
+        self.dict_fields = {}
+        for ind, field in enumerate(self.list_fields):
+            tk.Label(self.master, text=field, width=20).grid(row=0, column=ind)
+            var = tk.StringVar()
+            var.set("")
+            self.dict_fields[field] = var
+            tk.Entry(self.master, textvariable=var).grid(row=1, column=ind)
+        tk.Button(self.master, text='Add entry', command=self.add_entry).grid(row=2, column=0)
+        tk.Button(self.master, text='Safe to file', command=self.save).grid(row=2, column=1)
+        tk.Button(self.master, text='Done', command=self.close).grid(row=2, column=2)
+
+    def add_entry(self):
+        self.df.loc[len(self.df)] = [field.get() for field in self.dict_fields.values()]
+        for field in self.dict_fields.values():
+            field.set([])
+
+    def save(self):
+        self.df.to_csv(os.path.join(self.dd, 'edges2.csv'))
+
+    def close(self):
+        self.master.destroy()
+
+    def return_df(self):
+        self.master.wait_window()
+        self.df['weight'] = np.where(self.df.category == 'partner', 2, 3)
+        self.df['colour'] = np.where(self.df.category == 'descendant', 'red', 'blue')
+        return self.df
 
 
 if __name__ == "__main__":
