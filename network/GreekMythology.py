@@ -28,19 +28,13 @@ class GreekMythology:
 
         # data paths
         self.dd = os.path.dirname(sys.argv[0])
-        self.nodes_orig = pd.read_csv(os.path.join(self.dd, 'nodes.csv'))
-        self.edges_orig = pd.read_csv(os.path.join(self.dd, 'edges.csv'))
+        self.nodes = pd.read_csv(os.path.join(self.dd, 'nodes.csv'))
+        self.edges_full = pd.read_csv(os.path.join(self.dd, 'edges.csv'))
+        self.add_columns()
         self.website = 'https://www.greekmythology.com'
 
-        # add new columns to dataframes
-        self.nodes_orig['enabled'] = [True if name in list(set(self.edges_orig['node1'].tolist() + self.edges_orig['node2'].tolist())) else False for name in self.nodes_orig['name']]
-        self.nodes_orig['show'] = self.nodes_orig['enabled']
-        self.nodes_orig['ID'] = 'not defined'
-        self.edges_orig['weight'] = np.where(self.edges_orig.category == 'partner', 2, 3)
-        self.edges_orig['colour'] = np.where(self.edges_orig.category == 'descendant', 'red', 'blue')
-
         # initialize attributes
-        self.edges = []
+        self.edges_selected = []
         self.network = []
         self.pos = []
         self._im = []
@@ -105,10 +99,18 @@ class GreekMythology:
         self.generate_network()
         self.draw_network()
 
+    # add new columns to dataframes
+    def add_columns(self):
+        self.nodes['enabled'] = [True if name in list(set(self.edges_full['node1'].tolist() + self.edges_full['node2'].tolist())) else False for name in self.nodes['name']]
+        self.nodes['show'] = self.nodes['enabled']
+        #self.nodes['ID'] = 'not defined'
+        self.edges_full['weight'] = np.where(self.edges_full.category == 'partner', 2, 3)
+        self.edges_full['colour'] = np.where(self.edges_full.category == 'descendant', 'red', 'blue')
+
     # default settings for which nodes will be displayed
     def default_selection_nodes(self):
-        self.nodes_orig['show'] = False
-        self.nodes_orig.loc[self.nodes_orig.name == 'Zeus', 'show'] = True
+        self.nodes['show'] = False
+        self.nodes.loc[self.nodes.name == 'Zeus', 'show'] = True
 
     # callback buttons
     def action_click_expand_all(self):
@@ -122,16 +124,16 @@ class GreekMythology:
                 self.tree.item(child, open=False)
 
     def action_click_select_all(self):
-        self.nodes_orig['show'] = self.nodes_orig['enabled']
-        for ind, node in self.nodes_orig[self.nodes_orig['show'] == True].iterrows():
+        self.nodes['show'] = self.nodes['enabled']
+        for ind, node in self.nodes[self.nodes['show'] == True].iterrows():
             my_id = node['ID']
             name = node['name']
             if node['show']:
                 self.tree.item(my_id, text=f'X {name}')
-                self.nodes_orig.loc[self.nodes_orig.name == name, 'show'] = True
+                self.nodes.loc[self.nodes.name == name, 'show'] = True
 
     def action_click_deselect_all(self):
-        self.nodes_orig['show'] = False
+        self.nodes['show'] = False
         for child in self.tree.get_children():
             for sub_child in self.tree.get_children(child):
                 name = self.tree.item(sub_child)['values'][0]
@@ -139,7 +141,7 @@ class GreekMythology:
 
     def action_click_refresh(self):
         self.update_edges()
-        if self.edges.empty:
+        if self.edges_selected.empty:
             self.info_info_v.set('no nodes selected')
             self.reset_info()
         else:
@@ -152,30 +154,30 @@ class GreekMythology:
     def action_double_click(self, event):
         my_id = self.tree.selection()[0]
         self.name = self.tree.item(my_id)['values'][0]
-        if self.name in self.nodes_orig.name.to_list():
-            node = self.nodes_orig[self.nodes_orig.ID == my_id]
+        if self.name in self.nodes.name.to_list():
+            node = self.nodes[self.nodes.ID == my_id]
             if node['enabled'].values[0]:
                 if node['show'].values[0]:
                     self.tree.item(my_id, text=f'_ {self.name}')
-                    self.nodes_orig.loc[self.nodes_orig.name == self.name, 'show'] = False
+                    self.nodes.loc[self.nodes.name == self.name, 'show'] = False
                 else:
                     self.tree.item(my_id, text=f'X {self.name}')
-                    self.nodes_orig.loc[self.nodes_orig.name == self.name, 'show'] = True
+                    self.nodes.loc[self.nodes.name == self.name, 'show'] = True
             else:
                 self.info_info_v.set('no links entered')
                 self.update_info()
-        elif self.name in self.nodes_orig.category.to_list():
-            subset = self.nodes_orig[(self.nodes_orig['category'] == self.name) & (self.nodes_orig['enabled'] == True)]
+        elif self.name in self.nodes.category.to_list():
+            subset = self.nodes[(self.nodes['category'] == self.name) & (self.nodes['enabled'] == True)]
             if any([item == False for item in subset.show.to_list()]):
                 for ind, node in subset.iterrows():
                     name = node['name']
                     self.tree.item(node['ID'], text=f'X {name}')
-                    self.nodes_orig.loc[self.nodes_orig.name == name, 'show'] = True
+                    self.nodes.loc[self.nodes.name == name, 'show'] = True
             elif all([item == True for item in subset.show.to_list()]):
                 for ind, node in subset.iterrows():
                     name = node['name']
                     self.tree.item(node['ID'], text=f'_ {name}')
-                    self.nodes_orig.loc[self.nodes_orig.name == name, 'show'] = False
+                    self.nodes.loc[self.nodes.name == name, 'show'] = False
 
     # clear info frame
     def reset_info(self):
@@ -187,7 +189,7 @@ class GreekMythology:
 
     # populate info frame
     def update_info(self):
-        if self.name in self.nodes_orig.name.to_list():
+        if self.name in self.nodes.name.to_list():
             self.info_info_v.set("")
             self.info_name_v.set(self.name)
             try:
@@ -202,7 +204,7 @@ class GreekMythology:
 
     # compose url from node name and category
     def get_url(self):
-        category = self.nodes_orig[self.nodes_orig.name == self.name].category.values[0]
+        category = self.nodes[self.nodes.name == self.name].category.values[0]
         url = f'{self.website}/{category}s/{self.name}/{self.name}.html'
         return url
 
@@ -216,7 +218,7 @@ class GreekMythology:
 
     # generate network from selection of edges
     def generate_network(self):
-        self.network = nx.from_pandas_edgelist(self.edges, 'node1', 'node2', edge_attr=True)
+        self.network = nx.from_pandas_edgelist(self.edges_selected, 'node1', 'node2', edge_attr=True)
         self.pos = nx.layout.spring_layout(self.network)
 
     # draw network
@@ -228,7 +230,7 @@ class GreekMythology:
         ax = fig.add_subplot(111)
         nodes = nx.draw_networkx_nodes(self.network, self.pos, ax=ax, node_size=10)
         nodes.set_picker(5)
-        nx.draw_networkx_edges(self.network, self.pos, arrowstyle='->', arrowsize=15, width=1, edge_color=self.edges['colour'], ax=ax)
+        nx.draw_networkx_edges(self.network, self.pos, arrowstyle='->', arrowsize=15, width=1, edge_color=self.edges_selected['colour'], ax=ax)
         nx.draw_networkx_labels(self.network, self.pos, ax=ax)
         canvas = FigureCanvasTkAgg(fig, master=self.frame_network)
         canvas.draw()
@@ -237,12 +239,12 @@ class GreekMythology:
 
     # generate treeview based on info in nodes and edges
     def create_treeview(self):
-        for cat, subset in self.nodes_orig.groupby('category'):
+        for cat, subset in self.nodes.groupby('category'):
             self.tree.insert('', 'end', cat, values=cat, text=cat)
             for ind, node in subset.iterrows():
                 node_name = str(node['name'])
                 my_id = self.tree.insert(cat, 'end', values=node_name, tag=node['enabled'])
-                self.nodes_orig.at[ind, 'ID'] = my_id
+                self.nodes.at[ind, 'ID'] = my_id
                 if node['show']:
                     self.tree.item(my_id, text=f'X {node_name}')
                 else:
@@ -254,11 +256,11 @@ class GreekMythology:
     # update edges based on selection in treeview
     def update_edges(self):
         ind_include = np.array([])
-        for ind, row in self.edges_orig.iterrows():
-            if row['node1'] in self.nodes_orig[self.nodes_orig.show == True].name.tolist() \
-                    or row['node2'] in self.nodes_orig[self.nodes_orig.show == True].name.tolist():
+        for ind, row in self.edges_full.iterrows():
+            if row['node1'] in self.nodes[self.nodes.show == True].name.tolist() \
+                    or row['node2'] in self.nodes[self.nodes.show == True].name.tolist():
                 ind_include = np.append(ind_include, ind)
-        self.edges = self.edges_orig.iloc[ind_include]
+        self.edges_selected = self.edges_full.iloc[ind_include]
 
     # open mythology website
     def open_website(self):
@@ -299,9 +301,13 @@ class GreekMythology:
         # self.info_credit_v.set("no image found")
 
     def add_edges(self):
-        self.edges_orig = EdgeEntry(self).return_df()
+        self.edges_full = EdgeEntry(self).return_df()
+        self.add_columns()
+        self.default_selection_nodes()
         self.update_edges()
         self.reset_info()
+        self.tree.delete(*self.tree.get_children())
+        self.create_treeview()
         self.generate_network()
         self.draw_network()
 
@@ -311,14 +317,14 @@ class EdgeEntry:
         self.master = tk.Toplevel()
         self.master.title("Enter a new edge")
         self.dd = parent.dd
-        self.df = pd.read_csv(os.path.join(self.dd, 'edges.csv'))
-        self.list_fields = ['node1', 'node2', 'category', 'comment']
+        self.column_headers = ['node1', 'node2', 'category', 'comment']
+        self.nodes = parent.nodes
+        self.edges_full = parent.edges_full[self.column_headers]
         # set up fields
         self.dict_fields = {}
-        for ind, field in enumerate(self.list_fields):
+        for ind, field in enumerate(self.column_headers):
             tk.Label(self.master, text=field, width=20).grid(row=0, column=ind)
             var = tk.StringVar()
-            var.set("")
             self.dict_fields[field] = var
             tk.Entry(self.master, textvariable=var).grid(row=1, column=ind)
         tk.Button(self.master, text='Add entry', command=self.add_entry).grid(row=2, column=0)
@@ -326,21 +332,19 @@ class EdgeEntry:
         tk.Button(self.master, text='Done', command=self.close).grid(row=2, column=2)
 
     def add_entry(self):
-        self.df.loc[len(self.df)] = [field.get() for field in self.dict_fields.values()]
+        self.edges_full.loc[len(self.edges_full)] = [field.get() for field in self.dict_fields.values()]
         for field in self.dict_fields.values():
-            field.set([])
+            field.set("")
 
     def save(self):
-        self.df.to_csv(os.path.join(self.dd, 'edges2.csv'))
+        self.edges_full[self.column_headers].to_csv(os.path.join(self.dd, 'edges.csv'), index=False)
 
     def close(self):
         self.master.destroy()
 
     def return_df(self):
         self.master.wait_window()
-        self.df['weight'] = np.where(self.df.category == 'partner', 2, 3)
-        self.df['colour'] = np.where(self.df.category == 'descendant', 'red', 'blue')
-        return self.df
+        return self.edges_full
 
 
 if __name__ == "__main__":
