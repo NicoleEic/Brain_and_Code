@@ -16,6 +16,7 @@ from urllib.request import urlopen, Request
 from PIL import Image
 import requests
 import webbrowser
+from pygraphviz import *
 
 # TODO: change symbol when de/select all items upon double click on category
 # TODO: fix colours edges
@@ -29,6 +30,7 @@ class GreekMythology:
         # data paths
         self.dd = os.path.dirname(sys.argv[0])
         self.nodes = pd.read_csv(os.path.join(self.dd, 'nodes.csv'))
+
         self.edges_full = pd.read_csv(os.path.join(self.dd, 'edges.csv'))
         self.add_columns()
         self.website = 'https://www.greekmythology.com'
@@ -67,29 +69,33 @@ class GreekMythology:
 
         # build frame_network
         self.frame_network = tk.Frame(self.master)
-        self.frame_network.grid(row=0, column=1, rowspan=2, sticky=tk.W)
+        self.frame_network.grid(row=0, column=1, rowspan=2)
 
         # build frame_info
         self.frame_info = tk.Frame(self.master)
-        self.frame_info.grid(row=0, column=2, rowspan=2, sticky=tk.W)
+        self.frame_info.grid(row=0, column=2)
+
+        labelfont = ('Courir', 20, 'bold')
+        tk.Label(self.frame_info, text='-> partner', font=labelfont, fg="plum").grid(row=0)
+        tk.Label(self.frame_info, text='-> descendant', font=labelfont, fg="lightgreen").grid(row=1)
 
         self.info_info_v = tk.StringVar()
         self.info_info_v.set("Click on a name for info.")
-        tk.Label(self.frame_info, textvariable=self.info_info_v, width=30).grid(row=0, sticky=tk.N)
+        tk.Label(self.frame_info, textvariable=self.info_info_v).grid(row=2)
 
         self.info_name_v = tk.StringVar()
-        tk.Label(self.frame_info, textvariable=self.info_name_v, width=30).grid(row=1, sticky=tk.N)
+        tk.Label(self.frame_info, textvariable=self.info_name_v).grid(row=3)
 
         self.img_label = tk.Label(self.frame_info)
-        self.img_label.grid(row=2)
+        self.img_label.grid(row=4)
 
         self.info_credit_v = tk.StringVar()
-        tk.Label(self.frame_info, textvariable=self.info_credit_v, width=30).grid(row=3, sticky=tk.N)
+        tk.Label(self.frame_info, textvariable=self.info_credit_v).grid(row=5)
 
         self.info_btn_v = tk.StringVar()
-        tk.Button(self.frame_info, textvariable=self.info_btn_v, command=self.open_website).grid(row=4, sticky=tk.N)
+        tk.Button(self.frame_info, textvariable=self.info_btn_v, command=self.open_website).grid(row=6)
 
-        tk.Button(self.frame_info, text='Enter new edges', command=self.add_edges).grid(row=5, sticky=tk.N)
+        tk.Button(self.frame_info, text='Enter new edges', command=self.add_edges).grid(row=7)
 
         # start up app
         self.default_selection_nodes()
@@ -102,15 +108,16 @@ class GreekMythology:
     # add new columns to dataframes
     def add_columns(self):
         self.nodes['enabled'] = [True if name in list(set(self.edges_full['node1'].tolist() + self.edges_full['node2'].tolist())) else False for name in self.nodes['name']]
+        self.nodes = self.nodes.sort_values(by=['enabled', 'name'], ascending=(False, True))
         self.nodes['show'] = self.nodes['enabled']
         #self.nodes['ID'] = 'not defined'
-        self.edges_full['weight'] = np.where(self.edges_full.category == 'partner', 2, 3)
-        self.edges_full['colour'] = np.where(self.edges_full.category == 'descendant', 'red', 'blue')
+        self.edges_full['width'] = np.where(self.edges_full.category == 'partner', 3, 3)
+        self.edges_full['colour'] = np.where(self.edges_full.category == 'partner', 'plum', 'lightgreen')
 
     # default settings for which nodes will be displayed
     def default_selection_nodes(self):
         self.nodes['show'] = False
-        self.nodes.loc[self.nodes.name == 'Zeus', 'show'] = True
+        self.nodes.loc[self.nodes['name'].isin(['Chaos', 'Rhea']), 'show'] = True
 
     # callback buttons
     def action_click_expand_all(self):
@@ -218,8 +225,11 @@ class GreekMythology:
 
     # generate network from selection of edges
     def generate_network(self):
-        self.network = nx.from_pandas_edgelist(self.edges_selected, 'node1', 'node2', edge_attr=True)
-        self.pos = nx.layout.spring_layout(self.network)
+        #self.network = nx.from_pandas_edgelist(self.edges_selected, 'node1', 'node2', edge_attr=True)
+        self.network = nx.from_pandas_edgelist(self.edges_selected, source='node1', target='node2', create_using = nx.DiGraph(), edge_attr=True)
+        #self.network = self.network.to_directed()
+        #self.pos = nx.layout.spring_layout(self.network)
+        self.pos = nx.nx_agraph.graphviz_layout(self.network)
 
     # draw network
     def draw_network(self):
@@ -228,13 +238,19 @@ class GreekMythology:
             widget.destroy()
         fig = Figure(figsize=(8, 8))
         ax = fig.add_subplot(111)
-        nodes = nx.draw_networkx_nodes(self.network, self.pos, ax=ax, node_size=10)
+        nodes = nx.draw_networkx_nodes(self.network, self.pos, ax=ax, node_size=10, node_color='w')
         nodes.set_picker(5)
-        nx.draw_networkx_edges(self.network, self.pos, arrowstyle='->', arrowsize=15, width=1, edge_color=self.edges_selected['colour'], ax=ax)
-        nx.draw_networkx_labels(self.network, self.pos, ax=ax)
+        nx.draw_networkx_edges(self.network, self.pos, \
+                               arrowstyle='->', arrowsize=15, \
+                               min_source_margin=10, min_target_margin=10, \
+                               width=list(nx.get_edge_attributes(self.network, 'width').values()), \
+                               edge_color=nx.get_edge_attributes(self.network, 'colour').values(), \
+                               connectionstyle='arc3,rad=0.2', ax=ax)
+        nx.draw_networkx_labels(self.network, self.pos, font_weight='bold', ax=ax)
         canvas = FigureCanvasTkAgg(fig, master=self.frame_network)
         canvas.draw()
-        canvas.get_tk_widget().grid(sticky=tk.NSEW)
+
+        canvas.get_tk_widget().grid()
         fig.canvas.mpl_connect('pick_event', self.action_click_name)
 
     # generate treeview based on info in nodes and edges
