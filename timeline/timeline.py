@@ -1,3 +1,4 @@
+import tkinter as tk
 import os
 import sys
 import pandas as pd
@@ -7,8 +8,6 @@ matplotlib.use("TkAgg")
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-import tkinter as tk
-import pdb
 import requests
 from bs4 import BeautifulSoup
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/../')
@@ -105,7 +104,7 @@ class timeline(tk.Tk):
         # ignore empty column
         self.df.loc[:, ~self.df.columns.str.contains('^Unnamed')]
         # add column for length of event
-        self.df['length'] = self.df['yearOff'].get_values() - self.df['yearOn'].get_values()
+        self.df['length'] = self.df['yearOff'] - self.df['yearOn']
 
         # show category depending on toggle setting
         for name, row in self.c_df.iterrows():
