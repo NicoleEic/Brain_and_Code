@@ -16,6 +16,6 @@ Images that are presented in the GUI are loaded from https://www.greekmythology.
 * Open the GUI by running the script:
     - `python GreekMythology.py`
 
-* Example visualiz scation with default selection of nodes:
+* Example visualization with default selection of nodes:
 ![Example Image](screenshot.png)
 
