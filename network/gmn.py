@@ -1,31 +1,26 @@
-import tkinter as tk
-from tkinter import ttk
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-from matplotlib.figure import Figure
-import matplotlib.pyplot as plt
 import networkx as nx
-import sys
-import os
 import numpy as np
+import os
 import pandas as pd
-from matplotlib.collections import PathCollection
-from PIL import Image, ImageTk
+import requests
+import sys
+import tkinter as tk
+import webbrowser
+import matplotlib.pyplot as plt
 from bs4 import BeautifulSoup
 from io import BytesIO
+from PIL import Image, ImageTk
+from tkinter import ttk
+from matplotlib.collections import PathCollection
+from matplotlib.figure import Figure
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from urllib.request import urlopen, Request
-from PIL import Image
-import requests
-import webbrowser
-from pygraphviz import *
-
-# TODO: change symbol when de/select all items upon double click on category
-# TODO: fix colours edges
 
 
-class GreekMythology:
+class Gmn:
     def __init__(self, master):
         self.master = master
-        master.title("Greek Mythology")
+        master.title("GMN - Greek Mythology Network")
 
         # data paths
         self.dd = os.path.dirname(sys.argv[0])
@@ -240,11 +235,11 @@ class GreekMythology:
         ax = fig.add_subplot(111)
         nodes = nx.draw_networkx_nodes(self.network, self.pos, ax=ax, node_size=10, node_color='w')
         nodes.set_picker(5)
-        nx.draw_networkx_edges(self.network, self.pos, \
-                               arrowstyle='->', arrowsize=15, \
-                               min_source_margin=10, min_target_margin=10, \
-                               width=list(nx.get_edge_attributes(self.network, 'width').values()), \
-                               edge_color=nx.get_edge_attributes(self.network, 'colour').values(), \
+        nx.draw_networkx_edges(self.network, self.pos,
+                               arrowstyle='->', arrowsize=15,
+                               min_source_margin=10, min_target_margin=10,
+                               width=list(nx.get_edge_attributes(self.network, 'width').values()),
+                               edge_color=nx.get_edge_attributes(self.network, 'colour').values(),
                                connectionstyle='arc3,rad=0.2', ax=ax)
         nx.draw_networkx_labels(self.network, self.pos, font_weight='bold', ax=ax)
         canvas = FigureCanvasTkAgg(fig, master=self.frame_network)
@@ -363,7 +358,12 @@ class EdgeEntry:
         return self.edges_full
 
 
-if __name__ == "__main__":
+def main():
     root = tk.Tk()
-    GreekMythology(root)
+    Gmn(root)
     root.mainloop()
+
+
+if __name__ == "__main__":
+    main()
+
