@@ -1,3 +1,11 @@
+#! /usr/bin/env python
+# -*- coding: utf-8 -*-
+# vim:fenc=utf-8
+#
+# Copyright © 2020 Nicole Eichert <n.eichert@googlemail.com>
+#
+# Distributed under terms of the MIT license.
+
 import networkx as nx
 import numpy as np
 import os
@@ -23,7 +31,7 @@ class Gmn:
         master.title("GMN - Greek Mythology Network")
 
         # data paths
-        self.dd = os.path.dirname(sys.argv[0])
+        self.dd = os.path.join(os.path.dirname(__file__), 'assets')
         self.nodes = pd.read_csv(os.path.join(self.dd, 'nodes.csv'))
 
         self.edges_full = pd.read_csv(os.path.join(self.dd, 'edges.csv'))

@@ -1,6 +1,6 @@
 # GMN - Greek Mythology Network
 
-![Example Image](assets/screenshot.png)
+![Example Image](gmn/assets/screenshot.png)
 
 Data in `assets/nodes.csv` and `assets/edges.csv` has been obtained from https://www.greekmythology.com and https://en.wikipedia.org/wiki/Family_tree_of_the_Greek_gods.
 

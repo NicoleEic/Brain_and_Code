@@ -1,0 +1,3 @@
+include gmn/assets/edges.csv
+include gmn/assets/nodes.csv
+include gmn/assets/screenshot.png
