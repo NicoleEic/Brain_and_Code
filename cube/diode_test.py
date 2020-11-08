@@ -2,30 +2,27 @@ from matplotlib import pyplot as plt
 import matplotlib
 matplotlib.use("TkAgg")
 import numpy as np
-import mpl_toolkits.mplot3d.axes3d as p3
-from matplotlib import animation
-
+import matplotlib.animation
+import pandas as pd
 
 def main():
-    numframes = 100
-    numpoints = 10
-
-    rgb_color_data = np.random.random((numpoints, 3))
-    x, y = np.random.random((2, numpoints))
+    n_points = 5
+    a = np.arange(n_points)
 
     fig = plt.figure()
-    scat = plt.scatter(x, y, c=rgb_color_data, s=100) #this work well at this level
+    ax = fig.add_subplot(111, projection='3d')
+    color_vec = ['r', 'r', 'r', 'r', 'b']
 
-    ani = animation.FuncAnimation(fig, update_plot2, frames=range(numframes),
-                                  fargs=(rgb_color_data, scat))
+    scat = ax.scatter(a, a, a, c=color_vec)
+
+    ani = matplotlib.animation.FuncAnimation(fig, update_graph, frames=10, fargs=(['b', 'b', 'b', 'b', 'b'], scat))
 
     plt.show()
 
 
-def update_plot2(i,data,scat):
-    data[ i%10 ] = np.random.random((3))
-    scat.set_color(data)
-    return scat,
-
+def update_graph(i, color_vec, scat):
+    print(i)
+    scat.set_color(color_vec)
+    return scat
 
 main()
