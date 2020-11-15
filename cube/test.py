@@ -19,14 +19,14 @@ def main():
 
     def update_plot(i):
         data_vol = data_in[:, :, :, i]
-        print(data_vol[0,:,0])
-        scat = ax.scatter(x.reshape(-1), y.reshape(-1), z.reshape(-1), c=data_vol.reshape(-1), cmap='binary', marker='o', depthshade=False, vmin=0.9999, vmax=1.0001)
+        scat = ax.scatter(x.reshape(-1), y.reshape(-1), z.reshape(-1), c=data_vol.reshape(-1), cmap='binary',
+                          depthshade=False, vmin=0, vmax=1, edgecolors="black")
         ax.set_xticklabels("")
         ax.set_yticklabels("")
-        ax.set_yticklabels("")
+        ax.set_zticklabels("")
         ax.set_xlabel('X')
         ax.set_ylabel('Y')
-        ax.set_ylabel('z')
+        ax.set_ylabel('Z')
         return scat
 
     ani = animation.FuncAnimation(fig, update_plot, interval=t_step, frames=n_vols)
