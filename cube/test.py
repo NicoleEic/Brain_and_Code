@@ -9,13 +9,21 @@ from matplotlib import animation
 
 def main():
     i_grid = 7
-    t_step = 500 # miliseconds
-    n_vols = 10
+    t_step = 100 # miliseconds
     x, y, z = np.meshgrid(np.arange(i_grid), np.arange(i_grid), np.arange(i_grid))
     fig = plt.figure()
     ax = p3.Axes3D(fig)
+
+    n_vols = i_grid**3
     data_in = np.zeros((i_grid, i_grid, i_grid, n_vols))
-    data_in[::2, :, :, ::2] = 1
+    i_all = 0
+    for i_x in np.arange(i_grid):
+        for i_y in np.arange(i_grid):
+            for i_z in np.arange(i_grid):
+                data_in[:, :, :, i_all] = 0
+                data_in[i_x, i_y, i_z, i_all] = 1
+                i_all = i_all + 1
+
 
     def update_plot(i):
         data_vol = data_in[:, :, :, i]
@@ -27,9 +35,11 @@ def main():
         ax.set_xlabel('X')
         ax.set_ylabel('Y')
         ax.set_ylabel('Z')
+        plt.title('Matplot 3d scatter plot')
+
         return scat
 
-    ani = animation.FuncAnimation(fig, update_plot, interval=t_step, frames=n_vols)
+    ani = animation.FuncAnimation(fig, update_plot, interval=t_step, frames=data_in.shape[3])
     plt.show()
 
 
