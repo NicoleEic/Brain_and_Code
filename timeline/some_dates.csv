@@ -1,491 +1,490 @@
-﻿title,yearOn,yearOff,type
-Jungpaläolithikum,-36000,-9700,1_epoch
-Gebrannte Keramik,-30000,-20000,5_invention
-Nadel,-20000,-10000,5_invention
-Neolithische Rev,-18000,-10000,1_epoch
-Hoehle von Laxcaux,-17000,-15000,4_art
-Holozän,-11700,-3000,1_epoch
-Netz,-10000,-5000,5_invention
-Lehmziegel,-10000,-80000,5_invention
-Stonehenge,-8000,-7000,4_art
-Boot,-7500,-6000,5_invention
-Jungsteinzeit,-5500,-3000,1_epoch
-Altes Ägypten,-4000,-200,1_epoch
-Sonnenuh,-4000,-3000,5_invention
-Sumer,-3500,-2000,1_epoch
-Rad,-3500,-3000,5_invention
-Pflug,-3500,-3000,5_invention
-Papyrus,-3500,-3000,5_invention
-Bronzezeit,-3000,-800,1_epoch
-Maya,-3000,900,1_epoch
-Glas,-3000,-25000,5_invention
-Pyramiden von Gizeh,-2550,-2500,4_art
-Eisenverhuettung,-1900,-1000,5_invention
-Alphabet,-1700,-1600,5_invention
-Griechenland,-1600,-700,1_epoch
-Mykenen,-1600,-1500,1_epoch
-Mykenische Eroberung Kretas,-1400,-1350,2_event
-Bueste der Nofretete,-1345,-1343,4_art
-Ramses II,-1303,-1213,3_person
-Trojanischer Krieg,-1250,-1200,2_event
-Eisenzeit,-1200,-300,1_epoch
-Homer,-1000,-970,3_person
-Antike,-800,500,1_epoch
-Griechische Stadtstaaten,-800,-500,2_event
-Olympische Spiele,-776,-393,2_event
-Rome,-753,500,1_epoch
-Muenzen,-620,-600,5_invention
-Buddah,-560,-483,3_person
-Landkarte,-550,-510,5_invention
-Aquaedukt,-530,-500,5_invention
-Perserreich,-500,-600,1_epoch
-Chinesische Mauer,-500,1644,4_art
-Perserkriege,-500,-448,2_event
-Herodot,-490,-425,3_person
-Perikles,-490,-429,3_person
-Sophokles - Antigone,-441,-439,4_art
-Sokrates,-431,-404,3_person
-Peloponnesischer Krieg,-431,-404,2_event
-Sophokles - Koenig Oedipus,-429,-427,4_art
-Platon,-424,-348,3_person
-Spartanisch-persischer Krieg,-399,-394,2_event
-Aristotele,-384,-322,3_person
-Alexander der Große,-356,-323,3_person
-Epikur,-342,-270,3_person
-Archimedes,-285,-212,3_person
-Hannibal,-247,-183,3_person
-Terrakotta Armee,-246,-210,4_art
-Euklid,-230,-190,3_person
-Erster Punischer Krieg,-218,-201,2_event
-Han Dy.,-206,220,1_epoch
-Nike von Samothrake,-190,-188,4_art
-Sulla,-138,-78,3_person
-Venus von Milo,-130,-128,4_art
-Spartacus,-111,-71,3_person
-Cicero,-106,-43,3_person
-Caesar,-100,-44,3_person
-Cleopatra,-69,-30,3_person
-Ovid,-43,17,3_person
-Alexanderzug,-34,-323,2_event
-Augustus,-27,14,3_person
-Seneca,-4,65,3_person
-Jesus,4,30,3_person
-Tiberius,14,37,3_person
-Plinius,23,79,3_person
-Papier,50,100,5_invention
-Trajan,53,117,3_person
-Traian,53,117,3_person
-Nero,54,68,3_person
-Kolosseum,72,80,4_art
-Marc Aurel,161,180,3_person
-Konstatin der Große,272,337,3_person
-Konstanti der Grosse,306,337,3_person
-Hagia Sophia,325,500,4_art
-Byzantisches Reich,395,1453,1_epoch
-Eroberung Attila,441,453,2_event
-Acropolis,464,406,4_art
-Merowinger,500,750,1_epoch
-Angelsachsen in E,550,600,2_event
-Mohammed,570,632,3_person
-Schach,600,610,5_invention
-Papiergeld,618,700,5_invention
-Arabische Eroberung,634,800,2_event
-Federkiel,635,650,5_invention
-Windmuehle,650,660,5_invention
-Karl der Große,747,814,3_person
-Frühmittelalter,750,1045,1_epoch
-Karolinger,751,911,1_epoch
-Porzellan,780,800,5_invention
-Wikinger,793,1066,1_epoch
-Ankor Wat ,900,1100,4_art
-Hl Römisches Reich,962,1806,1_epoch
-Ottonen,962,1070,1_epoch
-Inka,1000,1780,1_epoch
-Spinnrad,1000,1010,5_invention
-Hohmittelalter,1055,1345,1_epoch
-Buntglas,1065,1070,5_invention
-Gabel,1071,1080,5_invention
-Salier,1084,1150,1_epoch
-1.Universität,1088,1090,2_event
-Kompass,1090,1100,5_invention
-1. Kreuzzug,1096,1099,2_event
-Hildegard von Bingen,1098,1179,3_person
-Friedrich Barbarossa,1122,1190,3_person
-Staufer,1155,1268,1_epoch
-Genghis Khan,1162,1227,3_person
-Walter von der Vogelweide,1170,1230,3_person
-Turm von Pisa,1173,1272,4_art
-Steuerruder,1180,1190,5_invention
-Vergroesserungsgas,1200,1210,5_invention
-Parzival,1200,1210,4_art
-Nibelungenlied,1220,1250,4_art
-Koelner Dom,1248,1880,4_art
-Gotik,1250,1520,1_epoch
-Hanse,1250,1500,1_epoch
-Kanone,1250,1260,5_invention
-Dante,1265,1321,3_person
-Giotto,1266,1337,3_person
-Schießpulver,1267,1287,5_invention
-Osmanen,1299,1922,1_epoch
-Brille,1299,1302,5_invention
-Giotto - Scrovegni Chapel,1300,1305,4_art
-Azteken,1320,1521,1_epoch
-Pest,1347,1351,2_event
-Renaissance,1350,1500,1_epoch
-Spätes Mittelalter,1355,1500,1_epoch
-Ming Dynastie,1368,1644,1_epoch
-Donatello,1386,1466,3_person
-Osterinseln Moai,1400,1410,4_art
-Schraube,1405,1410,5_invention
-Jeanne d'Arc,1412,1431,3_person
-Donatello - David,1440,1442,4_art
-Botticelli,1445,1510,3_person
-Machu Picchu,1450,1460,4_art
-Kolumbus,1451,1506,3_person
-da Vinci,1452,1519,3_person
-Buchdruck,1455,1460,5_invention
-Desiderius Erasmus,1466,1536,3_person
-Machiavelli,1469,1527,3_person
-Reformation,1470,1595,1_epoch
-Albrecht Dürer,1471,1528,3_person
-Kopernikus,1473,1543,3_person
-Inquisition,1478,1834,2_event
-Botticelli - La Primavera,1482,1487,4_art
-Martin Luther,1483,1546,3_person
-Raphael,1483,1520,3_person
-Michelangelo,1483,1520,3_person
-Botticelli - Die Geburt der Venus,1485,1487,4_art
-Titian,1488,1576,3_person
-Da Vinci - Das letzte Abendmahl,1490,1492,4_art
-Amerikas,1492,1494,2_event
-Da Vinci - Dame mit dem Hermelin,1496,1498,4_art
-Michelangelo - David,1501,1504,4_art
-Petersdom,1506,1626,4_art
-Raphael - Schule von Athn,1507,1509,4_art
-Raphael - Der Triumph der Galeta,1511,1513,4_art
-Micelangelo - Die Erschaffung des Adam,1512,1514,4_art
-Da Vinci - Johannes der Taeufer,1513,1515,4_art
-Thesenanschlag,1517,1519,2_event
-Da Vinci - Mona Lisa ,1517,1519,4_art
-Manerismus,1520,1600,1_epoch
-Eroberung Azteken,1521,1523,2_event
-Parmigianino - Madonna mit dem langen Hals,1532,1540,4_art
-Neuzeit,1550,1850,1_epoch
-Basilius Kathedrale,1552,1561,4_art
-Tizian - Peuseus und Andromeda,1554,1556,4_art
-Bruegel der Aeltere - Niederlaendische Sprichwoerter,1559,1602,4_art
-Shakespeare,1564,1616,3_person
-Galileo Galilei,1564,1642,3_person
-Bartolomäusnacht,1572,1673,2_event
-Bartholomäusnacht,1572,1575,2_event
-Arcimboldo - Der Frühling,1573,1575,4_art
-Thomas Hobbes,1588,1679,3_person
-Strickmaschine,1589,1594,5_invention
-Mikrosop,1590,1600,5_invention
-Fernrohr,1590,1600,5_invention
-Caravaggio - Sick Bacchus,1592,1594,4_art
-Rene Descartes,1596,1650,3_person
-Martin Opitz,1597,1639,3_person
-Caravaggio - Die Umwandlung von St Paul,1600,1602,4_art
-East India Company,1600,1874,2_event
-VOC,1602,1799,2_event
-Barock,1605,1710,1_epoch
-Rembrandt,1606,1669,3_person
-Teleskop,1610,1620,5_invention
-Rubens - Dornenkrone,1612,1614,4_art
-Andreas Gryphius,1616,1664,3_person
-Rubens - Tiger Loewen und Leoparden Jagd,1616,1618,4_art
-30 jähriger Krieg,1618,1648,2_event
-Prager Fenstersturz,1618,1620,2_event
-Rubens - Raub der Toechter des Leukippos,1618,1620,4_art
-Mayflower,1620,1621,2_event
-Rechenmaschine,1623,1630,5_invention
-Rubens - Cimon und Pero,1630,1632,4_art
-Versaille,1631,1700,4_art
-Taj Mahal,1632,1643,4_art
-Ludwig XIV.,1638,1715,3_person
-Remrandt -Nachtwache,1640,1642,4_art
-Velazquez - Dame mit Faecher,1640,1642,4_art
-Isaac Newton,1643,1727,3_person
-Quing Dy.,1644,1911,1_epoch
-Hobbes Leviathan,1651,1653,4_art
-Vermeer - Maedchen mit Perlenohrringen,1663,1665,4_art
-Peter der Große,1672,1725,3_person
-Antonio Vivaldi,1678,1741,3_person
-Johann Sebastian Bach,1685,1750,3_person
-Klavier,1700,1710,5_invention
-Dampfmaschine,1712,1740,5_invention
-Defoe - Robinson Crusoe,1719,1721,4_art
-Aufklärung,1720,1782,1_epoch
-George Washington,1732,1799,3_person
-Linne - Systema Naturae,1734,1736,5_invention
-Empfindsamkeit,1740,1790,1_epoch
-Immanuel Kant,1742,1804,3_person
-Goethe,1749,1832,3_person
-Wolfgang Amadeus Mozart,1756,1791,3_person
-Schiller,1759,1805,3_person
-Sturm und Drang,1767,1785,1_epoch
-Napoleon,1769,1821,3_person
-Humboldt,1769,1859,3_person
-Beethoven,1770,1827,3_person
-Unabhängigkeitserklärung,1776,1780,2_event
-Bernd von Kleist,1777,1811,3_person
-Industrielle Revolution,1780,1914,1_epoch
-Schillr - Raeuber,1781,1783,4_art
-Klassik,1786,1820,1_epoch
-Josef von Eichendorff,1788,1857,3_person
-Französische Rev,1789,1795,2_event
-Brandenburger Turm,1789,1793,4_art
-Romantik,1793,1835,1_epoch
-Schiller - Maria Stuart,1800,1802,4_art
-David - Napoleon,1803,1805,4_art
-Eduard Moerike,1804,1875,3_person
-Schiller - Wilhelm Tell,1804,1806,4_art
-Dampf-Lokomotive,1804,1806,5_invention
-Runge - Der Morgen,1808,1810,4_art
-Goethe - Faust 1,1808,1810,4_art
-Kleist - Kohlhaas,1808,1810,4_art
-Elektrisches Licht,1808,1810,5_invention
-Schreibmaschine,1808,1810,5_invention
-Darwin,1809,1882,3_person
-Edgar Allan Poe,1809,1849,3_person
-Konservendose,1810,1812,5_invention
-Biedermeier,1815,1848,1_epoch
-Wiener Kongress,1815,1817,2_event
-"Zweirad, Laufrad",1817,1819,5_invention
-Marx,1818,1883,3_person
-David Friedrich - Der Wanderer ueber dem Nebelmeer,1818,1820,4_art
-Victoria,1819,1901,3_person
-Goya - Saturn frisst seinen Sohn,1819,1823,4_art
-Mendel,1822,1884,3_person
-Elektromotor ,1822,1824,5_invention
-David Friedrich - Mann und Frau erwaegen den Mond,1824,1826,4_art
-Junges Deutschland,1825,1848,1_epoch
-Vormärz,1825,1848,1_epoch
-Elektromagnet,1825,1827,5_invention
-Dekabristenaufstand in Russland,1825,1827,2_event
-Schiffsschraube,1826,1828,5_invention
-Zündholz,1826,1828,5_invention
-Delacroix - Tod des Sardanapalus,1827,1829,4_art
-Goethe - Zauberlehrling,1827,1829,4_art
-Kondensmilch,1827,1829,5_invention
-Polen wird russfiziert,1830,1832,2_event
-Kaiser Franz,1830,1916,3_person
-Briefmarke,1834,1836,5_invention
-Relais,1835,1837,5_invention
-Revolver,1835,1837,5_invention
-Lochkarte,1837,1839,5_invention
-Sissi,1837,1898,3_person
-Fotokamera,1839,1841,5_invention
-Fahrrad,1839,1841,5_invention
-Eismaschine,1843,1845,5_invention
-Telegramm (Impulse),1844,1846,5_invention
-Saxophon,1846,1848,5_invention
-Pollock - Number 1,1847,1849,4_art
-Realismus,1848,1890,1_epoch
-Big Ben,1850,1859,4_art
-Tower Bridge ,1850,1894,4_art
-Deutscher Bund unter Oesterreich,1850,1866,2_event
-Eisfabrik,1851,1853,5_invention
-Staatsstreich Napoleon III,1851,1853,2_event
-Aspirin,1852,1854,5_invention
-van Gogh,1853,1890,3_person
-Fahrstuhl/,1853,1855,5_invention
-Krimkrieg,1853,1856,2_event
-Litfaß-Säule,1854,1856,5_invention
-Dynamo,1854,1856,5_invention
-Backpulver,1854,1856,5_invention
-Stahl (industriell),1855,1857,5_invention
-Dosenöffner,1855,1857,5_invention
-"Plastik,",1855,1857,5_invention
-Freud,1856,1939,3_person
-Toilettenpapier,1857,1859,5_invention
-Moderner Kühlschrank,1859,1861,5_invention
-Telefon,1860,1862,5_invention
-Gasmotor,1860,1862,5_invention
-Viertakt-Motor,1860,1862,5_invention
-Drahtseilbahn,1861,1863,5_invention
-Manet - Fruestueck im Gruenen,1863,1865,4_art
-Periodensystem,1864,1866,5_invention
-Baby(fertig)-nahrung,1865,1867,5_invention
-Deutscher Krieg,1866,1868,2_event
-Dynamit,1867,1869,5_invention
-Norddeutscher Bund,1867,1871,2_event
-Gandhi,1869,1948,3_person
-Margarine,1869,1871,5_invention
-Lenin,1870,1924,3_person
-Druckknopf,1870,1872,5_invention
-Deutsch-Franzoesischer Krieg,1870,1871,2_event
-Gruenderzeit,1870,1890,2_event
-Kaiserreich,1871,1919,1_epoch
-Degas - Tanzklasse,1872,1874,4_art
-Kaugummi,1872,1874,5_invention
-(Blue)-Jeans,1872,1874,5_invention
-Schreibmaschine,1873,1875,5_invention
-Stacheldraht,1874,1876,5_invention
-Adenauer,1876,1967,3_person
-Degas - Taenzerinnen in Rosa,1876,1878,4_art
-Phonograph (mit Walze),1876,1878,5_invention
-Freiheitsstatue,1877,1886,4_art
-Mikrophon,1878,1880,5_invention
-Einstein,1879,1955,3_person
-Elektrische Straßenbahn,1879,1881,5_invention
-Gleichstrom (DC),1879,1881,5_invention
-Glühlampe,1879,1881,5_invention
-Naturalismus,1880,1900,1_epoch
-Rodin - Denker,1880,1882,4_art
-Cezanne - Muehle am Couleuvre,1881,1883,4_art
-Renoir - Zwei Schwestern,1881,1883,4_art
-Bouguoreau - Morgenroete,1881,1883,4_art
-Wechselstrom (AC),1881,1883,5_invention
-Sarada Familia,1882,1900,4_art
-Renoir - Tanz am Bougival,1883,1885,4_art
-Benzinmotor,1883,1885,5_invention
-Seurat - Sonntagnachittag,1884,1886,4_art
-Füllfederhalter,1884,1886,5_invention
-Automobil,1885,1887,5_invention
-Erstes Auto,1886,1890,5_invention
-Freiheitsstatue,1886,1888,4_art
-Cola (Coke),1886,1888,5_invention
-Van Gogh - Sternennacht,1887,1889,4_art
-Eifelturm,1887,1889,4_art
-Esperanto (Sprache),1887,1889,5_invention
-Schallplatte und Grammophon ,1887,1889,5_invention
-Waterhouse - Die Frau von Shallot,1888,1890,4_art
-Autoreifen,1888,1890,5_invention
-Inkubator (Brutkasten),1888,1890,5_invention
-BH (Büstenhalter),1889,1891,5_invention
-Moderne,1890,1920,1_epoch
-Gaugin - Nafeaffaa Ipolpo,1890,1892,4_art
-Elektrisches Bügeleisen,1890,1892,5_invention
-Reißverschluss,1890,1892,5_invention
-Munch - Der Schrei,1891,1893,4_art
-Bouguereau - Der zerbrochene Krug,1891,1893,4_art
-Gleitschirm,1891,1893,5_invention
-Bierdeckel,1892,1894,5_invention
-Traktor,1892,1894,5_invention
-Dieselmotor,1892,1894,5_invention
-Mao,1893,1976,3_person
-Elektroherd,1893,1895,5_invention
-Motorrad,1894,1896,5_invention
-Radio,1894,1896,5_invention
-Kino/Film,1895,1897,5_invention
-Kruegertelegramm,1896,1898,2_event
-Büroklammer,1899,1901,5_invention
-Quantentheorie,1900,1920,2_event
-Monet - Wasserlilien,1904,1906,4_art
-Klimt - Der Kuss,1905,1907,4_art
-Matisse - Harmony in Red,1906,1908,4_art
-Marokkokrise,1907,1911,2_event
-Expressionismus,1910,1925,1_epoch
-Boccioni - Einzigargite Formen,1913,1915,4_art
-1. WK,1914,1918,2_event
-Sarajevo Attentat,1914,1916,2_event
-"Avantgarde,",1915,1925,1_epoch
-Duchamp - Fountain,1917,1919,4_art
-Rusische Revolution,1917,1919,2_event
-Deutsche Revolution,1918,1920,2_event
-Weimarer Republik,1919,1933,1_epoch
-Picasso - Drei Musiker,1919,1921,4_art
-Lincoln Memorial,1920,1922,4_art
-Kristostatue,1925,1927,4_art
-Marilyn Monroe,1926,1962,3_person
-Lempicka - Junges Maedchen mit Handschuhen,1927,1929,4_art
-Che Guevara,1928,1957,3_person
-Wood - American Goth,1928,1930,4_art
-Audrey Hepburn,1929,1993,3_person
-Börsencrash,1929,1931,2_event
-Christostatue,1931,1931,4_art
-Exilliteratur,1933,1945,1_epoch
-Spanischer Buergerkrieg,1936,1939,2_event
-Reichskristallnacht,1938,1940,2_event
-2. WK,1939,1945,2_event
-Miro - Konstellation,1939,1941,4_art
-Nachkriegsliteratur,1945,1950,1_epoch
-"Literatur der DDR, Literatur der BRD",1950,1990,1_epoch
-Neue Subjektivität,1970,2018,1_epoch
-Berliner Kongress,1978,1980,2_event
-Postmoderne,1980,2018,1_epoch
-Dreikaiserjahr,1988,1990,2_event
-Mauerfall,1989,1990,2_event
-Koons - Ballonhund,1994,1996,4_art
-Bourgeois - Maman,1999,2001,4_art
-merowingische Kunst,500,750,1_epoch
-karolingische Kunst,750,900,1_epoch
-ottonische Kunst,950,1050,1_epoch
-Hochmittelaler,1050,1250,1_epoch
-Pippin III,714,768,3_person
-Notre Dame,1163,1300,4_art
-Kölner Dom,1248,1300,4_art
-Westinster Abbey,1045,1065,4_art
-Jan van Eyck,1390,1441,3_person
-Cosimo de Medici,1389,1464,3_person
-Mausoleum des Theoderich,520,550,4_art
-Kloster Reichenau,1450,1540,4_art
-Vorsokratiker,-600,-450,1_epoch
-Griechische Klassik,-450,-300,1_epoch
-Helenismus,-300,0,1_epoch
-Neuplatonismus,0,600,1_epoch
-Thales von Milet,-624,-546,3_person
-Gesetzgebung Drakons,-621,-600,2_event
-Sophokles ,-497,-406,3_person
-Perserkriege,-500,-400,2_event
-Heraklit,-520,-460,3_person
-Pythagoras,-570,-510,3_person
-Hippokrates,-460,-370,3_person
-Demokrit,-459,-370,3_person
-Protagoras,-490,-411,3_person
-Herodot,480,425,3_person
-Diogenes,-405,-320,3_person
-Pompeji Verschuüttet,79,81,2_event
-Konuzius,-551,-479,3_person
-Song Dynastie,960,1279,1_epoch
-Ming Dynastie,1368,1644,1_epoch
-Markusevangelium,70,150,4_art
-erste Bibel,200,300,4_art
-Augustinus,354,430,3_person
-Magna Carta,1214,1220,2_event
-Jan Hus,1369,1415,3_person
-Paracelsus,1493,1541,3_person
-Spinoza,1632,1677,3_person
-John Locke,1632,1704,3_person
-David Hume,1711,1776,3_person
-England erobert Montreal,1759,1770,2_event
-Montesquieu,1689,1755,3_person
-Rousseau,1712,1778,3_person
-de Sade,1740,1814,3_person
-Rokoko,1725,1783,1_epoch
-Giovanni Pierluigi da Palestrina,1514,1494,3_person
-Andrea Gabrieli,1532,1585,3_person
-Heinrich Schuütz,1585,1672,3_person
-Georg Telemann,1681,1767,3_person
-Georg Händel,1685,1759,3_person
-Felix Mendelssohn Bartholdy,1809,1847,3_person
-Frederic Chopin,1810,1849,3_person
-Robert Schumann,1818,1856,3_person
-Antonin Dvorak,1841,1904,3_person
-Edvard Grieg,1843,1923,3_person
-Claude Debussy,1862,1918,3_person
-Richard Strauss,1864,1949,3_person
-Siegfried Wagner,1869,1930,3_person
-Sergei Rachmaninov,1873,1943,3_person
-Arnold Schoönberg,1874,1951,3_person
-Igor Strawinsky,1882,1971,3_person
-Boris Taschaikowski,1925,1996,3_person
-Anubisschrein,-1350,-1300,4_art
-Berini - Apoll und Daphne,1625,1630,4_art
-Hängende Gärten von Babylon,-600,-550,4_art
-Artemistempel,-550,-500,4_art
-Zeusstatue in Olympia,-435,-400,4_art
-Maussolleion,-377,-353,4_art
-Koloss von Rhodos,-292,-200,4_art
-Pharos von Alexandria,-280,-200,4_art
-Artemis von Ephesos,125,175,4_art
-Ende des weströmischen Reich,450,476,2_event
-Theoderich der Große,493,526,3_person
-Frankreich unter den Merowingern und Karolingern,481,911,1_epoch
-Snorra Edda,1220,1225,4_art
-Hildebrandslied,830,840,4_art
-Merseburger Zaubersprüche,850,860,4_art
-Bernwardstür in Hildesheim,1015,1020,4_art
-Vorromanik,500,1050,1_epoch
+﻿title,yearOn,yearOff,category
+Jungpaläolithikum,-36000,-9700,epoch
+Neolithische Rev,-18000,-10000,epoch
+Holozän,-11700,-3000,epoch
+Jungsteinzeit,-5500,-3000,epoch
+Altes Ägypten,-4000,-200,epoch
+Sumer,-3500,-2000,epoch
+Bronzezeit,-3000,-800,epoch
+Maya,-3000,900,epoch
+Griechenland,-1600,-700,epoch
+Mykenen,-1600,-1500,epoch
+Eisenzeit,-1200,-300,epoch
+Antike,-800,500,epoch
+Rome,-753,500,epoch
+Perserreich,-500,-600,epoch
+Han Dy.,-206,220,epoch
+Byzantisches Reich,395,1453,epoch
+Merowinger,500,750,epoch
+Frühmittelalter,750,1045,epoch
+Karolinger,751,911,epoch
+Wikinger,793,1066,epoch
+Hl Römisches Reich,962,1806,epoch
+Ottonen,962,1070,epoch
+Inka,1000,1780,epoch
+Hohmittelalter,1055,1345,epoch
+Salier,1084,1150,epoch
+Staufer,1155,1268,epoch
+Gotik,1250,1520,epoch
+Hanse,1250,1500,epoch
+Osmanen,1299,1922,epoch
+Azteken,1320,1521,epoch
+Renaissance,1350,1500,epoch
+Spätes Mittelalter,1355,1500,epoch
+Ming Dynastie,1368,1644,epoch
+Reformation,1470,1595,epoch
+Manerismus,1520,1600,epoch
+Neuzeit,1550,1850,epoch
+Barock,1605,1710,epoch
+Quing Dy.,1644,1911,epoch
+Aufklärung,1720,1782,epoch
+Empfindsamkeit,1740,1790,epoch
+Sturm und Drang,1767,1785,epoch
+Industrielle Revolution,1780,1914,epoch
+Klassik,1786,1820,epoch
+Romantik,1793,1835,epoch
+Biedermeier,1815,1848,epoch
+Junges Deutschland,1825,1848,epoch
+Vormärz,1825,1848,epoch
+Realismus,1848,1890,epoch
+Kaiserreich,1871,1919,epoch
+Naturalismus,1880,1900,epoch
+Moderne,1890,1920,epoch
+Expressionismus,1910,1925,epoch
+"Avantgarde,",1915,1925,epoch
+Weimarer Republik,1919,1933,epoch
+Exilliteratur,1933,1945,epoch
+Nachkriegsliteratur,1945,1950,epoch
+"Literatur der DDR, Literatur der BRD",1950,1990,epoch
+Neue Subjektivität,1970,2018,epoch
+Postmoderne,1980,2018,epoch
+merowingische Kunst,500,750,epoch
+karolingische Kunst,750,900,epoch
+ottonische Kunst,950,1050,epoch
+Hochmittelaler,1050,1250,epoch
+Vorsokratiker,-600,-450,epoch
+Griechische Klassik,-450,-300,epoch
+Helenismus,-300,0,epoch
+Neuplatonismus,0,600,epoch
+Song Dynastie,960,1279,epoch
+Ming Dynastie,1368,1644,epoch
+Rokoko,1725,1783,epoch
+Frankreich unter den Merowingern und Karolingern,481,911,epoch
+Vorromanik,500,1050,epoch
+Mykenische Eroberung Kretas,-1400,-1350,event
+Trojanischer Krieg,-1250,-1200,event
+Griechische Stadtstaaten,-800,-500,event
+Olympische Spiele,-776,-393,event
+Perserkriege,-500,-448,event
+Peloponnesischer Krieg,-431,-404,event
+Spartanisch-persischer Krieg,-399,-394,event
+Erster Punischer Krieg,-218,-201,event
+Alexanderzug,-34,-323,event
+Eroberung Attila,441,453,event
+Angelsachsen in E,550,600,event
+Arabische Eroberung,634,800,event
+1.Universität,1088,,event
+1. Kreuzzug,1096,1099,event
+Pest,1347,1351,event
+Inquisition,1478,1834,event
+Amerikas,1492,1494,event
+Thesenanschlag,1517,,event
+Eroberung Azteken,1521,1523,event
+Bartholomäusnacht,1572,,event
+East India Company,1600,1874,event
+VOC,1602,1799,event
+30 jähriger Krieg,1618,1648,event
+Prager Fenstersturz,1618,,event
+Mayflower,1620,1621,event
+Unabhängigkeitserklärung,1776,1780,event
+Französische Rev,1789,1795,event
+Wiener Kongress,1815,1817,event
+Dekabristenaufstand in Russland,1825,1827,event
+Polen wird russfiziert,1830,1832,event
+Deutscher Bund unter Oesterreich,1850,1866,event
+Staatsstreich Napoleon III,1851,1853,event
+Krimkrieg,1853,1856,event
+Deutscher Krieg,1866,1868,event
+Norddeutscher Bund,1867,1871,event
+Deutsch-Franzoesischer Krieg,1870,1871,event
+Gruenderzeit,1870,1890,event
+Kruegertelegramm,1896,1898,event
+Quantentheorie,1900,1920,event
+Marokkokrise,1907,1911,event
+1. WK,1914,1918,event
+Sarajevo Attentat,1914,,event
+Rusische Revolution,1917,1919,event
+Deutsche Revolution,1918,1920,event
+Börsencrash,1929,,event
+Spanischer Buergerkrieg,1936,1939,event
+Reichskristallnacht,1938,,event
+2. WK,1939,1945,event
+Berliner Kongress,1978,1980,event
+Dreikaiserjahr,1988,1990,event
+Mauerfall,1989,,event
+Gesetzgebung Drakons,-621,-600,event
+Perserkriege,-500,-400,event
+Pompeji Verschüttet,79,,event
+Magna Carta,1214,1220,event
+England erobert Montreal,1759,,event
+Ende des weströmischen Reich,450,,event
+Ramses II,-1303,-1213,person
+Homer,-1000,-970,person
+Buddah,-560,-483,person
+Herodot,-490,-425,person
+Perikles,-490,-429,person
+Sokrates,-431,-404,person
+Platon,-424,-348,person
+Aristotele,-384,-322,person
+Alexander der Große,-356,-323,person
+Epikur,-342,-270,person
+Archimedes,-285,-212,person
+Hannibal,-247,-183,person
+Euklid,-230,-190,person
+Sulla,-138,-78,person
+Spartacus,-111,-71,person
+Cicero,-106,-43,person
+Caesar,-100,-44,person
+Cleopatra,-69,-30,person
+Ovid,-43,17,person
+Augustus,-27,14,person
+Seneca,-4,65,person
+Jesus,4,30,person
+Tiberius,14,37,person
+Plinius,23,79,person
+Trajan,53,117,person
+Traian,53,117,person
+Nero,54,68,person
+Marc Aurel,161,180,person
+Konstatin der Große,272,337,person
+Konstanti der Grosse,306,337,person
+Mohammed,570,632,person
+Karl der Große,747,814,person
+Hildegard von Bingen,1098,1179,person
+Friedrich Barbarossa,1122,1190,person
+Genghis Khan,1162,1227,person
+Walter von der Vogelweide,1170,1230,person
+Dante,1265,1321,person
+Giotto,1266,1337,person
+Donatello,1386,1466,person
+Jeanne d'Arc,1412,1431,person
+Botticelli,1445,1510,person
+Kolumbus,1451,1506,person
+da Vinci,1452,1519,person
+Desiderius Erasmus,1466,1536,person
+Machiavelli,1469,1527,person
+Albrecht Dürer,1471,1528,person
+Kopernikus,1473,1543,person
+Martin Luther,1483,1546,person
+Raphael,1483,1520,person
+Michelangelo,1483,1520,person
+Titian,1488,1576,person
+Shakespeare,1564,1616,person
+Galileo Galilei,1564,1642,person
+Thomas Hobbes,1588,1679,person
+Rene Descartes,1596,1650,person
+Martin Opitz,1597,1639,person
+Rembrandt,1606,1669,person
+Andreas Gryphius,1616,1664,person
+Ludwig XIV.,1638,1715,person
+Isaac Newton,1643,1727,person
+Peter der Große,1672,1725,person
+Antonio Vivaldi,1678,1741,person
+Johann Sebastian Bach,1685,1750,person
+George Washington,1732,1799,person
+Immanuel Kant,1742,1804,person
+Goethe,1749,1832,person
+Wolfgang Amadeus Mozart,1756,1791,person
+Schiller,1759,1805,person
+Napoleon,1769,1821,person
+Humboldt,1769,1859,person
+Beethoven,1770,1827,person
+Bernd von Kleist,1777,1811,person
+Josef von Eichendorff,1788,1857,person
+Eduard Moerike,1804,1875,person
+Darwin,1809,1882,person
+Edgar Allan Poe,1809,1849,person
+Marx,1818,1883,person
+Victoria,1819,1901,person
+Mendel,1822,1884,person
+Kaiser Franz,1830,1916,person
+Sissi,1837,1898,person
+van Gogh,1853,1890,person
+Freud,1856,1939,person
+Gandhi,1869,1948,person
+Lenin,1870,1924,person
+Adenauer,1876,1967,person
+Einstein,1879,1955,person
+Mao,1893,1976,person
+Marilyn Monroe,1926,1962,person
+Che Guevara,1928,1957,person
+Audrey Hepburn,1929,1993,person
+Pippin III,714,768,person
+Jan van Eyck,1390,1441,person
+Cosimo de Medici,1389,1464,person
+Thales von Milet,-624,-546,person
+Sophokles ,-497,-406,person
+Heraklit,-520,-460,person
+Pythagoras,-570,-510,person
+Hippokrates,-460,-370,person
+Demokrit,-459,-370,person
+Protagoras,-490,-411,person
+Herodot,480,425,person
+Diogenes,-405,-320,person
+Konuzius,-551,-479,person
+Augustinus,354,430,person
+Jan Hus,1369,1415,person
+Paracelsus,1493,1541,person
+Spinoza,1632,1677,person
+John Locke,1632,1704,person
+David Hume,1711,1776,person
+Montesquieu,1689,1755,person
+Rousseau,1712,1778,person
+de Sade,1740,1814,person
+Giovanni Pierluigi da Palestrina,1514,1494,person
+Andrea Gabrieli,1532,1585,person
+Heinrich Schuütz,1585,1672,person
+Georg Telemann,1681,1767,person
+Georg Händel,1685,1759,person
+Felix Mendelssohn Bartholdy,1809,1847,person
+Frederic Chopin,1810,1849,person
+Robert Schumann,1818,1856,person
+Antonin Dvorak,1841,1904,person
+Edvard Grieg,1843,1923,person
+Claude Debussy,1862,1918,person
+Richard Strauss,1864,1949,person
+Siegfried Wagner,1869,1930,person
+Sergei Rachmaninov,1873,1943,person
+Arnold Schoönberg,1874,1951,person
+Igor Strawinsky,1882,1971,person
+Boris Taschaikowski,1925,1996,person
+Theoderich der Große,493,526,person
+Hoehle von Laxcaux,-17000,-15000,art
+Stonehenge,-8000,-7000,art
+Pyramiden von Gizeh,-2550,-2500,art
+Bueste der Nofretete,-1345,-1343,art
+Chinesische Mauer,-500,1644,art
+Sophokles - Antigone,-441,-439,art
+Sophokles - Koenig Oedipus,-429,-427,art
+Terrakotta Armee,-246,-210,art
+Nike von Samothrake,-190,-188,art
+Venus von Milo,-130,-128,art
+Kolosseum,72,80,art
+Hagia Sophia,325,500,art
+Acropolis,464,406,art
+Ankor Wat ,900,1100,art
+Turm von Pisa,1173,1272,art
+Parzival,1200,1210,art
+Nibelungenlied,1220,1250,art
+Koelner Dom,1248,1880,art
+Giotto - Scrovegni Chapel,1300,1305,art
+Osterinseln Moai,1400,1410,art
+Donatello - David,1440,1442,art
+Machu Picchu,1450,1460,art
+Botticelli - La Primavera,1482,1487,art
+Botticelli - Die Geburt der Venus,1485,1487,art
+Da Vinci - Das letzte Abendmahl,1490,1492,art
+Da Vinci - Dame mit dem Hermelin,1496,1498,art
+Michelangelo - David,1501,1504,art
+Petersdom,1506,1626,art
+Raphael - Schule von Athn,1507,1509,art
+Raphael - Der Triumph der Galeta,1511,1513,art
+Micelangelo - Die Erschaffung des Adam,1512,1514,art
+Da Vinci - Johannes der Taeufer,1513,1515,art
+Da Vinci - Mona Lisa ,1517,1519,art
+Parmigianino - Madonna mit dem langen Hals,1532,1540,art
+Basilius Kathedrale,1552,1561,art
+Tizian - Peuseus und Andromeda,1554,1556,art
+Bruegel der Aeltere - Niederlaendische Sprichwoerter,1559,1602,art
+Arcimboldo - Der Frühling,1573,1575,art
+Caravaggio - Sick Bacchus,1592,1594,art
+Caravaggio - Die Umwandlung von St Paul,1600,1602,art
+Rubens - Dornenkrone,1612,1614,art
+Rubens - Tiger Loewen und Leoparden Jagd,1616,1618,art
+Rubens - Raub der Toechter des Leukippos,1618,1620,art
+Rubens - Cimon und Pero,1630,1632,art
+Versaille,1631,1700,art
+Taj Mahal,1632,1643,art
+Remrandt -Nachtwache,1640,1642,art
+Velazquez - Dame mit Faecher,1640,1642,art
+Hobbes Leviathan,1651,1653,art
+Vermeer - Maedchen mit Perlenohrringen,1663,1665,art
+Defoe - Robinson Crusoe,1719,1721,art
+Schillr - Raeuber,1781,1783,art
+Brandenburger Turm,1789,1793,art
+Schiller - Maria Stuart,1800,1802,art
+David - Napoleon,1803,1805,art
+Schiller - Wilhelm Tell,1804,1806,art
+Runge - Der Morgen,1808,1810,art
+Goethe - Faust 1,1808,1810,art
+Kleist - Kohlhaas,1808,1810,art
+David Friedrich - Der Wanderer ueber dem Nebelmeer,1818,1820,art
+Goya - Saturn frisst seinen Sohn,1819,1823,art
+David Friedrich - Mann und Frau erwaegen den Mond,1824,1826,art
+Delacroix - Tod des Sardanapalus,1827,1829,art
+Goethe - Zauberlehrling,1827,1829,art
+Pollock - Number 1,1847,1849,art
+Big Ben,1850,1859,art
+Tower Bridge ,1850,1894,art
+Manet - Fruestueck im Gruenen,1863,1865,art
+Degas - Tanzklasse,1872,1874,art
+Degas - Taenzerinnen in Rosa,1876,1878,art
+Freiheitsstatue,1877,1886,art
+Rodin - Denker,1880,1882,art
+Cezanne - Muehle am Couleuvre,1881,1883,art
+Renoir - Zwei Schwestern,1881,1883,art
+Bouguoreau - Morgenroete,1881,1883,art
+Sarada Familia,1882,1900,art
+Renoir - Tanz am Bougival,1883,1885,art
+Seurat - Sonntagnachittag,1884,1886,art
+Freiheitsstatue,1886,1888,art
+Van Gogh - Sternennacht,1887,1889,art
+Eifelturm,1887,1889,art
+Waterhouse - Die Frau von Shallot,1888,1890,art
+Gaugin - Nafeaffaa Ipolpo,1890,1892,art
+Munch - Der Schrei,1891,1893,art
+Bouguereau - Der zerbrochene Krug,1891,1893,art
+Monet - Wasserlilien,1904,1906,art
+Klimt - Der Kuss,1905,1907,art
+Matisse - Harmony in Red,1906,1908,art
+Boccioni - Einzigargite Formen,1913,1915,art
+Duchamp - Fountain,1917,1919,art
+Picasso - Drei Musiker,1919,1921,art
+Lincoln Memorial,1920,1922,art
+Kristostatue,1925,1927,art
+Lempicka - Junges Maedchen mit Handschuhen,1927,1929,art
+Wood - American Goth,1928,1930,art
+Christostatue,1931,1931,art
+Miro - Konstellation,1939,1941,art
+Koons - Ballonhund,1994,1996,art
+Bourgeois - Maman,1999,2001,art
+Notre Dame,1163,1300,art
+Kölner Dom,1248,1300,art
+Westinster Abbey,1045,1065,art
+Mausoleum des Theoderich,520,550,art
+Kloster Reichenau,1450,1540,art
+Markusevangelium,70,150,art
+erste Bibel,200,300,art
+Anubisschrein,-1350,-1300,art
+Berini - Apoll und Daphne,1625,1630,art
+Hängende Gärten von Babylon,-600,-550,art
+Artemistempel,-550,-500,art
+Zeusstatue in Olympia,-435,-400,art
+Maussolleion,-377,-353,art
+Koloss von Rhodos,-292,-200,art
+Pharos von Alexandria,-280,-200,art
+Artemis von Ephesos,125,175,art
+Snorra Edda,1220,1225,art
+Hildebrandslied,830,840,art
+Merseburger Zaubersprüche,850,860,art
+Bernwardstür in Hildesheim,1015,1020,art
+Gebrannte Keramik,-30000,,invention
+Nadel,-20000,,invention
+Netz,-10000,,invention
+Lehmziegel,-10000,,invention
+Boot,-7500,,invention
+Sonnenuh,-4000,,invention
+Rad,-3500,,invention
+Pflug,-3500,,invention
+Papyrus,-3500,,invention
+Glas,-3000,,invention
+Eisenverhuettung,-1900,,invention
+Alphabet,-1700,,invention
+Muenzen,-620,,invention
+Landkarte,-550,,invention
+Aquaedukt,-530,,invention
+Papier,50,,invention
+Schach,600,,invention
+Papiergeld,618,,invention
+Federkiel,635,,invention
+Windmuehle,650,,invention
+Porzellan,780,,invention
+Spinnrad,1000,,invention
+Buntglas,1065,,invention
+Gabel,1071,,invention
+Kompass,1090,,invention
+Steuerruder,1180,,invention
+Vergroesserungsgas,1200,,invention
+Kanone,1250,,invention
+Schießpulver,1267,,invention
+Brille,1299,,invention
+Schraube,1405,,invention
+Buchdruck,1455,,invention
+Strickmaschine,1589,,invention
+Mikrosop,1590,,invention
+Fernrohr,1590,,invention
+Teleskop,1610,,invention
+Rechenmaschine,1623,,invention
+Klavier,1700,,invention
+Dampfmaschine,1712,,invention
+Linne - Systema Naturae,1734,,invention
+Dampf-Lokomotive,1804,,invention
+Elektrisches Licht,1808,,invention
+Schreibmaschine,1808,,invention
+Konservendose,1810,,invention
+"Zweirad, Laufrad",1817,,invention
+Elektromotor ,1822,,invention
+Elektromagnet,1825,,invention
+Schiffsschraube,1826,,invention
+Zündholz,1826,,invention
+Kondensmilch,1827,,invention
+Briefmarke,1834,,invention
+Relais,1835,,invention
+Revolver,1835,,invention
+Lochkarte,1837,,invention
+Fotokamera,1839,,invention
+Fahrrad,1839,,invention
+Eismaschine,1843,,invention
+Telegramm,1844,,invention
+Saxophon,1846,,invention
+Eisfabrik,1851,,invention
+Aspirin,1852,,invention
+Fahrstuhl,1853,,invention
+Litfaß-Säule,1854,,invention
+Dynamo,1854,,invention
+Backpulver,1854,,invention
+Stahlnutzung,1855,,invention
+Dosenöffner,1855,,invention
+Plastik,1855,,invention
+Toilettenpapier,1857,,invention
+Kühlschrank,1859,,invention
+Telefon,1860,,invention
+Gasmotor,1860,,invention
+Viertakt-Motor,1860,,invention
+Drahtseilbahn,1861,,invention
+Periodensystem,1864,,invention
+Baby(fertig)-nahrung,1865,,invention
+Dynamit,1867,,invention
+Margarine,1869,,invention
+Druckknopf,1870,,invention
+Kaugummi,1872,,invention
+(Blue)-Jeans,1872,,invention
+Schreibmaschine,1873,,invention
+Stacheldraht,1874,,invention
+Phonograph (mit Walze),1876,,invention
+Mikrophon,1878,,invention
+Elektrische Straßenbahn,1879,,invention
+Gleichstrom (DC),1879,,invention
+Glühlampe,1879,,invention
+Wechselstrom (AC),1881,,invention
+Benzinmotor,1883,,invention
+Füllfederhalter,1884,,invention
+Automobil,1885,,invention
+Erstes Auto,1886,,invention
+Coca Cola,1886,,invention
+Esperanto (Sprache),1887,,invention
+Schallplatte und Grammophon ,1887,,invention
+Autoreifen,1888,,invention
+Inkubator (Brutkasten),1888,,invention
+BH (Büstenhalter),1889,,invention
+Elektrisches Bügeleisen,1890,,invention
+Reißverschluss,1890,,invention
+Gleitschirm,1891,,invention
+Bierdeckel,1892,,invention
+Traktor,1892,,invention
+Dieselmotor,1892,,invention
+Elektroherd,1893,,invention
+Motorrad,1894,,invention
+Radio,1894,,invention
+Kino/Film,1895,,invention
+Büroklammer,1899,,invention
