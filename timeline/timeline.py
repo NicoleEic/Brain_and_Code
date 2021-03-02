@@ -2,6 +2,7 @@ import tkinter as tk
 import os
 import sys
 import pandas as pd
+import numpy as np
 from PIL import Image, ImageTk
 import matplotlib
 matplotlib.use("TkAgg")
@@ -23,11 +24,12 @@ class timeline(tk.Tk):
 
         colors = pd.Series(['b', 'g', 'r', 'c', 'm', 'y', 'k'])
 
+        self.filename = filename
+        self.df_orig = self.load_data()
+
         # default time range for the timeline
         self.min = 1500
         self.max = 2000
-        self.filename = filename
-        self.loadData()
         self.yearFrom = tk.StringVar()
         self.yearFrom.set(self.min)
         self.yearTo = tk.StringVar()
@@ -40,8 +42,6 @@ class timeline(tk.Tk):
 
         fr1 = tk.Frame(self)
         fr1.grid(row=0, column=0, sticky=tk.W)
-
-        #pdb.set_trace()
 
         # Field and label for 'from'
         tk.Label(fr1, text="From:").pack()
@@ -79,42 +79,48 @@ class timeline(tk.Tk):
         self.img_label = tk.Label(fr4)
         self.img_label.pack()
 
-        self.prepare_df()
+        # select rows from dataframe
+        self.df = self.prepare_df(self.df_orig)
 
+        # plotting
         self.draw()
 
-    def loadData(self):
+    def load_data(self):
         # TODO: add option to browse through folder
-        self.df_orig = pd.read_csv(self.filename)
+        df = pd.read_csv(self.filename, dtype={"yearOn": np.int, "yearOff": np.int})
+        return df
 
     def reset(self, *args):
         self.min = int(self.yearFrom.get())
         self.max = int(self.yearTo.get())
         self.label_value.set("")
         self.img_label.configure(image=[])
-        self.prepare_df()
+        self.df = self.prepare_df(self.df_orig)
         self.draw()
 
-    def prepare_df(self):
+    def prepare_df(self, df_orig):
         # pre-process the original dataframe to make it suitable for display
 
         # filter the desired time range
-        self.df = self.df_orig.loc[(self.df_orig['yearOn'] > self.min) & (self.df_orig['yearOff'] + 1 < self.max)]
+        df = df_orig.loc[(df_orig['yearOn'] > self.min) & (df_orig['yearOff'] + 1 < self.max)]
 
         # ignore empty column
-        self.df.loc[:, ~self.df.columns.str.contains('^Unnamed')]
+        df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
+        
         # add column for length of event
-        self.df['length'] = self.df['yearOff'] - self.df['yearOn']
+        df['length'] = df['yearOff'] - df['yearOn']
 
         # show category depending on toggle setting
         for name, row in self.c_df.iterrows():
             state = row['toggle'].get()
             if state == 0:
-                self.df = self.df[self.df['type'] != row['types']]
+                # exclude un-toggled categories
+                df = df[df['type'] != row['types']]
 
-        # sort and reindex cleaned df
-        self.df = self.df.sort_values(['type', 'yearOn'])
-        self.df.index = pd.RangeIndex(len(self.df.index))
+        # sort and re-index cleaned df
+        df = df.sort_values(['type', 'yearOn'])
+        df.index = pd.RangeIndex(len(df.index))
+        return df
 
     def draw(self):
         # embed matplotlib figure in widget
@@ -152,12 +158,13 @@ class timeline(tk.Tk):
         ax.set_xlim(self.min, self.max)
         ax.set_ylim(-(ypos_group + 1), 0)
 
+        # mouse-over function to display event title
         def mouse_over(event):
-            # mouse-over function to display event title
             for ind, row in self.df.iterrows():
                 if my_patches[ind].contains(event)[0]:
                     self.label_value.set(row['title'])
 
+        # mouse-click function for boxes
         def mouse_click(event):
             for ind, row in self.df.iterrows():
                 if my_patches[ind].contains(event)[0]:
@@ -172,10 +179,10 @@ class timeline(tk.Tk):
                     return
 
         fig.canvas.mpl_connect('motion_notify_event', mouse_over)
-
         fig.canvas.mpl_connect('button_press_event', mouse_click)
 
 
+# mainloop
 if __name__ == "__main__":
     root = timeline()
     root.mainloop()
