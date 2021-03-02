@@ -22,7 +22,7 @@ class timeline(tk.Tk):
         tk.Tk.__init__(self)
         self.title("timeline")
 
-        colors = pd.Series(['b', 'g', 'r', 'c', 'm', 'y', 'k'])
+        colors = pd.Series(['blue', 'green', 'red', 'cyan', 'magenta', 'yellow', 'black'])
 
         self.filename = filename
         self.df_orig = self.load_data()
@@ -36,12 +36,25 @@ class timeline(tk.Tk):
         self.yearTo.set(self.max)
 
         # create dataframe to store information about categories
-        c_df = pd.DataFrame({'types': self.df_orig['type'].unique()})
-        c_df['colors'] = colors[0:len(c_df)]
-        self.c_df = c_df.sort_values('types')
+        self.category_order = ["epoch", "person", "art", "event", "invention"]
+        c_df = pd.DataFrame({'category': self.df_orig['category'].unique()})
+        c_df['category'] = pd.Categorical(c_df['category'], self.category_order)
+        c_df['color'] = colors[0:len(c_df)]
+        self.c_df = c_df.sort_values('category')
+
+        #####
+        # fr1
+        #####
+        w, h = self.winfo_screenwidth(), self.winfo_screenheight()
+        self.geometry("%dx%d+0+0" % (w, h))
+        tk.Grid.rowconfigure(self, 0, weight=1)
+        tk.Grid.rowconfigure(self, 1, weight=2)
+        tk.Grid.columnconfigure(self, 0, weight=1)
+        tk.Grid.columnconfigure(self, 1, weight=1)
+        tk.Grid.columnconfigure(self, 2, weight=1)
 
         fr1 = tk.Frame(self)
-        fr1.grid(row=0, column=0, sticky=tk.W)
+        fr1.grid(row=0, column=0, sticky="nsew")
 
         # Field and label for 'from'
         tk.Label(fr1, text="From:").pack()
@@ -57,25 +70,33 @@ class timeline(tk.Tk):
         tk.Button(fr1, text="OK", command=self.reset).pack()
         self.bind('<Return>', self.reset)
 
+        #####
+        # fr2
+        #####
         # toggles for categories displayed
         fr2 = tk.Frame(self)
-        fr2.grid(row=0, column=1, sticky=tk.W)
+        fr2.grid(row=0, column=1, sticky="nsew")
 
         # make one toggle field for each category
         for i, row in self.c_df.iterrows():
             self.c_df.loc[i, 'toggle'] = tk.IntVar()
-            tk.Checkbutton(fr2, text=row['types'], variable=self.c_df.loc[i, 'toggle'], command=self.reset).pack()
+            tk.Checkbutton(fr2, fg=self.c_df.loc[i, 'color'], text=row['category'], variable=self.c_df.loc[i, 'toggle'], command=self.reset).pack()
             self.c_df.loc[i, 'toggle'].set(1)
 
-        # label for item title
-        fr5 = tk.Frame(self)
-        fr5.grid(row=0, column=2)
-        self.label_value = tk.StringVar()
-        tk.Label(fr5, textvariable=self.label_value, width=50).pack()
-
-        # image
+        #####
+        # fr4
+        #####
         fr4 = tk.Frame(self)
-        fr4.grid(row=1, column=2)
+        fr4.grid(row=0, column=2, sticky="nsew")
+        tk.Grid.rowconfigure(fr4, 0, weight=1)
+        tk.Grid.rowconfigure(fr4, 1, weight=4)
+
+        # label for item title
+        self.label_value = tk.StringVar()
+        tk.Label(fr4, textvariable=self.label_value, width=50).pack()
+        self.label_value.set('Click on an event!')
+
+        # label for image
         self.img_label = tk.Label(fr4)
         self.img_label.pack()
 
@@ -87,13 +108,17 @@ class timeline(tk.Tk):
 
     def load_data(self):
         # TODO: add option to browse through folder
-        df = pd.read_csv(self.filename, dtype={"yearOn": np.int, "yearOff": np.int})
+        df = pd.read_csv(self.filename)
+        # replace missing yearOff by yearOn
+        df['yearOff'] = np.where(np.isnan(df['yearOff']), df['yearOn'], df['yearOff'])
+        df['yearOn'] = df['yearOn'].astype(pd.Int64Dtype())
+        df['yearOff'] = df['yearOff'].astype(pd.Int64Dtype())
         return df
 
     def reset(self, *args):
         self.min = int(self.yearFrom.get())
         self.max = int(self.yearTo.get())
-        self.label_value.set("")
+        self.label_value.set('Click on an event!')
         self.img_label.configure(image=[])
         self.df = self.prepare_df(self.df_orig)
         self.draw()
@@ -106,29 +131,36 @@ class timeline(tk.Tk):
 
         # ignore empty column
         df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
-        
+
+        # enforce minimal length
+        min_length = np.int(np.ceil((self.max - self.min) / self.winfo_screenwidth())) * 2
+
         # add column for length of event
         df['length'] = df['yearOff'] - df['yearOn']
+        df['length'] = np.where(df.length < min_length, min_length, df['length'])
 
         # show category depending on toggle setting
         for name, row in self.c_df.iterrows():
             state = row['toggle'].get()
             if state == 0:
                 # exclude un-toggled categories
-                df = df[df['type'] != row['types']]
+                df = df[df['category'] != row['category']]
 
         # sort and re-index cleaned df
-        df = df.sort_values(['type', 'yearOn'])
+        df['category'] = pd.Categorical(df['category'], self.category_order)
+        df = df.sort_values(['category', 'yearOn'])
         df.index = pd.RangeIndex(len(df.index))
         return df
 
     def draw(self):
         # embed matplotlib figure in widget
         plt.close("all")
-        fig = plt.figure(figsize=(8, 8), dpi=80)
+        fig = plt.figure()
         ax = plt.subplot(111)
+        plt.xlabel('year')
+        plt.tick_params(axis='y', which='both', left=False, labelleft=False)
         fr3 = FigureCanvasTkAgg(fig, self)
-        fr3.get_tk_widget().grid(row=1, column=0, columnspan=2)
+        fr3.get_tk_widget().grid(row=1, column=0, columnspan=3, sticky="nsew")
         linewidth = 1
 
         # initialize parameters
@@ -138,19 +170,20 @@ class timeline(tk.Tk):
         ymax = 0
 
         # loop over categories
-        grouped = self.df.groupby('type')
+        grouped = self.df.groupby('category')
         for cat, group in grouped:
             for ind, row in group.iterrows():
                 # draw the event in the next free row
                 ypos = ypos_group + 1
-                while any((filled['ypos'] == ypos) & (((filled['on'] < (row['yearOn'] - 1)) & ((row['yearOn'] - 1) < filled['off'])) | ((filled['on'] < (row['yearOff'] - 1)) & ((row['yearOff'] + 1) < filled['off'])))):
+                while any((filled['ypos'] == ypos) & (((filled['on'] < (row['yearOn'] - 1)) & ((row['yearOn'] - 1) < filled['off'])) | ((filled['on'] < (row['yearOff'] - 1)) & ((row['yearOn'] + row['length'] + 1) < filled['off'])))):
                     ypos += 1
-                    if ypos > ymax: ymax = ypos
+                    if ypos > ymax:
+                        ymax = ypos
                 # draw event as rectangle
-                rect = patches.Rectangle((int(row['yearOn']), -(ypos + linewidth)), row['length'], linewidth * 0.9, facecolor=self.c_df[self.c_df['types'] == cat].colors.unique()[0])
+                rect = patches.Rectangle((int(row['yearOn']), -(ypos + linewidth)), row['length'], linewidth * 0.9, facecolor=self.c_df[self.c_df['category'] == cat].color.unique()[0])
                 ax.add_patch(rect)
                 my_patches.append(rect)
-                filled = filled.append({'ypos': ypos, 'on': row['yearOn'], 'off': row['yearOff']}, ignore_index=True)
+                filled = filled.append({'ypos': ypos, 'on': row['yearOn'], 'off': row['yearOn'] + row['length']}, ignore_index=True)
 
             # start a new cateory in a new row
             ypos_group = ymax + 2
@@ -162,16 +195,25 @@ class timeline(tk.Tk):
         def mouse_over(event):
             for ind, row in self.df.iterrows():
                 if my_patches[ind].contains(event)[0]:
-                    self.label_value.set(row['title'])
+                    self.label_value.set(f'{row.title}: {row.yearOn}')
 
         # mouse-click function for boxes
         def mouse_click(event):
             for ind, row in self.df.iterrows():
                 if my_patches[ind].contains(event)[0]:
-                    basewidth = 300
                     img = img_google.get_tk_img(row['title'])
-                    wpercent = (basewidth / float(img.size[0]))
-                    hsize = int((float(img.size[1]) * float(wpercent)))
+
+                    # fix width:
+                    #basewidth = 300
+                    # wpercent = (basewidth / float(img.size[0]))
+                    # hsize = int((float(img.size[1]) * float(wpercent)))
+                    # self._im = img.resize((basewidth, hsize), Image.ANTIALIAS)
+
+                    # fix height:
+                    hsize = np.int(self.winfo_screenheight() / 5)
+                    wpercent = (hsize / float(img.size[1]))
+                    basewidth = int((float(img.size[0]) * float(wpercent)))
+
                     self._im = img.resize((basewidth, hsize), Image.ANTIALIAS)
                     self._image = ImageTk.PhotoImage(self._im)
                     self.img_label.configure(image=self._image)
