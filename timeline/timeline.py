@@ -34,9 +34,9 @@ class timeline(tk.Tk):
             self.max = 2000
             self.category_order = ["epoch", "person", "art", "event", "invention"]
         elif self.scale == 'mya':
-            self.min = -3600
+            self.min = -4600
             self.max = 0
-            self.category_order = ['epoch', 'event']
+            self.category_order = ['supereon', 'eon', 'era', 'period', 'epoch', 'event']
 
         self.yearFrom = tk.StringVar()
         self.yearFrom.set(self.min)
@@ -170,28 +170,40 @@ class timeline(tk.Tk):
 
         # initialize parameters
         my_patches = []
-        filled = pd.DataFrame(columns=['ypos', 'on', 'off'])
         ypos_group = 0
         ymax = 0
 
         # loop over categories
         grouped = self.df.groupby('category')
         for cat, group in grouped:
+            filled = pd.DataFrame(columns=['ypos', 'on', 'off'])
             for ind, row in group.iterrows():
                 # draw the event in the next free row
                 ypos = ypos_group + 1
-                while any((filled['ypos'] == ypos) & (((filled['on'] < (row['yearOn'] - 1)) & ((row['yearOn'] - 1) < filled['off'])) | ((filled['on'] < (row['yearOff'] - 1)) & ((row['yearOn'] + row['length'] + 1) < filled['off'])))):
-                    ypos += 1
-                    if ypos > ymax:
-                        ymax = ypos
+
+                # add subsequent pathes directly
+                if cat in ['supereon', 'eon', 'era', 'period', 'epoch']:
+                    while any((filled['ypos'] == ypos) & (((filled['on'] < (row['yearOn'])) & ((row['yearOn']) < filled['off'])) | ((filled['on'] < (row['yearOff'])) & ((row['yearOn'] + row['length']) < filled['off'])))):
+                        ypos += 1
+                    rect = patches.Rectangle((int(row['yearOn']), -(ypos + linewidth)), row['length'], linewidth * 0.9,
+                                             facecolor=self.c_df[self.c_df['category'] == cat].color.unique()[0],
+                                             edgecolor='black')
+                # start new row for short events
+                else:
+                    while any((filled['ypos'] == ypos) & (((filled['on'] < (row['yearOn'] - 1)) & ((row['yearOn'] - 1) < filled['off'])) | ((filled['on'] < (row['yearOff'] - 1)) & ((row['yearOn'] + row['length'] + 1) < filled['off'])))):
+                        ypos += 1
+                    rect = patches.Rectangle((int(row['yearOn']), -(ypos + linewidth)), row['length'], linewidth * 0.9,
+                                             facecolor=self.c_df[self.c_df['category'] == cat].color.unique()[0])
+
+                if ypos > ymax:
+                    ymax = ypos
                 # draw event as rectangle
-                rect = patches.Rectangle((int(row['yearOn']), -(ypos + linewidth)), row['length'], linewidth * 0.9, facecolor=self.c_df[self.c_df['category'] == cat].color.unique()[0])
                 ax.add_patch(rect)
                 my_patches.append(rect)
                 filled = filled.append({'ypos': ypos, 'on': row['yearOn'], 'off': row['yearOn'] + row['length']}, ignore_index=True)
 
             # start a new cateory in a new row
-            ypos_group = ymax + 2
+            ypos_group = ymax
 
         ax.set_xlim(self.min, self.max)
         ax.set_ylim(-(ypos_group + 1), 0)
