@@ -1,291 +1,304 @@
 ﻿title,yearOn,yearOff,category,scale
-lower paleolithic,-36000,-30000,epoch,year
-upper paleolithic,-50000,-12000,epoch,year
-mesolithic,-20000,-8000,epoch,year
+homo erectus,1,,event,mya
+homo habilis,2,,event,mya
+Pleistocene,3,0,epoch,mya
+australopithecus,3,,event,mya
+Quaternary,3,0,period,mya
+bipedalism,4,,event,mya
+LCA chimpanzee,6,,event,mya
+hominina,8,,event,mya
+LCA gorilla,9,,event,mya
+hominiae,14,,event,mya
+hominidae,20,,event,mya
+hominoidea,22,,event,mya
+Miocene,23,3,period,mya
+Neogene,23,3,period,mya
+catarrhini,30,,event,mya
+Oligocene,34,23,epoch,mya
+simiiformes,40,,event,mya
+Eocene,56,34,epoch,mya
+halplorrhini,63,,event,mya
+Paleocene,66,56,epoch,mya
+Cenozoic,66,0,era,mya
+primates,66,,event,mya
+Paleogene,66,23,period,mya
+LCA mice,100,,event,mya
+Cretaceous,145,66,period,mya
+placental mammals,160,,event,mya
+eutherians,160,,event,mya
+Jurassic,201,145,period,mya
+mammals,220,,event,mya
+woody trees,245,,event,mya
+Mesozoic,251,66,era,mya
+Triassic,251,201,period,mya
+Permian,298,251,period,mya
+reptiles,310,,event,mya
+Carboniferous,358,298,period,mya
+amphibia,360,,event,mya
+neocortex,360,,event,mya
+tetrapods,395,,event,mya
+Devonian,419,358,period,mya
+Silurian,443,419,period,mya
+jawed fish,460,,event,mya
+land plant spors,465,,event,mya
+Ordovician,485,443,period,mya
+vertebrates,530,,event,mya
+Phanerozoic,541,0,eon,mya
+Paleozoic,541,251,era,mya
+Cambrian explosion,541,,event,mya
+Cambrian,541,485,period,mya
+worms,560,,event,mya
+animals,610,,event,mya
+Ediacaran,635,541,period,mya
+Cryogenian,850,635,period,mya
+Neoproterozoic,1000,541,era,mya
+Tonian,1000,850,period,mya
+sexual reproduction,1200,,event,mya
+Stenian,1200,1000,period,mya
+ectasian,1400,1200,period,mya
+Mesoproterozoic,1600,1000,era,mya
+Calymmian,1600,1400,period,mya
+Statherian,1800,1600,period,mya
+Orosirian,2050,1800,period,mya
+eucaryots,2100,,event,mya
+Rhyacian,2300,2050,period,mya
+Proterozoic,2500,541,eon,mya
+Paleoproterozoic,2500,1600,era,mya
+great oxygenation event,2500,,event,mya
+Siderian,2500,2300,period,mya
+Neoarchean,2800,2500,era,mya
+Mesoarchean,3200,2800,era,mya
+photosynthesis,3500,,event,mya
+Paleoarchean,3600,3200,era,mya
+cells,3900,,event,mya
+Archean,4000,2500,eon,mya
+Eoarchean,4000,3600,era,mya
+DNA,4000,,event,mya
+life,4200,,event,mya
+Moon,4527,,event,mya
+Hadean,4600,4000,eon,mya
+Precambrian,4600,541,supereon,mya
+Paleolithic (Old Stone Age),-3300000,-12000,epoch,year
+Lomekwi,-3300000,-2600000,epoch,year
+Oldowan,-2600000,-1700000,epoch,year
+Acheulan,-1760000,-130000,epoch,year
+Madrasian,-1500000,-500000,epoch,year
+Soanian,-500000,-1300000,epoch,year
+Clactonian,-424000,-400000,epoch,year
+Mugharan,-400000,-220000,epoch,year
+lower paleolithic,-330000,-300000,epoch,year
 middle paleolithic,-300000,-50000,epoch,year
-neolithic,-10000,-4500,epoch,year
+upper paleolithic,-50000,-12000,epoch,year
+ceramik,-30000,,invention,year
+mesolithic,-20000,-8000,epoch,year
+needle,-20000,,invention,year
+Hoehle von Laxcaux,-17000,-15000,art,year
 Holozän,-11700,-3000,epoch,year
-Altes Ägypten,-4000,-200,epoch,year
-Sumer,-3500,-2000,epoch,year
-Bronzezeit,-3000,-800,epoch,year
+Neolithic (Young Stone Age),-10000,-4500,epoch,year
+net,-10000,,invention,year
+clay brick,-10000,,invention,year
+Stonehenge,-8000,-7000,art,year
+boat,-7500,,invention,year
+Old Egypt,-4000,-200,epoch,year
+sun dial,-4000,,invention,year
+The Sumer,-3500,-2000,epoch,year
+wheel,-3500,,invention,year
+plough,-3500,,invention,year
+papyrus,-3500,,invention,year
+Bronze Age,-3000,-800,epoch,year
 Maya,-3000,900,epoch,year
+glas,-3000,,invention,year
+Pyramiden von Gizeh,-2550,-2500,art,year
+iron smelting,-1900,,invention,year
+alphabet,-1700,,invention,year
 Griechenland,-1600,-700,epoch,year
 Mykenen,-1600,-1500,epoch,year
-Eisenzeit,-1200,-300,epoch,year
-Antike,-800,500,epoch,year
-Rome,-753,500,epoch,year
-Perserreich,-500,-600,epoch,year
-Han Dy.,-206,220,epoch,year
-Byzantisches Reich,395,1453,epoch,year
-Merowinger,500,750,epoch,year
-Frühmittelalter,750,1045,epoch,year
-Karolinger,751,911,epoch,year
-Wikinger,793,1066,epoch,year
-Hl Römisches Reich,962,1806,epoch,year
-Ottonen,962,1070,epoch,year
-Inka,1000,1780,epoch,year
-Hohmittelalter,1055,1345,epoch,year
-Salier,1084,1150,epoch,year
-Staufer,1155,1268,epoch,year
-Gotik,1250,1520,epoch,year
-Hanse,1250,1500,epoch,year
-Osmanen,1299,1922,epoch,year
-Azteken,1320,1521,epoch,year
-Renaissance,1350,1500,epoch,year
-Spätes Mittelalter,1355,1500,epoch,year
-Ming Dynastie,1368,1644,epoch,year
-Reformation,1470,1595,epoch,year
-Manerismus,1520,1600,epoch,year
-Neuzeit,1550,1850,epoch,year
-Barock,1605,1710,epoch,year
-Quing Dy.,1644,1911,epoch,year
-Aufklärung,1720,1782,epoch,year
-Empfindsamkeit,1740,1790,epoch,year
-Sturm und Drang,1767,1785,epoch,year
-Industrielle Revolution,1780,1914,epoch,year
-Klassik,1786,1820,epoch,year
-Romantik,1793,1835,epoch,year
-Biedermeier,1815,1848,epoch,year
-Junges Deutschland,1825,1848,epoch,year
-Vormärz,1825,1848,epoch,year
-Realismus,1848,1890,epoch,year
-Kaiserreich,1871,1919,epoch,year
-Naturalismus,1880,1900,epoch,year
-Moderne,1890,1920,epoch,year
-Expressionismus,1910,1925,epoch,year
-"Avantgarde,",1915,1925,epoch,year
-Weimarer Republik,1919,1933,epoch,year
-Exilliteratur,1933,1945,epoch,year
-Nachkriegsliteratur,1945,1950,epoch,year
-"Literatur der DDR, Literatur der BRD",1950,1990,epoch,year
-Neue Subjektivität,1970,2018,epoch,year
-Postmoderne,1980,2018,epoch,year
-merowingische Kunst,500,750,epoch,year
-karolingische Kunst,750,900,epoch,year
-ottonische Kunst,950,1050,epoch,year
-Hochmittelaler,1050,1250,epoch,year
-Vorsokratiker,-600,-450,epoch,year
-Griechische Klassik,-450,-300,epoch,year
-Helenismus,-300,0,epoch,year
-Neuplatonismus,0,600,epoch,year
-Song Dynastie,960,1279,epoch,year
-Ming Dynastie,1368,1644,epoch,year
-Rokoko,1725,1783,epoch,year
-Frankreich unter den Merowingern und Karolingern,481,911,epoch,year
-Vorromanik,500,1050,epoch,year
 Mykenische Eroberung Kretas,-1400,-1350,event,year
+Anubisschrein,-1350,-1300,art,year
+Bueste der Nofretete,-1345,-1343,art,year
+Ramses II,-1303,-1213,person,year
 Trojanischer Krieg,-1250,-1200,event,year
+Iron Age,-1200,-300,epoch,year
+Homer,-1000,-970,person,year
+Antike,-800,500,epoch,year
 Griechische Stadtstaaten,-800,-500,event,year
 Olympische Spiele,-776,-393,event,year
-Perserkriege,-500,-448,event,year
-Peloponnesischer Krieg,-431,-404,event,year
-Spartanisch-persischer Krieg,-399,-394,event,year
-Erster Punischer Krieg,-218,-201,event,year
-Alexanderzug,-34,-323,event,year
-Eroberung Attila,441,453,event,year
-Angelsachsen in E,550,600,event,year
-Arabische Eroberung,634,800,event,year
-1.Universität,1088,,event,year
-1. Kreuzzug,1096,1099,event,year
-Pest,1347,1351,event,year
-Inquisition,1478,1834,event,year
-Amerikas,1492,1494,event,year
-Thesenanschlag,1517,,event,year
-Eroberung Azteken,1521,1523,event,year
-Bartholomäusnacht,1572,,event,year
-East India Company,1600,1874,event,year
-VOC,1602,1799,event,year
-30 jähriger Krieg,1618,1648,event,year
-Prager Fenstersturz,1618,,event,year
-Mayflower,1620,1621,event,year
-Unabhängigkeitserklärung,1776,1780,event,year
-Französische Rev,1789,1795,event,year
-Wiener Kongress,1815,1817,event,year
-Dekabristenaufstand in Russland,1825,1827,event,year
-Polen wird russfiziert,1830,1832,event,year
-Deutscher Bund unter Oesterreich,1850,1866,event,year
-Staatsstreich Napoleon III,1851,1853,event,year
-Krimkrieg,1853,1856,event,year
-Deutscher Krieg,1866,1868,event,year
-Norddeutscher Bund,1867,1871,event,year
-Deutsch-Franzoesischer Krieg,1870,1871,event,year
-Gruenderzeit,1870,1890,event,year
-Kruegertelegramm,1896,1898,event,year
-Quantentheorie,1900,1920,event,year
-Marokkokrise,1907,1911,event,year
-1. WK,1914,1918,event,year
-Sarajevo Attentat,1914,,event,year
-Rusische Revolution,1917,1919,event,year
-Deutsche Revolution,1918,1920,event,year
-Börsencrash,1929,,event,year
-Spanischer Buergerkrieg,1936,1939,event,year
-Reichskristallnacht,1938,,event,year
-2. WK,1939,1945,event,year
-Berliner Kongress,1978,1980,event,year
-Dreikaiserjahr,1988,1990,event,year
-Mauerfall,1989,,event,year
+Rome,-753,500,epoch,year
+Thales von Milet,-624,-546,person,year
 Gesetzgebung Drakons,-621,-600,event,year
-Perserkriege,-500,-400,event,year
-Pompeji Verschüttet,79,,event,year
-Magna Carta,1214,1220,event,year
-England erobert Montreal,1759,,event,year
-Ende des weströmischen Reich,450,,event,year
-Ramses II,-1303,-1213,person,year
-Homer,-1000,-970,person,year
+coins,-620,,invention,year
+Hängende Gärten von Babylon,-600,-550,art,year
+Vorsokratiker,-600,-450,epoch,year
+Pythagoras,-570,-510,person,year
 Buddah,-560,-483,person,year
+Konuzius,-551,-479,person,year
+Artemistempel,-550,-500,art,year
+land map,-550,,invention,year
+aqueaduct,-530,,invention,year
+Heraklit,-520,-460,person,year
+Chinesische Mauer,-500,1644,art,year
+Perserreich,-500,-600,epoch,year
+Perserkriege,-500,-448,event,year
+Perserkriege,-500,-400,event,year
+Sophokles ,-497,-406,person,year
 Herodot,-490,-425,person,year
 Perikles,-490,-429,person,year
+Protagoras,-490,-411,person,year
+Hippokrates,-460,-370,person,year
+Demokrit,-459,-370,person,year
+Griechische Klassik,-450,-300,epoch,year
+Sophokles - Antigone,-441,-439,art,year
+Zeusstatue in Olympia,-435,-400,art,year
+Peloponnesischer Krieg,-431,-404,event,year
 Sokrates,-431,-404,person,year
+Sophokles - Koenig Oedipus,-429,-427,art,year
 Platon,-424,-348,person,year
+Diogenes,-405,-320,person,year
+Spartanisch-persischer Krieg,-399,-394,event,year
 Aristotele,-384,-322,person,year
+Maussolleion,-377,-353,art,year
 Alexander der Große,-356,-323,person,year
 Epikur,-342,-270,person,year
+Helenismus,-300,0,epoch,year
+Koloss von Rhodos,-292,-200,art,year
 Archimedes,-285,-212,person,year
+Pharos von Alexandria,-280,-200,art,year
 Hannibal,-247,-183,person,year
+Terrakotta Armee,-246,-210,art,year
 Euklid,-230,-190,person,year
+Erster Punischer Krieg,-218,-201,event,year
+Han Dy.,-206,220,epoch,year
+Nike von Samothrake,-190,-188,art,year
 Sulla,-138,-78,person,year
+Venus von Milo,-130,-128,art,year
 Spartacus,-111,-71,person,year
 Cicero,-106,-43,person,year
 Caesar,-100,-44,person,year
 Cleopatra,-69,-30,person,year
 Ovid,-43,17,person,year
+Alexanderzug,-34,-323,event,year
 Augustus,-27,14,person,year
 Seneca,-4,65,person,year
+Neuplatonismus,0,600,epoch,year
 Jesus,4,30,person,year
 Tiberius,14,37,person,year
 Plinius,23,79,person,year
+paper,50,,invention,year
 Trajan,53,117,person,year
 Traian,53,117,person,year
 Nero,54,68,person,year
+Markusevangelium,70,150,art,year
+Kolosseum,72,80,art,year
+Pompeji Verschüttet,79,,event,year
+Artemis von Ephesos,125,175,art,year
 Marc Aurel,161,180,person,year
+erste Bibel,200,300,art,year
 Konstatin der Große,272,337,person,year
 Konstanti der Grosse,306,337,person,year
+Hagia Sophia,325,500,art,year
+Augustinus,354,430,person,year
+Byzantisches Reich,395,1453,epoch,year
+Eroberung Attila,441,453,event,year
+Ende des weströmischen Reich,450,,event,year
+Acropolis,464,406,art,year
+Herodot,480,425,person,year
+Frankreich unter den Merowingern und Karolingern,481,911,epoch,year
+Theoderich der Große,493,526,person,year
+Merowinger,500,750,epoch,year
+merowingische Kunst,500,750,epoch,year
+Vorromanik,500,1050,epoch,year
+Mausoleum des Theoderich,520,550,art,year
+Angelsachsen in E,550,600,event,year
 Mohammed,570,632,person,year
+chess,600,,invention,year
+paper money,618,,invention,year
+Arabische Eroberung,634,800,event,year
+pinfeather,635,,invention,year
+windmill,650,,invention,year
+Pippin III,714,768,person,year
 Karl der Große,747,814,person,year
+Early Middle Ages,750,1045,epoch,year
+karolingische Kunst,750,900,epoch,year
+Karolinger,751,911,epoch,year
+porcellain,780,,invention,year
+Wikinger,793,1066,epoch,year
+Hildebrandslied,830,840,art,year
+Merseburger Zaubersprüche,850,860,art,year
+Ankor Wat ,900,1100,art,year
+ottonische Kunst,950,1050,epoch,year
+Song Dynastie,960,1279,epoch,year
+Hl Römisches Reich,962,1806,epoch,year
+Ottonen,962,1070,epoch,year
+Inka,1000,1780,epoch,year
+spinning wheel,1000,,invention,year
+Bernwardstür in Hildesheim,1015,1020,art,year
+Westinster Abbey,1045,1065,art,year
+High Middle Ages,1050,1250,epoch,year
+coloured glass,1065,,invention,year
+fork,1071,,invention,year
+Salier,1084,1150,epoch,year
+first university,1088,,event,year
+compass,1090,,invention,year
+1. Kreuzzug,1096,1099,event,year
 Hildegard von Bingen,1098,1179,person,year
 Friedrich Barbarossa,1122,1190,person,year
+Staufer,1155,1268,epoch,year
 Genghis Khan,1162,1227,person,year
+Notre Dame,1163,1300,art,year
 Walter von der Vogelweide,1170,1230,person,year
+Turm von Pisa,1173,1272,art,year
+ship rudder,1180,,invention,year
+Parzival,1200,1210,art,year
+magnifying glass,1200,,invention,year
+Magna Carta,1214,1220,event,year
+Nibelungenlied,1220,1250,art,year
+Snorra Edda,1220,1225,art,year
+Koelner Dom,1248,1880,art,year
+Kölner Dom,1248,1300,art,year
+Gotik,1250,1520,epoch,year
+Hanse,1250,1500,epoch,year
+canons,1250,,invention,year
 Dante,1265,1321,person,year
 Giotto,1266,1337,person,year
+gun powder,1267,,invention,year
+Osmanen,1299,1922,epoch,year
+glasses,1299,,invention,year
+Giotto - Scrovegni Chapel,1300,1305,art,year
+Azteken,1320,1521,epoch,year
+Pest,1347,1351,event,year
+Renaissance,1350,1500,epoch,year
+Late Middle Ages,1355,1500,epoch,year
+Ming Dynastie,1368,1644,epoch,year
+Ming Dynastie,1368,1644,epoch,year
+Jan Hus,1369,1415,person,year
 Donatello,1386,1466,person,year
+Cosimo de Medici,1389,1464,person,year
+Jan van Eyck,1390,1441,person,year
+Osterinseln Moai,1400,1410,art,year
+screw ,1405,,invention,year
 Jeanne d'Arc,1412,1431,person,year
+Donatello - David,1440,1442,art,year
 Botticelli,1445,1510,person,year
+Machu Picchu,1450,1460,art,year
+Kloster Reichenau,1450,1540,art,year
 Kolumbus,1451,1506,person,year
 da Vinci,1452,1519,person,year
+book printing,1455,,invention,year
 Desiderius Erasmus,1466,1536,person,year
 Machiavelli,1469,1527,person,year
+Reformation,1470,1595,epoch,year
 Albrecht Dürer,1471,1528,person,year
 Kopernikus,1473,1543,person,year
+Inquisition,1478,1834,event,year
+Botticelli - La Primavera,1482,1487,art,year
 Martin Luther,1483,1546,person,year
 Raphael,1483,1520,person,year
 Michelangelo,1483,1520,person,year
-Titian,1488,1576,person,year
-Shakespeare,1564,1616,person,year
-Galileo Galilei,1564,1642,person,year
-Thomas Hobbes,1588,1679,person,year
-Rene Descartes,1596,1650,person,year
-Martin Opitz,1597,1639,person,year
-Rembrandt,1606,1669,person,year
-Andreas Gryphius,1616,1664,person,year
-Ludwig XIV.,1638,1715,person,year
-Isaac Newton,1643,1727,person,year
-Peter der Große,1672,1725,person,year
-Antonio Vivaldi,1678,1741,person,year
-Johann Sebastian Bach,1685,1750,person,year
-George Washington,1732,1799,person,year
-Immanuel Kant,1742,1804,person,year
-Goethe,1749,1832,person,year
-Wolfgang Amadeus Mozart,1756,1791,person,year
-Schiller,1759,1805,person,year
-Napoleon,1769,1821,person,year
-Humboldt,1769,1859,person,year
-Beethoven,1770,1827,person,year
-Bernd von Kleist,1777,1811,person,year
-Josef von Eichendorff,1788,1857,person,year
-Eduard Moerike,1804,1875,person,year
-Darwin,1809,1882,person,year
-Edgar Allan Poe,1809,1849,person,year
-Marx,1818,1883,person,year
-Victoria,1819,1901,person,year
-Mendel,1822,1884,person,year
-Kaiser Franz,1830,1916,person,year
-Sissi,1837,1898,person,year
-van Gogh,1853,1890,person,year
-Freud,1856,1939,person,year
-Gandhi,1869,1948,person,year
-Lenin,1870,1924,person,year
-Adenauer,1876,1967,person,year
-Einstein,1879,1955,person,year
-Mao,1893,1976,person,year
-Marilyn Monroe,1926,1962,person,year
-Che Guevara,1928,1957,person,year
-Audrey Hepburn,1929,1993,person,year
-Pippin III,714,768,person,year
-Jan van Eyck,1390,1441,person,year
-Cosimo de Medici,1389,1464,person,year
-Thales von Milet,-624,-546,person,year
-Sophokles ,-497,-406,person,year
-Heraklit,-520,-460,person,year
-Pythagoras,-570,-510,person,year
-Hippokrates,-460,-370,person,year
-Demokrit,-459,-370,person,year
-Protagoras,-490,-411,person,year
-Herodot,480,425,person,year
-Diogenes,-405,-320,person,year
-Konuzius,-551,-479,person,year
-Augustinus,354,430,person,year
-Jan Hus,1369,1415,person,year
-Paracelsus,1493,1541,person,year
-Spinoza,1632,1677,person,year
-John Locke,1632,1704,person,year
-David Hume,1711,1776,person,year
-Montesquieu,1689,1755,person,year
-Rousseau,1712,1778,person,year
-de Sade,1740,1814,person,year
-Giovanni Pierluigi da Palestrina,1514,1494,person,year
-Andrea Gabrieli,1532,1585,person,year
-Heinrich Schuütz,1585,1672,person,year
-Georg Telemann,1681,1767,person,year
-Georg Händel,1685,1759,person,year
-Felix Mendelssohn Bartholdy,1809,1847,person,year
-Frederic Chopin,1810,1849,person,year
-Robert Schumann,1818,1856,person,year
-Antonin Dvorak,1841,1904,person,year
-Edvard Grieg,1843,1923,person,year
-Claude Debussy,1862,1918,person,year
-Richard Strauss,1864,1949,person,year
-Siegfried Wagner,1869,1930,person,year
-Sergei Rachmaninov,1873,1943,person,year
-Arnold Schoönberg,1874,1951,person,year
-Igor Strawinsky,1882,1971,person,year
-Boris Taschaikowski,1925,1996,person,year
-Theoderich der Große,493,526,person,year
-Hoehle von Laxcaux,-17000,-15000,art,year
-Stonehenge,-8000,-7000,art,year
-Pyramiden von Gizeh,-2550,-2500,art,year
-Bueste der Nofretete,-1345,-1343,art,year
-Chinesische Mauer,-500,1644,art,year
-Sophokles - Antigone,-441,-439,art,year
-Sophokles - Koenig Oedipus,-429,-427,art,year
-Terrakotta Armee,-246,-210,art,year
-Nike von Samothrake,-190,-188,art,year
-Venus von Milo,-130,-128,art,year
-Kolosseum,72,80,art,year
-Hagia Sophia,325,500,art,year
-Acropolis,464,406,art,year
-Ankor Wat ,900,1100,art,year
-Turm von Pisa,1173,1272,art,year
-Parzival,1200,1210,art,year
-Nibelungenlied,1220,1250,art,year
-Koelner Dom,1248,1880,art,year
-Giotto - Scrovegni Chapel,1300,1305,art,year
-Osterinseln Moai,1400,1410,art,year
-Donatello - David,1440,1442,art,year
-Machu Picchu,1450,1460,art,year
-Botticelli - La Primavera,1482,1487,art,year
 Botticelli - Die Geburt der Venus,1485,1487,art,year
+Titian,1488,1576,person,year
 Da Vinci - Das letzte Abendmahl,1490,1492,art,year
+Amerikas,1492,1494,event,year
+Paracelsus,1493,1541,person,year
 Da Vinci - Dame mit dem Hermelin,1496,1498,art,year
 Michelangelo - David,1501,1504,art,year
 Petersdom,1506,1626,art,year
@@ -293,262 +306,305 @@ Raphael - Schule von Athn,1507,1509,art,year
 Raphael - Der Triumph der Galeta,1511,1513,art,year
 Micelangelo - Die Erschaffung des Adam,1512,1514,art,year
 Da Vinci - Johannes der Taeufer,1513,1515,art,year
+Giovanni Pierluigi da Palestrina,1514,1494,person,year
 Da Vinci - Mona Lisa ,1517,1519,art,year
+Thesenanschlag,1517,,event,year
+Manerismus,1520,1600,epoch,year
+Eroberung Azteken,1521,1523,event,year
 Parmigianino - Madonna mit dem langen Hals,1532,1540,art,year
+Andrea Gabrieli,1532,1585,person,year
+Neuzeit,1550,1850,epoch,year
 Basilius Kathedrale,1552,1561,art,year
 Tizian - Peuseus und Andromeda,1554,1556,art,year
 Bruegel der Aeltere - Niederlaendische Sprichwoerter,1559,1602,art,year
+Shakespeare,1564,1616,person,year
+Galileo Galilei,1564,1642,person,year
+Bartholomäusnacht,1572,,event,year
 Arcimboldo - Der Frühling,1573,1575,art,year
+Heinrich Schuütz,1585,1672,person,year
+Thomas Hobbes,1588,1679,person,year
+knitting machine,1589,,invention,year
+microscope,1590,,invention,year
+telescope,1590,,invention,year
 Caravaggio - Sick Bacchus,1592,1594,art,year
+Rene Descartes,1596,1650,person,year
+Martin Opitz,1597,1639,person,year
 Caravaggio - Die Umwandlung von St Paul,1600,1602,art,year
+East India Company,1600,1874,event,year
+VOC,1602,1799,event,year
+Barock,1605,1710,epoch,year
+Rembrandt,1606,1669,person,year
 Rubens - Dornenkrone,1612,1614,art,year
 Rubens - Tiger Loewen und Leoparden Jagd,1616,1618,art,year
+Andreas Gryphius,1616,1664,person,year
 Rubens - Raub der Toechter des Leukippos,1618,1620,art,year
+30 jähriger Krieg,1618,1648,event,year
+Prager Fenstersturz,1618,,event,year
+Mayflower,1620,1621,event,year
+calculator,1623,,invention,year
+Berini - Apoll und Daphne,1625,1630,art,year
 Rubens - Cimon und Pero,1630,1632,art,year
 Versaille,1631,1700,art,year
 Taj Mahal,1632,1643,art,year
+Spinoza,1632,1677,person,year
+John Locke,1632,1704,person,year
+Ludwig XIV.,1638,1715,person,year
 Remrandt -Nachtwache,1640,1642,art,year
 Velazquez - Dame mit Faecher,1640,1642,art,year
+Isaac Newton,1643,1727,person,year
+Quing Dy.,1644,1911,epoch,year
 Hobbes Leviathan,1651,1653,art,year
 Vermeer - Maedchen mit Perlenohrringen,1663,1665,art,year
+Peter der Große,1672,1725,person,year
+Antonio Vivaldi,1678,1741,person,year
+Georg Telemann,1681,1767,person,year
+Johann Sebastian Bach,1685,1750,person,year
+Georg Händel,1685,1759,person,year
+Montesquieu,1689,1755,person,year
+piano,1700,,invention,year
+David Hume,1711,1776,person,year
+steamengine,1712,,invention,year
+Rousseau,1712,1778,person,year
 Defoe - Robinson Crusoe,1719,1721,art,year
+Aufklärung,1720,1782,epoch,year
+Rokoko,1725,1783,epoch,year
+George Washington,1732,1799,person,year
+Linne - Systema Naturae,1734,,invention,year
+Empfindsamkeit,1740,1790,epoch,year
+de Sade,1740,1814,person,year
+Immanuel Kant,1742,1804,person,year
+Goethe,1749,1832,person,year
+Wolfgang Amadeus Mozart,1756,1791,person,year
+England conquers Montreal,1759,,event,year
+Schiller,1759,1805,person,year
+Sturm und Drang,1767,1785,epoch,year
+Napoleon,1769,1821,person,year
+Humboldt,1769,1859,person,year
+Beethoven,1770,1827,person,year
+Declaration of Independence,1776,1780,event,year
+Bernd von Kleist,1777,1811,person,year
+Industrial Revolution,1780,1914,epoch,year
 Schillr - Raeuber,1781,1783,art,year
+Classics,1786,1820,epoch,year
+Josef von Eichendorff,1788,1857,person,year
 Brandenburger Turm,1789,1793,art,year
+Französische Rev,1789,1795,event,year
+Romantik,1793,1835,epoch,year
 Schiller - Maria Stuart,1800,1802,art,year
 David - Napoleon,1803,1805,art,year
 Schiller - Wilhelm Tell,1804,1806,art,year
+steam train,1804,,invention,year
+Eduard Moerike,1804,1875,person,year
 Runge - Der Morgen,1808,1810,art,year
 Goethe - Faust 1,1808,1810,art,year
 Kleist - Kohlhaas,1808,1810,art,year
+electric light,1808,,invention,year
+typewriter,1808,,invention,year
+Darwin,1809,1882,person,year
+Edgar Allan Poe,1809,1849,person,year
+Felix Mendelssohn Bartholdy,1809,1847,person,year
+food can,1810,,invention,year
+Frederic Chopin,1810,1849,person,year
+Biedermeier,1815,1848,epoch,year
+Wiener Kongress,1815,1817,event,year
+bike,1817,,invention,year
 David Friedrich - Der Wanderer ueber dem Nebelmeer,1818,1820,art,year
+Marx,1818,1883,person,year
+Robert Schumann,1818,1856,person,year
 Goya - Saturn frisst seinen Sohn,1819,1823,art,year
+Victoria,1819,1901,person,year
+electromotor,1822,,invention,year
+Mendel,1822,1884,person,year
 David Friedrich - Mann und Frau erwaegen den Mond,1824,1826,art,year
+Junges Deutschland,1825,1848,epoch,year
+Vormärz,1825,1848,epoch,year
+Dekabristenaufstand in Russland,1825,1827,event,year
+electromagnet,1825,,invention,year
+marine propeller,1826,,invention,year
+matches,1826,,invention,year
 Delacroix - Tod des Sardanapalus,1827,1829,art,year
 Goethe - Zauberlehrling,1827,1829,art,year
-Pollock - Number 1,1847,1849,art,year
-Big Ben,1850,1859,art,year
-Tower Bridge ,1850,1894,art,year
-Manet - Fruestueck im Gruenen,1863,1865,art,year
-Degas - Tanzklasse,1872,1874,art,year
-Degas - Taenzerinnen in Rosa,1876,1878,art,year
-Freiheitsstatue,1877,1886,art,year
-Rodin - Denker,1880,1882,art,year
-Cezanne - Muehle am Couleuvre,1881,1883,art,year
-Renoir - Zwei Schwestern,1881,1883,art,year
-Bouguoreau - Morgenroete,1881,1883,art,year
-Sarada Familia,1882,1900,art,year
-Renoir - Tanz am Bougival,1883,1885,art,year
-Seurat - Sonntagnachittag,1884,1886,art,year
-Freiheitsstatue,1886,1888,art,year
-Van Gogh - Sternennacht,1887,1889,art,year
-Eifelturm,1887,1889,art,year
-Waterhouse - Die Frau von Shallot,1888,1890,art,year
-Gaugin - Nafeaffaa Ipolpo,1890,1892,art,year
-Munch - Der Schrei,1891,1893,art,year
-Bouguereau - Der zerbrochene Krug,1891,1893,art,year
-Monet - Wasserlilien,1904,1906,art,year
-Klimt - Der Kuss,1905,1907,art,year
-Matisse - Harmony in Red,1906,1908,art,year
-Boccioni - Einzigargite Formen,1913,1915,art,year
-Duchamp - Fountain,1917,1919,art,year
-Picasso - Drei Musiker,1919,1921,art,year
-Lincoln Memorial,1920,1922,art,year
-Kristostatue,1925,1927,art,year
-Lempicka - Junges Maedchen mit Handschuhen,1927,1929,art,year
-Wood - American Goth,1928,1930,art,year
-Christostatue,1931,1931,art,year
-Miro - Konstellation,1939,1941,art,year
-Koons - Ballonhund,1994,1996,art,year
-Bourgeois - Maman,1999,2001,art,year
-Notre Dame,1163,1300,art,year
-Kölner Dom,1248,1300,art,year
-Westinster Abbey,1045,1065,art,year
-Mausoleum des Theoderich,520,550,art,year
-Kloster Reichenau,1450,1540,art,year
-Markusevangelium,70,150,art,year
-erste Bibel,200,300,art,year
-Anubisschrein,-1350,-1300,art,year
-Berini - Apoll und Daphne,1625,1630,art,year
-Hängende Gärten von Babylon,-600,-550,art,year
-Artemistempel,-550,-500,art,year
-Zeusstatue in Olympia,-435,-400,art,year
-Maussolleion,-377,-353,art,year
-Koloss von Rhodos,-292,-200,art,year
-Pharos von Alexandria,-280,-200,art,year
-Artemis von Ephesos,125,175,art,year
-Snorra Edda,1220,1225,art,year
-Hildebrandslied,830,840,art,year
-Merseburger Zaubersprüche,850,860,art,year
-Bernwardstür in Hildesheim,1015,1020,art,year
-Gebrannte Keramik,-30000,,invention,year
-Nadel,-20000,,invention,year
-Netz,-10000,,invention,year
-Lehmziegel,-10000,,invention,year
-Boot,-7500,,invention,year
-Sonnenuh,-4000,,invention,year
-Rad,-3500,,invention,year
-Pflug,-3500,,invention,year
-Papyrus,-3500,,invention,year
-Glas,-3000,,invention,year
-Eisenverhuettung,-1900,,invention,year
-Alphabet,-1700,,invention,year
-Muenzen,-620,,invention,year
-Landkarte,-550,,invention,year
-Aquaedukt,-530,,invention,year
-Papier,50,,invention,year
-Schach,600,,invention,year
-Papiergeld,618,,invention,year
-Federkiel,635,,invention,year
-Windmuehle,650,,invention,year
-Porzellan,780,,invention,year
-Spinnrad,1000,,invention,year
-Buntglas,1065,,invention,year
-Gabel,1071,,invention,year
-Kompass,1090,,invention,year
-Steuerruder,1180,,invention,year
-Vergroesserungsgas,1200,,invention,year
-Kanone,1250,,invention,year
-Schießpulver,1267,,invention,year
-Brille,1299,,invention,year
-Schraube,1405,,invention,year
-Buchdruck,1455,,invention,year
-Strickmaschine,1589,,invention,year
-Mikrosop,1590,,invention,year
-Fernrohr,1590,,invention,year
-Teleskop,1610,,invention,year
-Rechenmaschine,1623,,invention,year
-Klavier,1700,,invention,year
-Dampfmaschine,1712,,invention,year
-Linne - Systema Naturae,1734,,invention,year
-Dampf-Lokomotive,1804,,invention,year
-Elektrisches Licht,1808,,invention,year
-Schreibmaschine,1808,,invention,year
-Konservendose,1810,,invention,year
-"Zweirad, Laufrad",1817,,invention,year
-Elektromotor ,1822,,invention,year
-Elektromagnet,1825,,invention,year
-Schiffsschraube,1826,,invention,year
-Zündholz,1826,,invention,year
-Kondensmilch,1827,,invention,year
-Briefmarke,1834,,invention,year
-Relais,1835,,invention,year
-Revolver,1835,,invention,year
-Lochkarte,1837,,invention,year
-Fotokamera,1839,,invention,year
-Fahrrad,1839,,invention,year
-Eismaschine,1843,,invention,year
+evaporated milk,1827,,invention,year
+Polen wird russfiziert,1830,1832,event,year
+Kaiser Franz,1830,1916,person,year
+poststamp,1834,,invention,year
+relay,1835,,invention,year
+gun,1835,,invention,year
+punch card,1837,,invention,year
+Sissi,1837,1898,person,year
+photocamera,1839,,invention,year
+bike,1839,,invention,year
+Antonin Dvorak,1841,1904,person,year
+icemachine,1843,,invention,year
+Edvard Grieg,1843,1923,person,year
 Telegramm,1844,,invention,year
 Saxophon,1846,,invention,year
+Pollock - Number 1,1847,1849,art,year
+Realismus,1848,1890,epoch,year
+Big Ben,1850,1859,art,year
+Tower Bridge ,1850,1894,art,year
+Deutscher Bund unter Oesterreich,1850,1866,event,year
+Staatsstreich Napoleon III,1851,1853,event,year
 Eisfabrik,1851,,invention,year
 Aspirin,1852,,invention,year
+Krimkrieg,1853,1856,event,year
 Fahrstuhl,1853,,invention,year
+van Gogh,1853,1890,person,year
 Litfaß-Säule,1854,,invention,year
 Dynamo,1854,,invention,year
 Backpulver,1854,,invention,year
 Stahlnutzung,1855,,invention,year
 Dosenöffner,1855,,invention,year
-Plastik,1855,,invention,year
-Toilettenpapier,1857,,invention,year
-Kühlschrank,1859,,invention,year
-Telefon,1860,,invention,year
+plastic,1855,,invention,year
+Freud,1856,1939,person,year
+toiletpaper,1857,,invention,year
+fridge,1859,,invention,year
+telephone,1860,,invention,year
 Gasmotor,1860,,invention,year
 Viertakt-Motor,1860,,invention,year
 Drahtseilbahn,1861,,invention,year
-Periodensystem,1864,,invention,year
+Claude Debussy,1862,1918,person,year
+Manet - Fruestueck im Gruenen,1863,1865,art,year
+periodic table,1864,,invention,year
+Richard Strauss,1864,1949,person,year
 Baby(fertig)-nahrung,1865,,invention,year
-Dynamit,1867,,invention,year
-Margarine,1869,,invention,year
-Druckknopf,1870,,invention,year
-Kaugummi,1872,,invention,year
+Deutscher Krieg,1866,1868,event,year
+Norddeutscher Bund,1867,1871,event,year
+dynamite,1867,,invention,year
+margarine,1869,,invention,year
+Gandhi,1869,1948,person,year
+Siegfried Wagner,1869,1930,person,year
+Deutsch-Franzoesischer Krieg,1870,1871,event,year
+Gruenderzeit,1870,1890,event,year
+button,1870,,invention,year
+Lenin,1870,1924,person,year
+Kaiserreich,1871,1919,epoch,year
+Degas - Tanzklasse,1872,1874,art,year
+chewing gum,1872,,invention,year
 (Blue)-Jeans,1872,,invention,year
-Schreibmaschine,1873,,invention,year
-Stacheldraht,1874,,invention,year
-Phonograph (mit Walze),1876,,invention,year
-Mikrophon,1878,,invention,year
-Elektrische Straßenbahn,1879,,invention,year
-Gleichstrom (DC),1879,,invention,year
-Glühlampe,1879,,invention,year
+typewriter,1873,,invention,year
+Sergei Rachmaninov,1873,1943,person,year
+barbwire,1874,,invention,year
+Arnold Schoönberg,1874,1951,person,year
+Degas - Taenzerinnen in Rosa,1876,1878,art,year
+phonograph,1876,,invention,year
+Adenauer,1876,1967,person,year
+statue of liberty,1877,1886,art,year
+microphone,1878,,invention,year
+electric tram ,1879,,invention,year
+direct current,1879,,invention,year
+light bulb,1879,,invention,year
+Einstein,1879,1955,person,year
+Rodin - Denker,1880,1882,art,year
+Naturalismus,1880,1900,epoch,year
+Cezanne - Muehle am Couleuvre,1881,1883,art,year
+Renoir - Zwei Schwestern,1881,1883,art,year
+Bouguoreau - Morgenroete,1881,1883,art,year
 Wechselstrom (AC),1881,,invention,year
+Sarada Familia,1882,1900,art,year
+Igor Strawinsky,1882,1971,person,year
+Renoir - Tanz am Bougival,1883,1885,art,year
 Benzinmotor,1883,,invention,year
-Füllfederhalter,1884,,invention,year
-Automobil,1885,,invention,year
-Erstes Auto,1886,,invention,year
+Seurat - Sonntagnachittag,1884,1886,art,year
+stylograph,1884,,invention,year
+car,1885,,invention,year
 Coca Cola,1886,,invention,year
-Esperanto (Sprache),1887,,invention,year
-Schallplatte und Grammophon ,1887,,invention,year
-Autoreifen,1888,,invention,year
-Inkubator (Brutkasten),1888,,invention,year
-BH (Büstenhalter),1889,,invention,year
-Elektrisches Bügeleisen,1890,,invention,year
-Reißverschluss,1890,,invention,year
+Van Gogh - Sternennacht,1887,1889,art,year
+Eifelturm,1887,1889,art,year
+Esperanto language,1887,,invention,year
+vinyl record,1887,,invention,year
+Waterhouse - Die Frau von Shallot,1888,1890,art,year
+car wheel,1888,,invention,year
+incubator,1888,,invention,year
+bra,1889,,invention,year
+Gaugin - Nafeaffaa Ipolpo,1890,1892,art,year
+Moderne,1890,1920,epoch,year
+hand iron,1890,,invention,year
+zipper,1890,,invention,year
+Munch - Der Schrei,1891,1893,art,year
+Bouguereau - Der zerbrochene Krug,1891,1893,art,year
 Gleitschirm,1891,,invention,year
 Bierdeckel,1892,,invention,year
-Traktor,1892,,invention,year
+truck,1892,,invention,year
 Dieselmotor,1892,,invention,year
-Elektroherd,1893,,invention,year
-Motorrad,1894,,invention,year
-Radio,1894,,invention,year
-Kino/Film,1895,,invention,year
+electronic hob,1893,,invention,year
+Mao,1893,1976,person,year
+motorbike,1894,,invention,year
+radio,1894,,invention,year
+cinema,1895,,invention,year
+Kruegertelegramm,1896,1898,event,year
 Büroklammer,1899,,invention,year
-eucaryots,2100,,event,mya
-biological life,4200,,event,mya
-animals,610,,event,mya
-worms,560,,event,mya
-vertebrates,530,,event,mya
-jawed fish,460,,event,mya
-tetrapods,395,,event,mya
-mammals,220,,event,mya
-placental mammals,160,,event,mya
-primates,66,,event,mya
-halplorrhini,63,,event,mya
-simiiformes,40,,event,mya
-catarrhini,30,,event,mya
-hominoidea,22,,event,mya
-hominidae,20,,event,mya
-hominiae,14,,event,mya
-hominina,8,,event,mya
-australopithecus,3,,event,mya
-homo habilis,2,,event,mya
-homo erectus,1,,event,mya
-LCA chimpanzee,6,,event,mya
-LCA gorilla,9,,event,mya
-bipedalism,4,,event,mya
-cells,3900,,event,mya
-photosynthesis,3500,,event,mya
-great oxygenation event,2500,,event,mya
-sexual reproduction,1200,,event,mya
-DNA,4000,,event,mya
-Cambrian explosion,541,,event,mya
-amphibia,360,,event,mya
-reptiles,310,,event,mya
-neocortex,360,,event,mya
-eutherians,160,,event,mya
-LCA mice,100,,event,mya
-cambrian period,541,485,epoch,mya
-precambrian,4600,541,epoch,mya
-archean,4000,2500,epoch,mya
-proterozoic,2500,541,epoch,mya
-Eoarchean,4000,3600,epoch,mya
-paleoarchean,3600,3200,epoch,mya
-mesoarchean,3200,2800,epoch,mya
-neoarchean,2800,2500,epoch,mya
-paleoproterozoic,2500,1600,epoch,mya
-mesoproterozoic,1600,1000,epoch,mya
-neoproterozoic,1000,541,epoch,mya
-phanerozoic,541,0,epoch,mya
-paleozoic,541,251,epoch,mya
-ordovician,485,443,epoch,mya
-silurian,443,419,epoch,mya
-devonian,419,358,epoch,mya
-carboniferous,358,298,epoch,mya
-permian,298,251,epoch,mya
-land plant spors,465,,event,mya
-mesozoic,251,902,epoch,mya
-Triassic,251,201,epoch,mya
-woody trees,245,,event,mya
-Jurassic,201,145,epoch,mya
-Cretaceous,145,66,epoch,mya
-Cenozoic,66,0,epoch,mya
-Quaternary,3,0,epoch,mya
-Neogene,23,3,epoch,mya
-Paleogene,66,23,epoch,mya
+Quantentheorie,1900,1920,event,year
+Monet - Wasserlilien,1904,1906,art,year
+Klimt - Der Kuss,1905,1907,art,year
+Matisse - Harmony in Red,1906,1908,art,year
+Marokkokrise,1907,1911,event,year
+Expressionismus,1910,1925,epoch,year
+Boccioni - Einzigargite Formen,1913,1915,art,year
+First World War,1914,1918,event,year
+Sarajevo Attentat,1914,,event,year
+Avantgarde,1915,1925,epoch,year
+Duchamp - Fountain,1917,1919,art,year
+Rusische Revolution,1917,1919,event,year
+Deutsche Revolution,1918,1920,event,year
+Picasso - Drei Musiker,1919,1921,art,year
+Weimarer Republik,1919,1933,epoch,year
+Lincoln Memorial,1920,1922,art,year
+Kristostatue,1925,1927,art,year
+Boris Taschaikowski,1925,1996,person,year
+Marilyn Monroe,1926,1962,person,year
+Lempicka - Junges Maedchen mit Handschuhen,1927,1929,art,year
+Wood - American Goth,1928,1930,art,year
+Che Guevara,1928,1957,person,year
+Börsencrash,1929,,event,year
+Audrey Hepburn,1929,1993,person,year
+Christostatue,1931,1931,art,year
+Exilliteratur,1933,1945,epoch,year
+Spanischer Buergerkrieg,1936,1939,event,year
+Reichskristallnacht,1938,,event,year
+Miro - Konstellation,1939,1941,art,year
+Second World War,1939,1945,event,year
+Nachkriegsliteratur,1945,1950,epoch,year
+"Literatur der DDR, Literatur der BRD",1950,1990,epoch,year
+Neue Subjektivität,1970,2018,epoch,year
+Berliner Kongress,1978,1980,event,year
+Postmoderne,1980,2018,epoch,year
+Dreikaiserjahr,1988,1990,event,year
+Mauerfall,1989,,event,year
+Koons - Ballonhund,1994,1996,art,year
+Bourgeois - Maman,1999,2001,art,year
+stone tools,-2600000,,event,
+hunting,-1700000,,event,
+fire,-400000,,,
+Mousterian,-160000,-40000,epoch,
+Aterian,-145000,-20000,epoch,
+cave painting,-44000,,event,
+Venus of Hohe Fels,-35000,,event,
+Micoquien,-13000,-70000,epoch,
+Sangoan,-13000,-10000,epoch,
+domesticated animals,-11000,,event,
+cities in mesopotamia,-7500,,event,
+glass,-3600,,event,
+plough,-3500,,event,
+script,-3100,,event,
+zero,-3000,,event,
+iron tools,-2500,,event,
+alcohol,-2100,,event,
+geometry,-2000,,event,
+firework,-2000,,event,
+paper,-179,,event,
+law of gravity,1687,,invention,
+morphium,1827,,invention,
+morse-code,1851,,invention,
+fire weapon,1860,,invention,
+turbine,1884,,invention,
+Machine Age,1900,1045,epoch,
+airplane,1903,,invention,
+antibiotics,1928,,invention,
+atomic bomb,1938,,invention,
+Atomic Age,1945,1886,epoch,
+transistor,1947,,invention,
+moon mission,1969,,event,
+personal computer,1975,,invention,
+space shuttle,1981,,event,
+mobile phone,1984,,invention,
