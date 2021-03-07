@@ -16,7 +16,7 @@ from my_functions import img_google
 
 
 # TODO data browser
-# TODO: why is one category overwritten?
+# TODO: time slider
 class timeline(tk.Tk):
     def __init__(self, filename=os.path.join(os.path.dirname(sys.argv[0]), 'some_dates.csv')):
         tk.Tk.__init__(self)
@@ -25,26 +25,33 @@ class timeline(tk.Tk):
         colors = pd.Series(['blue', 'green', 'red', 'cyan', 'magenta', 'yellow', 'black'])
 
         self.filename = filename
-        self.df_orig = self.load_data()
+        self.df_tot = self.load_data()
+        self.scale = 'year'
 
         # default time range for the timeline
-        self.min = 1500
-        self.max = 2000
+        if self.scale == 'year':
+            self.min = 1500
+            self.max = 2000
+            self.category_order = ["epoch", "person", "art", "event", "invention"]
+        elif self.scale == 'mya':
+            self.min = -3600
+            self.max = 0
+            self.category_order = ['epoch', 'event']
+
         self.yearFrom = tk.StringVar()
         self.yearFrom.set(self.min)
         self.yearTo = tk.StringVar()
         self.yearTo.set(self.max)
 
+        self.df_orig = self.prepare_df(self.df_tot)
+
         # create dataframe to store information about categories
-        self.category_order = ["epoch", "person", "art", "event", "invention"]
         c_df = pd.DataFrame({'category': self.df_orig['category'].unique()})
         c_df['category'] = pd.Categorical(c_df['category'], self.category_order)
         c_df['color'] = colors[0:len(c_df)]
         self.c_df = c_df.sort_values('category')
 
-        #####
-        # fr1
-        #####
+        # frame configuration
         w, h = self.winfo_screenwidth(), self.winfo_screenheight()
         self.geometry("%dx%d+0+0" % (w, h))
         tk.Grid.rowconfigure(self, 0, weight=1)
@@ -55,53 +62,45 @@ class timeline(tk.Tk):
 
         fr1 = tk.Frame(self)
         fr1.grid(row=0, column=0, sticky="nsew")
-
-        # Field and label for 'from'
+        fr2 = tk.Frame(self)
+        fr2.grid(row=0, column=1, sticky="nsew")
+        fr3 = tk.Frame(self)
+        fr3.grid(row=0, column=2, sticky="nsew")
+        tk.Grid.rowconfigure(fr3, 0, weight=1)
+        tk.Grid.rowconfigure(fr3, 1, weight=4)
+        
+        # fr1: Field and label for 'from'
         tk.Label(fr1, text="From:").pack()
         on = tk.Entry(fr1, textvariable=self.yearFrom, width=4)
         on.pack()
         on.focus_set()
 
-        # Field and label for 'To'
+        # fr1: Field and label for 'To'
         tk.Label(fr1, text="To:").pack()
         tk.Entry(fr1, textvariable=self.yearTo, width=4).pack()
 
-        # OK button
+        # fr1: OK button
         tk.Button(fr1, text="OK", command=self.reset).pack()
         self.bind('<Return>', self.reset)
 
-        #####
-        # fr2
-        #####
-        # toggles for categories displayed
-        fr2 = tk.Frame(self)
-        fr2.grid(row=0, column=1, sticky="nsew")
-
-        # make one toggle field for each category
+        # fr2: toggles for categories displayed
         for i, row in self.c_df.iterrows():
+            # make one toggle field for each category
             self.c_df.loc[i, 'toggle'] = tk.IntVar()
             tk.Checkbutton(fr2, fg=self.c_df.loc[i, 'color'], text=row['category'], variable=self.c_df.loc[i, 'toggle'], command=self.reset).pack()
             self.c_df.loc[i, 'toggle'].set(1)
 
-        #####
-        # fr4
-        #####
-        fr4 = tk.Frame(self)
-        fr4.grid(row=0, column=2, sticky="nsew")
-        tk.Grid.rowconfigure(fr4, 0, weight=1)
-        tk.Grid.rowconfigure(fr4, 1, weight=4)
-
-        # label for item title
+        # fr3: label for item title
         self.label_value = tk.StringVar()
-        tk.Label(fr4, textvariable=self.label_value, width=50).pack()
+        tk.Label(fr3, textvariable=self.label_value, width=50).pack()
         self.label_value.set('Click on an event!')
 
-        # label for image
-        self.img_label = tk.Label(fr4)
+        # fr3: label for image
+        self.img_label = tk.Label(fr3)
         self.img_label.pack()
 
         # select rows from dataframe
-        self.df = self.prepare_df(self.df_orig)
+        self.df = self.select_rows_df(self.df_orig)
 
         # plotting
         self.draw()
@@ -120,19 +119,24 @@ class timeline(tk.Tk):
         self.max = int(self.yearTo.get())
         self.label_value.set('Click on an event!')
         self.img_label.configure(image=[])
-        self.df = self.prepare_df(self.df_orig)
+        self.df = self.select_rows_df(self.df_orig)
         self.draw()
 
-    def prepare_df(self, df_orig):
-        # pre-process the original dataframe to make it suitable for display
-
+    def prepare_df(self, df):
         # filter the desired time range
-        df = df_orig.loc[(df_orig['yearOn'] > self.min) & (df_orig['yearOff'] + 1 < self.max)]
+        df = df[df.scale == self.scale]
+        if self.scale == 'mya':
+            df.yearOn = -df.yearOn
+            df.yearOff = -df.yearOff
 
         # ignore empty column
         df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
+        return df
 
-        # enforce minimal length
+    def select_rows_df(self, df):
+        # pre-process the dataframe to make it suitable for display
+        df = df.loc[(df['yearOn'] >= self.min) & (df['yearOff'] + 1 < self.max)]
+        # determine minimal length
         min_length = np.int(np.ceil((self.max - self.min) / self.winfo_screenwidth())) * 2
 
         # add column for length of event
@@ -157,10 +161,11 @@ class timeline(tk.Tk):
         plt.close("all")
         fig = plt.figure()
         ax = plt.subplot(111)
-        plt.xlabel('year')
+        plt.subplots_adjust(left=0.02, bottom=0.1, right=0.98, top=1, wspace=0, hspace=0)
+        plt.xlabel(self.scale)
         plt.tick_params(axis='y', which='both', left=False, labelleft=False)
-        fr3 = FigureCanvasTkAgg(fig, self)
-        fr3.get_tk_widget().grid(row=1, column=0, columnspan=3, sticky="nsew")
+        fr4 = FigureCanvasTkAgg(fig, self)
+        fr4.get_tk_widget().grid(row=1, column=0, columnspan=3, sticky="nsew")
         linewidth = 1
 
         # initialize parameters
