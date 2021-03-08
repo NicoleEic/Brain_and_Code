@@ -16,97 +16,112 @@ from my_functions import img_google
 
 
 # TODO data browser
-# TODO: time slider
 class timeline(tk.Tk):
     def __init__(self, filename=os.path.join(os.path.dirname(sys.argv[0]), 'some_dates.csv')):
         tk.Tk.__init__(self)
         self.title("timeline")
 
-        colors = pd.Series(['blue', 'green', 'red', 'cyan', 'magenta', 'yellow', 'black'])
-
-        self.filename = filename
-        self.df_tot = self.load_data()
-        self.scale = 'year'
-
-        # default time range for the timeline
-        if self.scale == 'year':
-            self.min = 1500
-            self.max = 2000
-            self.category_order = ["epoch", "person", "art", "event", "invention"]
-        elif self.scale == 'mya':
-            self.min = -4600
-            self.max = 0
-            self.category_order = ['supereon', 'eon', 'era', 'period', 'epoch', 'event']
-
-        self.yearFrom = tk.StringVar()
-        self.yearFrom.set(self.min)
-        self.yearTo = tk.StringVar()
-        self.yearTo.set(self.max)
-
-        self.df_orig = self.prepare_df(self.df_tot)
-
-        # create dataframe to store information about categories
-        c_df = pd.DataFrame({'category': self.df_orig['category'].unique()})
-        c_df['category'] = pd.Categorical(c_df['category'], self.category_order)
-        c_df['color'] = colors[0:len(c_df)]
-        self.c_df = c_df.sort_values('category')
-
         # frame configuration
-        w, h = self.winfo_screenwidth(), self.winfo_screenheight()
-        self.geometry("%dx%d+0+0" % (w, h))
+        self.geometry("%dx%d+0+0" % (self.winfo_screenwidth(), self.winfo_screenheight()))
         tk.Grid.rowconfigure(self, 0, weight=1)
         tk.Grid.rowconfigure(self, 1, weight=2)
         tk.Grid.columnconfigure(self, 0, weight=1)
         tk.Grid.columnconfigure(self, 1, weight=1)
         tk.Grid.columnconfigure(self, 2, weight=1)
+        tk.Grid.columnconfigure(self, 3, weight=1)
 
-        fr1 = tk.Frame(self)
-        fr1.grid(row=0, column=0, sticky="nsew")
-        fr2 = tk.Frame(self)
-        fr2.grid(row=0, column=1, sticky="nsew")
-        fr3 = tk.Frame(self)
-        fr3.grid(row=0, column=2, sticky="nsew")
-        tk.Grid.rowconfigure(fr3, 0, weight=1)
-        tk.Grid.rowconfigure(fr3, 1, weight=4)
-        
-        # fr1: Field and label for 'from'
-        tk.Label(fr1, text="From:").pack()
-        on = tk.Entry(fr1, textvariable=self.yearFrom, width=4)
-        on.pack()
-        on.focus_set()
+        self.fr_time = tk.Frame(self)
+        self.fr_time.grid(row=0, column=0, sticky="nsew")
+        self.fr_cat = tk.Frame(self)
+        self.fr_cat.grid(row=0, column=1, sticky="nsew")
+        self.fr_scales = tk.Frame(self)
+        self.fr_scales.grid(row=0, column=2, sticky="nsew")
+        self.fr_img = tk.Frame(self)
+        self.fr_img.grid(row=0, column=3, sticky="nsew")
+        tk.Grid.rowconfigure(self.fr_img, 0, weight=1)
+        tk.Grid.rowconfigure(self.fr_img, 1, weight=4)
+        self.colors = pd.Series(['blue', 'green', 'red', 'cyan', 'magenta', 'yellow', 'black'])
 
-        # fr1: Field and label for 'To'
-        tk.Label(fr1, text="To:").pack()
-        tk.Entry(fr1, textvariable=self.yearTo, width=4).pack()
+        # define scale values
+        self.scales_info = pd.DataFrame(columns=['var_name', 'title', 'default_min', 'default_max', 'tot_min', 'tot_max', 'cat_order'])
+        self.scales_info.loc[len(self.scales_info)] = ['mya', 'Millions', -4600, 0, -4600, 0, ['supereon', 'eon', 'era', 'period', 'epoch', 'event']]
+        self.scales_info.loc[len(self.scales_info)] = ['year', 'years', 1500, 2000, 0, 2019, ["epoch", "person", "art", "event", "invention"]]
+        self.scales_info.loc[len(self.scales_info)] = ['ka', 'kilo years', -3000, 0, -1000, 0, ["epoch", "event"]]
 
-        # fr1: OK button
-        tk.Button(fr1, text="OK", command=self.reset).pack()
-        self.bind('<Return>', self.reset)
+        self.scale_type = tk.StringVar()
+        self.scale_type.set('year')
+        self.myscale = self.scales_info[self.scales_info.var_name == self.scale_type.get()].to_dict('r')[0]
 
-        # fr2: toggles for categories displayed
-        for i, row in self.c_df.iterrows():
-            # make one toggle field for each category
-            self.c_df.loc[i, 'toggle'] = tk.IntVar()
-            tk.Checkbutton(fr2, fg=self.c_df.loc[i, 'color'], text=row['category'], variable=self.c_df.loc[i, 'toggle'], command=self.reset).pack()
-            self.c_df.loc[i, 'toggle'].set(1)
+        self.draw_slider()
 
-        # fr3: label for item title
-        self.label_value = tk.StringVar()
-        tk.Label(fr3, textvariable=self.label_value, width=50).pack()
-        self.label_value.set('Click on an event!')
-
-        # fr3: label for image
-        self.img_label = tk.Label(fr3)
-        self.img_label.pack()
+        # load
+        self.filename = filename
+        self.df_tot = self.load_data()
+        self.df_orig = self.prepare_df(self.df_tot)
+        self.c_df = self.draw_cat_toggles()
 
         # select rows from dataframe
-        self.df = self.select_rows_df(self.df_orig)
+        self.df = self.select_rows_df()
+
+        # self.fr_scales
+        for i, scale in self.scales_info.iterrows():
+            tk.Radiobutton(self.fr_scales, text=scale.title, variable=self.scale_type, value=scale.var_name, command=self.new_scale).grid(row=i, column=0, sticky='NSEW')
+
+        # self.fr_img: label for item title
+        self.label_value = tk.StringVar()
+        tk.Label(self.fr_img, textvariable=self.label_value, width=50).pack()
+        self.label_value.set('Click on an event!')
+
+        # self.fr_img: label for image
+        self.img_label = tk.Label(self.fr_img)
+        self.img_label.pack()
 
         # plotting
         self.draw()
 
+    def draw_slider(self):
+        self.yearFrom = tk.IntVar()
+        self.yearTo = tk.IntVar()
+        self.yearFrom.set(self.myscale['default_min'])
+        self.yearTo.set(self.myscale['default_max'])
+        scale_length = np.int(self.winfo_screenwidth() / 5)
+        slid_min = tk.Scale(self.fr_time, length=scale_length, sliderlength=10, label='Time span:',
+                        from_=self.myscale['tot_min'], to=self.myscale['tot_max'], orient=tk.HORIZONTAL, variable=self.yearFrom)
+        slid_min.grid(row=0, column=0, sticky='NSEW', padx=4)
+        slid_max = tk.Scale(self.fr_time, length=scale_length, sliderlength=10, tickinterval=1000, resolution=1,
+                        from_=self.myscale['tot_min'], to=self.myscale['tot_max'], orient=tk.HORIZONTAL, variable=self.yearTo)
+        slid_max.grid(row=1, column=0, sticky='NSEW', padx=4)
+
+        # self.fr_time: OK button
+        tk.Button(self.fr_time, text="OK", command=self.reset).grid(row=2, column=0, sticky='NSEW')
+        self.bind('<Return>', self.reset)
+
+    def draw_cat_toggles(self):
+        # create dataframe to store information about categories
+        c_df = pd.DataFrame({'category': self.df_orig['category'].unique()})
+        c_df['category'] = pd.Categorical(c_df['category'], self.myscale['cat_order'])
+        c_df['color'] = self.colors[0:len(c_df)]
+        c_df.sort_values('category', inplace=True, ignore_index=True)
+        print(c_df)
+
+        # self.fr_cat: toggles for categories displayed
+        for i, row in c_df.iterrows():
+            # make one toggle field for each category
+            c_df.loc[i, 'toggle'] = tk.IntVar()
+            tk.Checkbutton(self.fr_cat, fg=c_df.loc[i, 'color'], text=row['category'],
+                           variable=c_df.loc[i, 'toggle'], command=self.reset).grid(row=i, column=1, sticky='NSEW')
+            c_df.loc[i, 'toggle'].set(1)
+        return c_df
+    
+    def new_scale(self):
+        self.myscale = self.scales_info[self.scales_info.var_name == self.scale_type.get()].to_dict('r')[0]
+        self.df_orig = self.prepare_df(self.df_tot)
+        self.draw_slider()
+        self.df = self.select_rows_df()
+        self.c_df = self.draw_cat_toggles()
+        self.draw()
+
     def load_data(self):
-        # TODO: add option to browse through folder
         df = pd.read_csv(self.filename)
         # replace missing yearOff by yearOn
         df['yearOff'] = np.where(np.isnan(df['yearOff']), df['yearOn'], df['yearOff'])
@@ -115,17 +130,15 @@ class timeline(tk.Tk):
         return df
 
     def reset(self, *args):
-        self.min = int(self.yearFrom.get())
-        self.max = int(self.yearTo.get())
         self.label_value.set('Click on an event!')
         self.img_label.configure(image=[])
-        self.df = self.select_rows_df(self.df_orig)
+        self.df = self.select_rows_df()
         self.draw()
 
     def prepare_df(self, df):
         # filter the desired time range
-        df = df[df.scale == self.scale]
-        if self.scale == 'mya':
+        df = df[df.scale == self.scale_type.get()]
+        if self.scale_type.get() == 'mya':
             df.yearOn = -df.yearOn
             df.yearOff = -df.yearOff
 
@@ -133,11 +146,11 @@ class timeline(tk.Tk):
         df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
         return df
 
-    def select_rows_df(self, df):
+    def select_rows_df(self, ):
         # pre-process the dataframe to make it suitable for display
-        df = df.loc[(df['yearOn'] >= self.min) & (df['yearOff'] + 1 < self.max)]
+        df = self.df_orig.loc[(self.df_orig['yearOn'] >= self.yearFrom.get()) & (self.df_orig['yearOff'] + 1 < self.yearTo.get())]
         # determine minimal length
-        min_length = np.int(np.ceil((self.max - self.min) / self.winfo_screenwidth())) * 2
+        min_length = np.int(np.ceil((self.yearTo.get() - self.yearFrom.get()) / self.winfo_screenwidth())) * 2
 
         # add column for length of event
         df['length'] = df['yearOff'] - df['yearOn']
@@ -151,7 +164,7 @@ class timeline(tk.Tk):
                 df = df[df['category'] != row['category']]
 
         # sort and re-index cleaned df
-        df['category'] = pd.Categorical(df['category'], self.category_order)
+        df['category'] = pd.Categorical(df['category'], self.myscale['cat_order'])
         df = df.sort_values(['category', 'yearOn'])
         df.index = pd.RangeIndex(len(df.index))
         return df
@@ -162,10 +175,10 @@ class timeline(tk.Tk):
         fig = plt.figure()
         ax = plt.subplot(111)
         plt.subplots_adjust(left=0.02, bottom=0.1, right=0.98, top=1, wspace=0, hspace=0)
-        plt.xlabel(self.scale)
+        plt.xlabel(self.scale_type.get())
         plt.tick_params(axis='y', which='both', left=False, labelleft=False)
-        fr4 = FigureCanvasTkAgg(fig, self)
-        fr4.get_tk_widget().grid(row=1, column=0, columnspan=3, sticky="nsew")
+        frame_plot = FigureCanvasTkAgg(fig, self)
+        frame_plot.get_tk_widget().grid(row=1, column=0, columnspan=4, sticky="nsew")
         linewidth = 1
 
         # initialize parameters
@@ -174,30 +187,28 @@ class timeline(tk.Tk):
         ymax = 0
 
         # loop over categories
-        grouped = self.df.groupby('category')
-        for cat, group in grouped:
+        for i, cat_row in self.c_df.iterrows():
+            group = self.df[self.df.category == cat_row.category]
             filled = pd.DataFrame(columns=['ypos', 'on', 'off'])
+            # draw event as rectangle
             for ind, row in group.iterrows():
                 # draw the event in the next free row
                 ypos = ypos_group + 1
-
                 # add subsequent pathes directly
-                if cat in ['supereon', 'eon', 'era', 'period', 'epoch']:
+                if cat_row.category in ['supereon', 'eon', 'era', 'period', 'epoch']:
                     while any((filled['ypos'] == ypos) & (((filled['on'] < (row['yearOn'])) & ((row['yearOn']) < filled['off'])) | ((filled['on'] < (row['yearOff'])) & ((row['yearOn'] + row['length']) < filled['off'])))):
                         ypos += 1
                     rect = patches.Rectangle((int(row['yearOn']), -(ypos + linewidth)), row['length'], linewidth * 0.9,
-                                             facecolor=self.c_df[self.c_df['category'] == cat].color.unique()[0],
+                                             facecolor=cat_row.color,
                                              edgecolor='black')
                 # start new row for short events
                 else:
                     while any((filled['ypos'] == ypos) & (((filled['on'] < (row['yearOn'] - 1)) & ((row['yearOn'] - 1) < filled['off'])) | ((filled['on'] < (row['yearOff'] - 1)) & ((row['yearOn'] + row['length'] + 1) < filled['off'])))):
                         ypos += 1
                     rect = patches.Rectangle((int(row['yearOn']), -(ypos + linewidth)), row['length'], linewidth * 0.9,
-                                             facecolor=self.c_df[self.c_df['category'] == cat].color.unique()[0])
-
+                                             facecolor=cat_row.color)
                 if ypos > ymax:
                     ymax = ypos
-                # draw event as rectangle
                 ax.add_patch(rect)
                 my_patches.append(rect)
                 filled = filled.append({'ypos': ypos, 'on': row['yearOn'], 'off': row['yearOn'] + row['length']}, ignore_index=True)
@@ -205,7 +216,7 @@ class timeline(tk.Tk):
             # start a new cateory in a new row
             ypos_group = ymax
 
-        ax.set_xlim(self.min, self.max)
+        ax.set_xlim(self.yearFrom.get(), self.yearTo.get())
         ax.set_ylim(-(ypos_group + 1), 0)
 
         # mouse-over function to display event title
