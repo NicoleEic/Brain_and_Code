@@ -25,14 +25,14 @@ class timeline(tk.Tk):
         self.bind('<Return>', self.redraw)
         
         # define scale values
-        self.scales_info = pd.DataFrame(columns=['var_name', 'title', 'default_min', 'default_max', 'tot_min', 'tot_max', 'cat_order'])
-        self.scales_info.loc[len(self.scales_info)] = ['mya', 'Millions', -4600, 0, -4600, 0, ['supereon', 'eon', 'era', 'period', 'epoch', 'event']]
-        self.scales_info.loc[len(self.scales_info)] = ['year', 'years', 1500, 2000, 0, 2019, ["epoch", "person", "art", "event", "invention"]]
-        self.scales_info.loc[len(self.scales_info)] = ['ka', 'kilo years', -3000, 0, -1000, 0, ["epoch", "event"]]
+        self.scales_info = pd.DataFrame(columns=['var_name', 'xlabel', 'title', 'default_min', 'default_max', 'tot_min', 'tot_max', 'cat_order'])
+        self.scales_info.loc[len(self.scales_info)] = ['mya', 'million years ago', 'History of Life', -4600, 0, -4600, 0, ['supereon', 'eon', 'era', 'period', 'epoch', 'event']]
+        self.scales_info.loc[len(self.scales_info)] = ['year', 'year', 'Modern History', 1500, 2000, -3500, 2019, ['epoch', 'person', 'art', 'event', 'invention']]
+        self.scales_info.loc[len(self.scales_info)] = ['pre', 'kilo years ago', 'Prehistoric Time', -1000, 0, -3600, 0, ['epoch', 'event', 'invention', 'art', 'person']]
 
         # selected scale
         self.scale_type = tk.StringVar()
-        self.scale_type.set('year')
+        self.scale_type.set('pre')
         self.myscale = self.get_myscale()
         self.year_from_var = tk.IntVar()
         self.year_to_var = tk.IntVar()
@@ -45,7 +45,7 @@ class timeline(tk.Tk):
 
         # make radiobuttons
         for i, scale in self.scales_info.iterrows():
-            tk.Radiobutton(self.fr_scales, text=scale.title, variable=self.scale_type, value=scale.var_name, command=self.new_scale).grid(row=i, column=0, sticky='NSEW')
+            tk.Radiobutton(self.fr_scales, text=scale.title, variable=self.scale_type, value=scale.var_name, command=self.new_scale).pack()
 
         # OK button
         tk.Button(self.fr_time, text="OK", command=self.redraw).grid(row=2, column=0, sticky='NSEW')
@@ -147,6 +147,11 @@ class timeline(tk.Tk):
         if self.scale_type.get() == 'mya':
             df.yearOn = -df.yearOn
             df.yearOff = -df.yearOff
+        elif self.scale_type.get() == 'pre':
+            df.yearOn = np.round(df.yearOn / 1000)
+            df.yearOff = np.round(df.yearOff / 1000)
+            df['yearOn'] = df['yearOn'].astype(pd.Int64Dtype())
+            df['yearOff'] = df['yearOff'].astype(pd.Int64Dtype())
         return df
 
     def get_df(self):
@@ -196,7 +201,7 @@ class timeline(tk.Tk):
         fig = plt.figure()
         ax = plt.subplot(111)
         plt.subplots_adjust(left=0.02, bottom=0.1, right=0.98, top=1, wspace=0, hspace=0)
-        plt.xlabel(self.scale_type.get())
+        plt.xlabel(self.myscale['xlabel'])
         plt.tick_params(axis='y', which='both', left=False, labelleft=False)
         frame_plot = FigureCanvasTkAgg(fig, self)
         frame_plot.get_tk_widget().grid(row=1, column=0, columnspan=4, sticky="nsew")
@@ -251,12 +256,6 @@ class timeline(tk.Tk):
             for ind, row in self.df.iterrows():
                 if my_patches[ind].contains(event)[0]:
                     img = img_google.get_tk_img(row['title'])
-
-                    # fix width:
-                    #basewidth = 300
-                    # wpercent = (basewidth / float(img.size[0]))
-                    # hsize = int((float(img.size[1]) * float(wpercent)))
-                    # self._im = img.resize((basewidth, hsize), Image.ANTIALIAS)
 
                     # fix height:
                     hsize = np.int(self.winfo_screenheight() / 5)
