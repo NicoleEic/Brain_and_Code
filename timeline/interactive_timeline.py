@@ -2,17 +2,15 @@ import os
 import sys
 import pandas as pd
 import numpy as np
-from PIL import Image, ImageTk
-import matplotlib
-matplotlib.use("TkAgg")
-import matplotlib.pyplot as plt
-import matplotlib.patches as patches
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-import requests
-from bs4 import BeautifulSoup
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/../')
-from my_functions import img_google
 import plotly.express as px
+from ipywidgets import widgets
+import plotly.io as pio
+pio.renderers.default = "browser"
+import dash
+import dash_core_components as dcc
+import dash_html_components as html
+from dash.dependencies import Input, Output
 
 pd.set_option('mode.chained_assignment', None)
 
@@ -89,8 +87,35 @@ class timeline():
         fig.layout.yaxis.autorange = "reversed"
         fig.layout.yaxis.visible = False
         fig.update_layout(title_text="Interactive timeline")
+        #fig.show()
+        #fig.write_html(os.path.join(os.path.dirname(sys.argv[0]), "my.html"))
 
-        fig.show()
+        external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
+
+        app = dash.Dash(__name__)
+
+        app.layout = html.Div([
+            dcc.Graph(figure=fig),
+            html.H6("Search:"),
+            html.Div([dcc.Input(id='my-input', value='Rome', type='text')]),
+            html.Br(),
+            html.Div(id='my-output'),
+        ])
+
+        @app.callback(
+            Output(component_id='my-output', component_property='children'),
+            Input(component_id='my-input', component_property='value')
+        )
+
+        def update_output_div(search_string):
+            hits = self.df[self.df['text_raw'].str.contains(search_string)]
+            if len(hits) > 0:
+                output = hits.iloc[0]['text_raw']
+            else:
+                output = ''
+            return 'Output: {}'.format(output)
+
+        app.run_server(debug=True, use_reloader=False)  # Turn off reloader if inside Jupyter
 
 # mainloop
 if __name__ == "__main__":
