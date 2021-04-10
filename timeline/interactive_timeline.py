@@ -6,12 +6,11 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/../')
 import plotly.express as px
 from ipywidgets import widgets
 import plotly.io as pio
-pio.renderers.default = "browser"
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
-
+pio.renderers.default = "browser"
 pd.set_option('mode.chained_assignment', None)
 
 class timeline():
@@ -78,44 +77,46 @@ class timeline():
         self.df['ypos'] = ypos_arr
         self.df.to_csv(os.path.join(os.path.dirname(sys.argv[0]), 'timeline_prep.csv'))
 
-    def do_plot(self):
-        fig = px.timeline(self.df, x_start="date_from", x_end="date_to", y="ypos", hover_name="text_raw", hover_data=["date_from", "date_to"], color='timeline_type_name')
+    def do_plot(self, n):
+        self.df['category'] = self.df['timeline_type_name']
+        self.df.at[0:n, 'category'] = 'selected'
+        fig = px.timeline(self.df, x_start="date_from", x_end="date_to", y="ypos", hover_name="text_raw", hover_data=["date_from", "date_to"], color='category', height=600)
         fig.layout.xaxis.type = 'linear'
         for i_d, dat in enumerate(fig.data):
-            fig.data[i_d].x = self.df[self.df['timeline_type_name'] == dat.name].duration.tolist()
+            fig.data[i_d].x = self.df[self.df['category'] == dat.name].duration.tolist()
         fig.update_layout(xaxis=dict(rangeslider=dict(visible=True), type="linear"))
         fig.layout.yaxis.autorange = "reversed"
         fig.layout.yaxis.visible = False
         fig.update_layout(title_text="Interactive timeline")
-        #fig.show()
-        #fig.write_html(os.path.join(os.path.dirname(sys.argv[0]), "my.html"))
+        #self.fig.show()
+        #self.fig.write_html(os.path.join(os.path.dirname(sys.argv[0]), "my.html"))
+        return fig
 
-        external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
+        if 1:
+            external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
+            app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
-        app = dash.Dash(__name__)
+            app.layout = html.Div([
+                dcc.Graph(id='my_plot', figure=self.fig),
+                html.H6("Search:"),
+                html.Div([dcc.Input(id='my-input', value='Rome', type='text')]),
+                html.Br(),
+            ])
 
-        app.layout = html.Div([
-            dcc.Graph(figure=fig),
-            html.H6("Search:"),
-            html.Div([dcc.Input(id='my-input', value='Rome', type='text')]),
-            html.Br(),
-            html.Div(id='my-output'),
-        ])
+            @app.callback(
+                Output(component_id='my_plot', component_property='figure'),
+                Input(component_id='my-input', component_property='value')
+            )
+            def update_my_plot(search_string):
+                hits = self.df[self.df['text_raw'].str.contains(search_string)]
+                if len(hits) > 0:
+                    output = hits.iloc[0]['text_raw']
+                    self.df.at[0:200, 'category'] = 'selected'
 
-        @app.callback(
-            Output(component_id='my-output', component_property='children'),
-            Input(component_id='my-input', component_property='value')
-        )
+                fig = self.do_plot(10)
+                return fig
 
-        def update_output_div(search_string):
-            hits = self.df[self.df['text_raw'].str.contains(search_string)]
-            if len(hits) > 0:
-                output = hits.iloc[0]['text_raw']
-            else:
-                output = ''
-            return 'Output: {}'.format(output)
-
-        app.run_server(debug=True, use_reloader=False)  # Turn off reloader if inside Jupyter
+            app.run_server(debug=True, use_reloader=False)  # Turn off reloader if inside Jupyter
 
 # mainloop
 if __name__ == "__main__":
