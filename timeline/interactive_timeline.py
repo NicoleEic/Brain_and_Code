@@ -22,7 +22,7 @@ my_max = 2000
 
 # or load
 df = pd.read_csv(os.path.join(os.path.dirname(sys.argv[0]), 'timeline_prep.csv'))
-
+df['category'] = df['timeline_type_name']
 
 def prep_data():
     df = pd.read_csv(os.path.join(os.path.dirname(sys.argv[0]), 'timeline.csv'))
@@ -84,13 +84,12 @@ app.layout = html.Div([
     Input(component_id='my-input', component_property='value')
 )
 def update_my_plot(search_string):
-    hits = df[df['text_raw'].str.contains(search_string)]
-    if len(hits) > 0:
-        output = hits.iloc[0]['text_raw']
-        df.at[0:200, 'category'] = 'selected'
-
     df['category'] = df['timeline_type_name']
-    df.at[0:len(search_string), 'category'] = 'selected'
+    hits = df[df['text_raw'].str.contains(search_string)]['category']
+    if len(hits) > 0:
+        df[df['text_raw'].str.contains(search_string)]['category'] = 'selected'
+        df['category'].loc[df['text_raw'].str.contains(search_string)] = 'selected'
+
     fig = px.timeline(df, x_start="date_from", x_end="date_to", y="ypos", hover_name="text_raw",
                       hover_data=["date_from", "date_to"], color='category', height=600)
     fig.layout.xaxis.type = 'linear'
